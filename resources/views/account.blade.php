@@ -28,15 +28,16 @@
                 <div class="box">
                     <div class="left-side">
                         <div class="box-topic">JEON WONWOO</div>
-                        <div class="account-num">1234567890</div>
-                        <div class="bank-name">BANK SYARIAH INDONESIA
-                            
+                        <div class="card-div"></div>
+                        <div class="box-sub">
+                            <div class="account-num">1234567890</div>
+                            <div class="bank-name">BANK SYARIAH INDONESIA</div>
+                            <div class="icon">
+                                <i class="fa-solid fa-circle-info icon-info"></i>
+                                <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                <i class="fa-regular fa-trash-can icon-delete"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="icon">
-                        <i class="fa-solid fa-circle-info"></i>
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <i class="fa-regular fa-trash-can"></i>
                     </div>
                 </div>
             </div>

@@ -81,3 +81,7 @@ Route::get('/verifikasiprofile', function () {
 Route::get('/rekening', function () {
     return view('account');
 })->name('account');
+
+Route::get('/createevent', function () {  
+    return view('createevent');  
+});  
