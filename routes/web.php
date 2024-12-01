@@ -50,3 +50,22 @@ Route::get('/profile', function () {
     return view('userprofile');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/eventsaya', function () {
+    return view('myevents');
+})->name('events');
+
+Route::get('/informasidasar', function () {
+    return view('myevents');
+})->name('info');
+
+Route::get('/verifikasiprofile', function () {
+    return view('myevents');
+})->name('verif');
+
+Route::get('/rekening', function () {
+    return view('account');
+})->name('account');

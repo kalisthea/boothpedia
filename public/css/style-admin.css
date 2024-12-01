@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
+    min-height: 100vh;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  .side-menu {
+    position: fixed;
+    background: #0082CB;
+    width: 321px;
+    min-height: 1024px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .side-menu .brand-name {
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    margin-left: 8px;
+  }
+  
+  .side-menu .brand-name .logo {
+    width: 45px;
+    height: auto;
+  }
+  
+  i, .logo {
+    margin-right: 20px;
+  }
+  
+  .side-menu li a{
+    font-size: 18px;
+    padding: 25px 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  .side-menu li a:hover {
+    background: #006AA6;
+  }
+  
+  .side-menu li a.active {
+    background: #006AA6;
+  }
+  
+  .divider {  
+    border-top: 1px solid white; 
+    margin: 10px 0;
+  }  
+  
+  .container {
+    position: relative;
+    right: 0;
+    width: calc(100% - 420px);
+    min-height: 100vh;
+    left: 370px;
+  }
+  
+  .container .header {
+    position: fixed;
+    width: calc(100% - 350px);
+    left: 350px;
+    height: 80px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .container .header .nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 25px;
+  } 
+  
+  .container .header .nav .btn-1 {  
+    padding: 15px 30px 15px;
+    border: none;
+    background-color: #006AA6;
+    color: white;
+    border-radius: 30px; 
+    font-size: 18px;
+    font-weight: bold;
+  }  
+  
+  .container .header .nav .btn-1:hover {  
+    background-color: white;
+    color: #006AA6;
+    border-style: solid;
+    border-color: #006AA6;
+  } 
+  
+  .container .header .nav .chat {  
+    display: flex;
+    padding: 10px;
+    color: #006AA6;
+    font-size: 40px;
+    font-weight: bold;
+  }  
+  
+  .container .content {
+    position: relative;
+    padding-top: 100px;
+  }
+  
+  .content .overview-boxes {
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content: space-between;
+  }
+  
+  .box {
+    width: 342px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    padding: 30px 20px; 
+    border-radius: 30px;  
+    background-color: #ffff; 
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #006AA6;
+    margin: 15px;
+  }
+  
+  .left-side {  
+    text-align: left;
+  } 
+  
+  .content .overview-boxes .box-topic {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .content .overview-boxes .number {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 5px;
+    display: inline-block;
+  }
+  
+  .content .overview-boxes .account-num {
+    font-size: 14px;
+    margin-top: 20px;
+    display: inline-block;
+  }
+  
+  .content .overview-boxes .bank-name {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .card {  
+    width: 327px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    padding: 30px 20px; 
+    border-radius: 30px;  
+    background-color: #ffff; 
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #006AA6;
+  }
