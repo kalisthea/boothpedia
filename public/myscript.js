@@ -33,3 +33,12 @@ function paymentPopup(){
         "paymentInfoPopup"
     ).style.display = "block";
 }
+
+function ratingPopup(){
+    document.getElementById(
+        "overlay"
+    ).style.display = "block";
+    document.getElementById(
+        "ratePopup"
+    ).style.display = "block";
+}

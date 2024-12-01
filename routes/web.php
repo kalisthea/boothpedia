@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/db', function () {
+    return view('dbview');
+});
+
 Route::get('/', function () {
     return view('home');
 });
@@ -12,6 +16,14 @@ Route::get('/home', function () {
 
 Route::get('/explore', function () {
     return view('explore');
+});
+
+Route::get('/booth', function () {
+    return view('boothlist');
+});
+
+Route::get('/booth-rate', function () {
+    return view('rateview');
 });
 
 Route::get('/signin', function () {
