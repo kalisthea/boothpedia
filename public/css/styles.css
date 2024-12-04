@@ -490,8 +490,8 @@ button:hover{
 
 .signin-content-2{
     margin-bottom: 1rem;
-    margin-left: -5%;
-    margin-right: -5%;
+    margin-left: -20%;
+    margin-right: -20%;
     border:#FFC60B 1px solid;
     border-radius: 21px;
 }
@@ -544,6 +544,7 @@ button:hover{
 .signin-forms{
     padding-left: 20px;
     padding-bottom: 1rem;
+    padding-top: 1rem;
 }
 
 .signin-forms label{
@@ -558,7 +559,8 @@ button:hover{
 
 .register-button{
     position: relative;
-    left: 31%;
+    left: 27%;
+    margin-top: 2rem;
     margin-bottom: 1rem;
     padding: 5px 23px 5px 23px;
     font-size: 14px;
@@ -572,7 +574,7 @@ button:hover{
 .to-login{
     display: flex;
     position: relative;
-    left: 28%;
+    left: 25%;
     gap: 2px;
 }
 
@@ -626,9 +628,28 @@ button:hover{
 
 /* LOGIN */
 
+.login-content-2{
+    margin-bottom: 1rem;
+    margin-left: -5%;
+    margin-right: -5%;
+    border:#FFC60B 1px solid;
+    border-radius: 21px;
+}
+
+.login-forms{
+    padding-left: 20px;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.login-forms label{
+    font-size: 12px;
+}
+
 .login-button{
     position: relative;
-    left: 34%;
+    left: 30%;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
     padding: 5px 23px 5px 23px;
     font-size: 14px;

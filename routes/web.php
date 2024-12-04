@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/db', function () {
@@ -26,20 +27,20 @@ Route::get('/booth-rate', function () {
     return view('rateview');
 });
 
-Route::get('/signin', function () {
-    return view('signin');
-});
+Route::get('/login', [AuthController::class,"login"])
+    ->name("login");
 
-Route::get('/signin-number', function () {
-    return view('signinnumber');
-});
+Route::post('/login', [AuthController::class,"loginPost"])
+    ->name("login.post");
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/signup', [AuthController::class,"signup"])
+    ->name("signup");
+
+Route::post('/signup', [AuthController::class,"signupPost"])
+    ->name("signup.post");
 
 Route::get('/login-number', function () {
-    return view('loginnumber');
+    return view('auth.loginnumber');
 });
 
 Route::get('/event-detail-desc', function () {

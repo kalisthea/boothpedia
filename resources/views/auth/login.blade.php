@@ -1,3 +1,12 @@
+<?php
+require_once "config.php";
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <title>Sign-In Boothpedia</title>
+    <title>Login Boothpedia</title>
 </head>
 <body>
   <div class="signin-container">
@@ -20,7 +29,7 @@
 
     <b><p style="color:#FFC60B; padding-bottom:1rem; position: relative; left:18%;">Login to your account</p></b>
 
-    <div class="signin-content-2">
+    <div class="login-content-2">
       <div class="signin-choice">
         <div class="signin-email-active">
             <p>Email</p>
@@ -30,27 +39,28 @@
         </div>
       </div>
 
-      <div class="signin-forms">
-        <label for="email">Email</label><br>
-        <input class="signin-input"  type="text" id="email" name="email"><br>
-        <label for="password">Password</label><br>
-        <input class="signin-input" type="text" id="password" name="password">
+      <div class="login-forms">
+        <form action="{{ route("login.post") }}" method="POST">
+          @csrf
+          <label for="email">Email</label><br>
+          <input class="signin-input"  type="text" id="email" name="email"><br>
+          <label for="password">Password</label><br>
+          <input class="signin-input" type="text" id="password" name="password">
+          <input type="submit" value="Login" class="login-button">
+        </form>
       </div>
 
-      <a href="/home"><button class="login-button" type="button">Login</button></a>
+      
     </div>
 
     <div class="login-cta">
       <p>No account yet?</p>
-      <a href="/signin">Register</a>
+      <a href="/signup">Register</a>
     </div>
 
     <a class="eologin" href="">Login as EO</a><b></b>
 
-
-    
   </div>
-
    
 </body>
 </html>

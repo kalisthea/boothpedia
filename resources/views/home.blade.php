@@ -23,7 +23,7 @@
       </div>
       <div  class="nav-right">
         <input class="search-hold" type="text" placeholder="Search">
-        <a href="/signin"><button class="signin-button" type="button">Sign In</button></a>
+        <a href="/login"><button class="signin-button" type="button">Sign In</button></a>
       </div>
     </nav>
   </header>

@@ -6,11 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
-    <script type="text/javascript" src="myscript.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <title>Sign-In Boothpedia</title>
+    <title>Login Boothpedia</title>
 </head>
 <body>
   <div class="signin-container">
@@ -19,42 +18,39 @@
       <img style="position: relative; left:20%;" src="images/Logo.png" alt="">
     </div>
 
-    <b><p style="color:#FFC60B; padding-bottom:1rem; position: relative; left:17%;">Register to Boothpedia</p></b>
+    <b><p style="color:#FFC60B; padding-bottom:1rem; position: relative; left:18%;">Login to your account</p></b>
 
-    <div class="signin-content-2">
+    <div class="login-content-2">
       <div class="signin-choice">
         <div class="signin-email">
-            <a href="/signin"><p>Email</p></a>
+            <a href="/login"><p>Email</p></a>
         </div>
         <div class="signin-number-active">
-           <p>Phone Number</p>
+            <p>Phone Number</p>
         </div>
       </div>
 
-      <div class="signin-forms">
-        <label for="fullname">Fullname</label><br>
-        <input class="signin-input" type="text" id="fullname" name="fullname"><br>
+      <div class="login-forms">
         <label for="phonenumber">Phone Number</label><br>
         <input class="signin-input"  type="text" id="phonenumber" name="phonenumber"><br>
         <label for="password">Password</label><br>
         <input class="signin-input" type="text" id="password" name="password">
+        <a href="/home"><button class="login-button" type="button">Login</button></a>
       </div>
 
-      <button onclick="registerSuccessPopup()" class="register-button" type="button">Register</button>
+      
     </div>
 
-    <div class="to-login">
-      <p>Have account?</p>
-      <a href="/login">Login</a>
+    <div class="login-cta">
+      <p>No account yet?</p>
+      <a href="/signup">Register</a>
     </div>
+
+    <a class="eologin" href="">Login as EO</a><b></b>
+
+
+    
   </div>
-
-  <div id="overlay" class="overlay">
-    <div id="registerSuccessPopup" class="register-success-popup">
-      <img style="padding-bottom: 2rem;" src="images/check.png" alt="">
-      <b><p style="color:#FFC60B;">Berhasil Register!</p></b>
-      <a href="/home"><button onclick="registerSuccessPopupClose()" class="ok-button">OK</button></a>
-   </div>
 
    
 </body>
