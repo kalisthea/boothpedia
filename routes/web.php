@@ -72,7 +72,7 @@ Route::get('/eventsaya', function () {
 })->name('events');
 
 Route::get('/informasidasar', function () {
-    return view('myevents');
+    return view('basicinfo');
 })->name('info');
 
 Route::get('/verifikasiprofile', function () {
@@ -83,6 +83,10 @@ Route::get('/rekening', function () {
     return view('account');
 })->name('account');
 
-Route::get('/createevent', function () {  
+Route::get('/buatevent', function () {  
     return view('createevent');  
-});  
+})->name('buatevent');  
+
+Route::get('/ubahbasicinfo', function () {  
+    return view('editbasicinfo');  
+})->name('editinfo');  

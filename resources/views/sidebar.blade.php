@@ -15,12 +15,12 @@
         </a>
       </li>
       <div class="divider"></div>
-      <!-- <li class="{{ request()->routeIs('info') ? 'active' : '' }}">
+      <li class="{{ request()->routeIs('info') ? 'active' : '' }}">
         <a href="{{ route('info') }}">
           <i class="fa-regular fa-id-card"></i>Informasi Dasar
         </a>
       </li>
-      <li class="{{ request()->routeIs('verif') ? 'active' : '' }}">
+      <!-- <li class="{{ request()->routeIs('verif') ? 'active' : '' }}">
         <a href="{{ route('verif') }}">
           <i class="fa-regular fa-calendar-check"></i>Verifikasi Profile
         </a>
