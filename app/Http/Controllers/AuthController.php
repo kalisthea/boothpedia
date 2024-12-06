@@ -10,21 +10,40 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
-    // public function login(){
-    //     return view("auth.login");
-    // }
+    public function login(){
+        return view("auth.login");
+    }
 
-    // function loginPost(Request $request){
-    //     $request->validate([
-    //         "email" => "required",
-    //         "password" => "required",
-    //     ]);
+    function loginPost(Request $request){
+        $request->validate([
+            "email" => "required",
+            "password" => "required",
+        ]);
 
-    //     $credentials = $request->only("email", "password");
-    //     if(Auth::attempt($credentials)){
-    //         return redirect()->intended()
-    //     }
-    // }
+        $credentials = $request->only("email", "password");
+        if(Auth::attempt($credentials)){
+            return redirect()->intended(route("home"));
+        }
+        return redirect(route("login"))->with("error", "Login Failed");
+    }
+    
+    function loginnum(){
+        return view("auth.loginnumber");
+    }
+
+    function loginnumPost(Request $request){
+        $request->validate([
+            "phonenum" => "required",
+            "password" => "required",
+        ]);
+
+        $credentials = $request->only("phonenum", "password");
+        if(Auth::attempt($credentials)){
+            return redirect()->intended(route("home"));
+        }
+        return redirect(route("loginnum"))->with("error", "Login Failed");
+    }
+    
 
     function signup(){
         return view("auth.signup");

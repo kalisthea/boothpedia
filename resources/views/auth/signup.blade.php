@@ -42,7 +42,7 @@
           <span class="text-danger" style="font-size:12px;"> {{ $errors->first('phonenum') }} </span><br>
           @endif
           <label for="password">Password</label><br>
-          <input class="signin-input" type="text" id="password" name="password"><br>
+          <input class="signin-input" type="password" id="password" name="password"><br>
           @if ($errors->has('password'))
           <span class="text-danger" style="font-size:12px;"> {{ $errors->first('password') }} </span><br>
           @endif

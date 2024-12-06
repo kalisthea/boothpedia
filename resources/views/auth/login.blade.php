@@ -45,7 +45,7 @@ require_once "config.php";
           <label for="email">Email</label><br>
           <input class="signin-input"  type="text" id="email" name="email"><br>
           <label for="password">Password</label><br>
-          <input class="signin-input" type="text" id="password" name="password">
+          <input class="signin-input" type="password" id="password" name="password">
           <input type="submit" value="Login" class="login-button">
         </form>
       </div>

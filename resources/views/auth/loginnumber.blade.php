@@ -31,11 +31,14 @@
       </div>
 
       <div class="login-forms">
-        <label for="phonenumber">Phone Number</label><br>
-        <input class="signin-input"  type="text" id="phonenumber" name="phonenumber"><br>
-        <label for="password">Password</label><br>
-        <input class="signin-input" type="text" id="password" name="password">
-        <a href="/home"><button class="login-button" type="button">Login</button></a>
+        <form action="{{ route("loginnum.post") }}" method="POST">
+          @csrf
+          <label for="phonenumber">Phone Number</label><br>
+          <input class="signin-input"  type="text" id="phonenum" name="phonenum"><br>
+          <label for="password">Password</label><br>
+          <input class="signin-input" type="password" id="password" name="password">
+          <input type="submit" value="Login" class="login-button">
+        </form>
       </div>
 
       

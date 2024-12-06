@@ -11,10 +11,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
-
 Route::get('/explore', function () {
     return view('explore');
 });
@@ -27,21 +23,29 @@ Route::get('/booth-rate', function () {
     return view('rateview');
 });
 
+
+Route::middleware("auth")->group(function (){
+    Route::view('/home', 'index')->name("home");
+});
+
+
 Route::get('/login', [AuthController::class,"login"])
     ->name("login");
 
 Route::post('/login', [AuthController::class,"loginPost"])
     ->name("login.post");
 
+Route::get('/login-number', [AuthController::class,"loginnum"])
+    ->name("loginnum");
+
+Route::post('/login-number', [AuthController::class,"loginnumPost"])
+    ->name("loginnum.post");
+
 Route::get('/signup', [AuthController::class,"signup"])
     ->name("signup");
 
 Route::post('/signup', [AuthController::class,"signupPost"])
     ->name("signup.post");
-
-Route::get('/login-number', function () {
-    return view('auth.loginnumber');
-});
 
 Route::get('/event-detail-desc', function () {
     return view('eventdetail');

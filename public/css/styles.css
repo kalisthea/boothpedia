@@ -551,6 +551,10 @@ button:hover{
     font-size: 12px;
 }
 
+/* .signin-forms input{
+    font-size: 13px;
+} */
+
 .signin-input{
     border-radius: 11px;
     border: 1px solid #d0d0d6;
