@@ -1,12 +1,3 @@
-<?php
-require_once "config.php";
-
-
-
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,24 +22,24 @@ require_once "config.php";
 
     <div class="login-content-2">
       <div class="signin-choice">
-        <div class="signin-email-active">
-            <p>Email</p>
+        <div class="signin-email">
+            <a href="/login"><p>Email</p></a>
         </div>
-        <div class="signin-number">
-           <a href="/login-number"><p>Phone Number</p></a>
+        <div class="signin-number-active">
+            <p>Phone Number</p>
         </div>
       </div>
 
       <div class="login-forms">
-        <form action="{{ route("login.post") }}" method="POST">
+        <form action="{{ route("loginnumEO.post") }}" method="POST">
           @csrf
-          <label for="email">Email</label><br>
-          <input class="signin-input"  type="text" id="email" name="email"><br>
-          @if ($errors->has('email'))
-          <span class="text-danger" style="font-size:12px;"> {{ $errors->first('email') }} </span><br>
+          <label for="phonenumber">Phone Number</label><br>
+          <input class="signin-input"  type="text" id="phonenum" name="phonenum"><br>
+          @if ($errors->has('phonenum'))
+          <span class="text-danger" style="font-size:12px;"> {{ $errors->first('phonenum') }} </span><br>
           @endif
           <label for="password">Password</label><br>
-          <input class="signin-input" type="password" id="password" name="password">
+          <input class="signin-input" type="password" id="password" name="password"><br>
           @if ($errors->has('password'))
           <span class="text-danger" style="font-size:12px;"> {{ $errors->first('password') }} </span><br>
           @endif
@@ -61,12 +52,15 @@ require_once "config.php";
 
     <div class="login-cta">
       <p>No account yet?</p>
-      <a href="/signup">Register</a>
+      <a href="/signup-eo">Register</a>
     </div>
 
-    <a class="eologin" href="/login-eo">Login as EO</a><b></b>
+    <a class="eologin" href="/login">Login as Tenant</a><b></b>
 
+
+    
   </div>
+
    
 </body>
 </html>

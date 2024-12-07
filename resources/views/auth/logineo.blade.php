@@ -27,20 +27,20 @@ require_once "config.php";
       <img style="position: relative; left:20%;" src="images/Logo.png" alt="">
     </div>
 
-    <b><p style="color:#FFC60B; padding-bottom:1rem; position: relative; left:18%;">Login to your account</p></b>
+    <b><p style="color: #2FA8E8; padding-bottom:1rem; position: relative; left:18%;">Login to your account</p></b>
 
-    <div class="login-content-2">
+    <div style="border:1px solid#2FA8E8;" class="login-content-2">
       <div class="signin-choice">
         <div class="signin-email-active">
             <p>Email</p>
         </div>
         <div class="signin-number">
-           <a href="/login-number"><p>Phone Number</p></a>
+           <a href="/login-number-eo"><p>Phone Number</p></a>
         </div>
       </div>
 
       <div class="login-forms">
-        <form action="{{ route("login.post") }}" method="POST">
+        <form action="{{ route("loginEO.post") }}" method="POST">
           @csrf
           <label for="email">Email</label><br>
           <input class="signin-input"  type="text" id="email" name="email"><br>
@@ -48,7 +48,7 @@ require_once "config.php";
           <span class="text-danger" style="font-size:12px;"> {{ $errors->first('email') }} </span><br>
           @endif
           <label for="password">Password</label><br>
-          <input class="signin-input" type="password" id="password" name="password">
+          <input class="signin-input" type="password" id="password" name="password"><br>
           @if ($errors->has('password'))
           <span class="text-danger" style="font-size:12px;"> {{ $errors->first('password') }} </span><br>
           @endif
@@ -61,10 +61,10 @@ require_once "config.php";
 
     <div class="login-cta">
       <p>No account yet?</p>
-      <a href="/signup">Register</a>
+      <a href="/signup-eo">Register</a>
     </div>
 
-    <a class="eologin" href="/login-eo">Login as EO</a><b></b>
+    <a class="eologin" href="/login">Login as Tenant</a><b></b>
 
   </div>
    

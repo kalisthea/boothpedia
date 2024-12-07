@@ -25,9 +25,12 @@ Route::get('/booth-rate', function () {
 
 
 Route::middleware("auth")->group(function (){
-    Route::view('/home', 'index')->name("home");
+    Route::view('/home-tenant', 'index')->name("home");
+    Route::view('/home-eo', 'dashboard')->name("homeEO");
 });
 
+
+// REGISTER AND LOGIN FOR TENANT
 
 Route::get('/login', [AuthController::class,"login"])
     ->name("login");
@@ -46,6 +49,29 @@ Route::get('/signup', [AuthController::class,"signup"])
 
 Route::post('/signup', [AuthController::class,"signupPost"])
     ->name("signup.post");
+
+
+// REGISTER AND LOGIN FOR EO
+
+Route::get('/login-eo', [AuthController::class,"loginEO"])
+    ->name("loginEO");
+
+Route::post('/login-eo', [AuthController::class,"loginEOPost"])
+    ->name("loginEO.post");
+
+Route::get('/login-number-eo', [AuthController::class,"loginnumEO"])
+    ->name("loginnumEO");
+
+Route::post('/login-number-eo', [AuthController::class,"loginnumEOPost"])
+    ->name("loginnumEO.post");
+
+Route::get('/signup-eo', [AuthController::class,"signupEO"])
+    ->name("signupEO");
+
+Route::post('/signup-eo', [AuthController::class,"signupEOPost"])
+    ->name("signupEO.post");
+
+
 
 Route::get('/event-detail-desc', function () {
     return view('eventdetail');

@@ -35,8 +35,14 @@
           @csrf
           <label for="phonenumber">Phone Number</label><br>
           <input class="signin-input"  type="text" id="phonenum" name="phonenum"><br>
+          @if ($errors->has('phonenum'))
+          <span class="text-danger" style="font-size:12px;"> {{ $errors->first('phonenum') }} </span><br>
+          @endif
           <label for="password">Password</label><br>
-          <input class="signin-input" type="password" id="password" name="password">
+          <input class="signin-input" type="password" id="password" name="password"><br>
+          @if ($errors->has('password'))
+          <span class="text-danger" style="font-size:12px;"> {{ $errors->first('password') }} </span><br>
+          @endif
           <input type="submit" value="Login" class="login-button">
         </form>
       </div>
@@ -49,7 +55,7 @@
       <a href="/signup">Register</a>
     </div>
 
-    <a class="eologin" href="">Login as EO</a><b></b>
+    <a class="eologin" href="/login-eo">Login as EO</a><b></b>
 
 
     
