@@ -21,7 +21,38 @@
             </div>
             @include('navheader')
         </div>
-        ini event saya
+        <!-- My Event Content -->
+        <div class="content">
+            <div class="tab-events-header">
+                <div class="tab-event active">Event Aktif</div>
+                <div class="tab-event">Event Lalu</div>
+            </div>
+            <div class="tab-events-content">
+                <div id="tab1" class="tab active">
+                    <a href="/event-detail-desc">
+                        <div class="card">
+                            <img src="images/evt-1.png" alt="">
+                            <div class="card-content">
+                            <div class="content-top"> 
+                                <b><p style="color:#FFC60B; margin-bottom:-1.5px;">MafSuzon</p></b>
+                                <b><p style="color:#2FA8E8; margin-bottom:-1px;">Social Gathering</p></b>
+                                <b><p style="color:#2FA8E8;">EO ABC</p></b>
+                            </div>
+                            <div class="content-bottom">
+                                <p style="margin-bottom:-0.2px">12-02-2050 - 15-02-2050</p>
+                                <p style="margin-bottom:-0.2px">Ciputat</p>
+                                <p>Rp 100.000,00 - Rp 300.000,00</p>
+                            </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>  
+                <div id="tab2" class="tab">Content for Tab 2</div> 
+            </div>
+        </div>
     </div>
+
+    <!-- Script -->
+    <script src="script.js"></script> 
 </body>
 </html>

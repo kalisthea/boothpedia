@@ -24,9 +24,6 @@
         
         <!-- Basic Information -->
         <div class="content">
-            <div class="eo-image">
-                <img src="" alt="Profile Picture">
-            </div>
             <div class="info-container">
                 <ul>
                     <li class="info-field">
@@ -40,18 +37,6 @@
                     <li class="info-field">
                         <div class="eo-phone-title">Nomor Ponsel</div>
                         <div class="eo-phone">081234567890</div>
-                    </li>
-                    <li class="info-field">
-                        <div class="eo-address-title">Alamat</div>
-                        <div class="eo-address">Jl. Kenangan Karya No.11</div>
-                    </li>
-                    <li class="info-field">
-                        <div class="eo-twitter-title">Username Twitter</div>
-                        <div class="eo-twitter">@kenangan_eo</div>
-                    </li>
-                    <li class="info-field">
-                        <div class="eo-ig-title">Username Instagram</div>
-                        <div class="eo-ig">@kenangan_eo</div>
                     </li>
                 </ul>
                 <a href="{{ route('editinfo') }}" class="edit-info">Ubah</a>

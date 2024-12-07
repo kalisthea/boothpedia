@@ -16,13 +16,12 @@
 <body>
   <div class="signin-container">
     <div class="signin-content-1">
-      <a href="/home"><img style="position: relative; right:35%; width:10%;" src="images/arrow-left.png" alt=""></a>
-      <img style="position: relative; left:15%;" src="images/Logo.png" alt="">
+      <img style="position: relative; left:30%;" src="images/Logo.png" alt="">
     </div>
 
-    <b><p style="color:#FFC60B; padding-bottom:1rem; position: relative; left:5%;">Register to Boothpedia</p></b>
+    <b><p style="color:#006AA6; padding-bottom:1rem; position: relative; left:5%;">Register to Boothpedia</p></b>
 
-    <div class="signin-content-2">
+    <div class="signin-content-2" style="border-color:#006AA6">
       <div class="signin-forms">
         <form action="{{ route("signupEO.post") }}" method="POST">
           @csrf
@@ -54,7 +53,7 @@
 
     <div class="to-login">
       <p>Have account?</p>
-      <a href="/login">Login</a>
+      <a  href="/login-eo" style="color:#006AA6">Login</a>
     </div>
   </div> 
 

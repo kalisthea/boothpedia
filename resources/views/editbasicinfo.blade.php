@@ -24,43 +24,24 @@
         
         <!-- Edit Basic Information -->
         <div class="content">
-            <div class="eo-image">
-                <img src="" alt="Profile Picture">
-                <button type="button" class="upload-profile-button">
-                    <i class="fas fa-upload"></i> Upload Gambar
-                    <input type="file">
-                </button>
-            </div>
             <div class="info-container">
                 <ul>
                     <li class="info-field">
-                        <div class="eo-name-title">Nama Organizer</div>
-                        <div class="eo-name">Kenangan Organizer</div>
+                        <label for="eo-name-field">Nama Organizer</label>
+                        <input type="text" name="eo-name" id="eo-name" required>
                     </li>
                     <li class="info-field">
-                        <div class="eo-email-title">Email</div>
-                        <div class="eo-email">adminkenangan@kenangan.co.id</div>
+                        <label for="eo-email-field">Email</label>
+                        <input type="email" name="eo-email" id="eo-email" required>
                     </li>
                     <li class="info-field">
-                        <div class="eo-phone-title">Nomor Ponsel</div>
-                        <div class="eo-phone">081234567890</div>
-                    </li>
-                    <li class="info-field">
-                        <div class="eo-address-title">Alamat</div>
-                        <div class="eo-address">Jl. Kenangan Karya No.11</div>
-                    </li>
-                    <li class="info-field">
-                        <div class="eo-twitter-title">Username Twitter</div>
-                        <div class="eo-twitter">@kenangan_eo</div>
-                    </li>
-                    <li class="info-field">
-                        <div class="eo-ig-title">Username Instagram</div>
-                        <div class="eo-ig">@kenangan_eo</div>
+                        <label for="eo-phone-field">Nomor Ponsel</label>
+                        <input type="text" name="eo-phone" id="eo-phone" required>
                     </li>
                 </ul>
                 <div class="button-info-container">
-                    <button type="button">Batal</button>
-                    <button type="submit">Simpan</button>
+                    <a href="{{ route('info') }}" class="cancel-info">Batal</a>
+                    <button type="submit" class="save-info">Simpan</button>
                 </div>
             </div>
         </div>

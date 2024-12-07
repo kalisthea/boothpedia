@@ -23,8 +23,7 @@ require_once "config.php";
 <body>
   <div class="signin-container">
     <div class="signin-content-1">
-      <a href="/home"><img style="position: relative; right:35%; width:10%;" src="images/arrow-left.png" alt=""></a>
-      <img style="position: relative; left:20%;" src="images/Logo.png" alt="">
+      <img style="position: relative; left:30%;" src="images/Logo.png" alt="">
     </div>
 
     <b><p style="color:#FFC60B; padding-bottom:1rem; position: relative; left:18%;">Login to your account</p></b>
