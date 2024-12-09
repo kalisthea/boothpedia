@@ -17,6 +17,8 @@ Route::get('/explore', function () {
     return view('explore');
 });
 
+Route::get('/explore', [FrontendController::class, 'viewCategoryBased']);
+
 Route::get('/booth', function () {
     return view('boothlist');
 });
@@ -82,16 +84,12 @@ Route::post('/signup-eo', [AuthController::class,"signupEOPost"])
 
 
 //GET EVENTS
-
 Route::get('/home', [EventController::class, 'list']);
 
 //EVENT DETAILS
-
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
 
-// Route::get('/event-detail-desc', function () {
-//     return view('eventdetail');
-// });
+
 
 Route::get('/event-detail-booth', function () {
     return view('eventbooth');

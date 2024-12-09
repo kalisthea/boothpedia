@@ -37,13 +37,15 @@
   
 
   <div class="card-container">
-    @foreach ($events as $event)
+    @foreach ($eventData as $event)
       @php
           $src = base64_encode($event->banner_photo);
       @endphp
       <a href="{{ url('event-detail-desc/'.$event->name) }}">
-        <div class="card">
-          <img src="{{ $src }}" alt="">
+        <div style="border-radius: 18px;" class="card">
+          <div style="width:290px; height: 150px;">
+            <img style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="data:image/jpeg;base64,{{ $event->image_base64 }}" alt="">
+          </div>
           <div class="card-content">
             <div class="content-top"> 
               <b><p style="color:#FFC60B; margin-bottom:-1.5px;">{{ $event->name }}</p></b>

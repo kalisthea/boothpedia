@@ -15,7 +15,7 @@ class Event extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'tenant_id');
+        return $this->hasManys(User::class, 'id', 'tenant_id');
     }
 
     public function eo()
@@ -24,5 +24,5 @@ class Event extends Model
     }
 
     // Functions buat save input create event
-    
+
 }
