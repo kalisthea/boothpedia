@@ -38,14 +38,17 @@
 
   <div class="card-container">
     @foreach ($events as $event)
+      @php
+          $src = base64_encode($event->banner_photo);
+      @endphp
       <a href="{{ url('event-detail-desc/'.$event->name) }}">
         <div class="card">
-          <img src="" alt="">
+          <img src="{{ $src }}" alt="">
           <div class="card-content">
             <div class="content-top"> 
               <b><p style="color:#FFC60B; margin-bottom:-1.5px;">{{ $event->name }}</p></b>
               <b><p style="color:#2FA8E8; margin-bottom:-1px;">{{ $event->category }}</p></b>
-              <b><p style="color:#2FA8E8;">EO ABC</p></b>
+              <b><p style="color:#2FA8E8;">{{ $event->eo->name }}</p></b>
             </div>
             <div class="content-bottom">
               <p style="margin-bottom:-0.2px">{{ $event->start_date }} - {{ $event->end_date }}</p>

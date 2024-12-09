@@ -39,7 +39,7 @@
         <p>{{ $events->name }}</p>
         <p>{{ $events->category }}</p>
         <p style="padding-top:2rem;">{{ $events->location }}</p>
-        <p>{{ $events->location }}</p>
+        <p>{{ $events->venue }}</p>
       </div>
       <div class="detail-content-2">
         <p>EO ABC 4.8/5</p>

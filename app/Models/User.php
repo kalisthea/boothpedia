@@ -13,10 +13,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    public function event()
-    {
-        return $this->hasMany('App\Models\Event');
-    }
+    // public function event()
+    // {
+    //     return $this->hasMany('App\Models\Event');
+    // }
 
     protected $guard = 'web';
 
