@@ -33,20 +33,30 @@
 
       <h2 style="color:#FFC60B; padding-bottom: 2rem; padding-top: 2rem;">Account Information</h2>
 
+    
+      @php
+        $user = Auth::user();
+      @endphp
+
       <div class="account-container">
         <div class="account-content">
             <div class="account-content-1">
-                <p style="color:#2FA8E8; font-size: 22px;">Profile Picture</p>
-                <img src="" alt="">
-                <input type="file" name="" id="">
-            </div>
-            <div class="account-content-2">
-
+                <b><p style="color: #FFC60B;">Username</p></b>
+               
+                <p style="color: #FFC60B;"> {{$user->name}}</p>
+      
+                <b><p style="color: #FFC60B;">Phonenumber</p></b>
+                @php
+                print_r($user->phonenum);
+                @endphp
+                <b><p style="color: #FFC60B;">Email</p></b>
+                @php
+                print_r($user->email);
+                @endphp
             </div>
         </div>
-        <div class="account-content-cta">
 
-        </div>
+        <a href="/"><button class="book-button" type="button">Logout</button></a>
       </div>
 
 </body>

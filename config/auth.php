@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'eventorganizers' => [
+            'driver' => 'session',
+            'provider' => 'eventorganizers',
+        ],
     ],
 
     /*
@@ -63,6 +68,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'eventorganizers' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Eventorganizer::class),
         ],
 
         // 'users' => [

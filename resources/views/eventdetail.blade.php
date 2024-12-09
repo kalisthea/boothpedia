@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <title>Event Detail</title>
+    <title>{{ $events->name }}</title>
 </head>
 <body>
   <header>
-    <img class= "blogo" src="images/Logo.png" alt="">
+    <img class= "blogo" src="{{ asset('images/Logo.png') }}" alt="">
     <nav class="navbar">
       <div class='nav-left'>
         <a class = "active" href="home">Home</a></li>
@@ -22,8 +22,8 @@
       </div>
       <div  class="nav-right">
         <input class="search-hold" type="text" placeholder="Search">
-        <a href=""><img style="width:35px; height:auto;" src="images/mail.png" alt=""></a>
-        <a href="/profile"><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
+        <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
+        <a href="/profile"><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
       </div>
     </nav>
   </header>
@@ -36,19 +36,19 @@
   <div class="detail-container">
     <div class="detail-1">
       <div class="detail-content-1">
-        <p>Stoodi Fest</p>
-        <p>Educational</p>
-        <p style="padding-top:2rem;">Tangerang Selatan</p>
-        <p>Nina Busantara University</p>
+        <p>{{ $events->name }}</p>
+        <p>{{ $events->category }}</p>
+        <p style="padding-top:2rem;">{{ $events->location }}</p>
+        <p>{{ $events->location }}</p>
       </div>
       <div class="detail-content-2">
         <p>EO ABC 4.8/5</p>
-        <p>10-10- 2024 - 12-10- 2024</p>
+        <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
       </div>
     </div>
     <div class="detail-2">
       <p class="price-range">Rp 50.000,00 - Rp 150.000,00</p>
-      <a href="booking"><button class="book-button" type="button">Book Now</button></a>
+      <a href="/booking"><button class="book-button" type="button">Book Now</button></a>
     </div>
   </div>
 

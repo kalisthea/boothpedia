@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontendController;
 
 Route::get('/db', function () {
     return view('dbview');
@@ -24,9 +26,16 @@ Route::get('/booth-rate', function () {
 });
 
 
-Route::middleware("auth")->group(function (){
-    Route::view('/home-tenant', 'index')->name("home");
-    Route::view('/home-eo', 'dashboard')->name("homeEO");
+Route::middleware("auth:web")->group(function (){
+    Route::get('/home', function () {
+        return view('index');
+    })->middleware('auth:web')->name('home');
+});
+
+Route::middleware("auth:eventorganizers")->group(function (){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware('auth:eventorganizers')->name('homeEO');
 });
 
 
@@ -72,10 +81,17 @@ Route::post('/signup-eo', [AuthController::class,"signupEOPost"])
     ->name("signupEO.post");
 
 
+//GET EVENTS
 
-Route::get('/event-detail-desc', function () {
-    return view('eventdetail');
-});
+Route::get('/home', [EventController::class, 'list']);
+
+//EVENT DETAILS
+
+Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
+
+// Route::get('/event-detail-desc', function () {
+//     return view('eventdetail');
+// });
 
 Route::get('/event-detail-booth', function () {
     return view('eventbooth');
