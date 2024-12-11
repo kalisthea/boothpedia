@@ -47,7 +47,7 @@ require_once "config.php";
           <span class="text-danger" style="font-size:12px;"> {{ $errors->first('email') }} </span><br>
           @endif
           <label for="password">Password</label><br>
-          <input class="signin-input" type="password" id="password" name="password">
+          <input class="signin-input" type="password" id="password" name="password"><br>
           @if ($errors->has('password'))
           <span class="text-danger" style="font-size:12px;"> {{ $errors->first('password') }} </span><br>
           @endif

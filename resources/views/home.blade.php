@@ -17,7 +17,7 @@
     <img class= "blogo" src="images/Logo.png" alt="">
     <nav class="navbar">
       <div class='nav-left'>
-        <a class = "active" href="home">Home</a></li>
+        <a class = "active" href="/">Home</a></li>
         <a href="explore">Explore</a></li>
         <a href="booth">Booth</a></li>
       </div>
@@ -34,69 +34,30 @@
   <h2 style="color:#FFC60B; padding-bottom: 2rem; padding-top: 2rem;">Current Events</h2>
 
   <div class="card-container">
-    <a href="/event-detail-desc">
-      <div class="card">
-        <img src="images/evt-1.png" alt="">
-        <div class="card-content">
-          <div class="content-top"> 
-            <b><p style="color:#FFC60B; margin-bottom:-1.5px;">MafSuzon</p></b>
-            <b><p style="color:#2FA8E8; margin-bottom:-1px;">Social Gathering</p></b>
-            <b><p style="color:#2FA8E8;">EO ABC</p></b>
+    @foreach ($eventData as $event)
+      @php
+          $src = base64_encode($event->banner_photo);
+      @endphp
+      <a href="{{ url('event-detail-desc/'.$event->name) }}">
+        <div style="border-radius: 18px;" class="card">
+          <div style="width:290px; height: 150px;">
+            <img style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="data:image/jpeg;base64,{{ $event->image_base64 }}" alt="">
           </div>
-          <div class="content-bottom">
-            <p style="margin-bottom:-0.2px">12-02-2050 - 15-02-2050</p>
-            <p style="margin-bottom:-0.2px">Ciputat</p>
-            <p>Rp 100.000,00 - Rp 300.000,00</p>
+          <div class="card-content">
+            <div class="content-top"> 
+              <b><p style="color:#FFC60B; margin-bottom:-1.5px;">{{ $event->name }}</p></b>
+              <b><p style="color:#2FA8E8; margin-bottom:-1px;">{{ $event->category }}</p></b>
+              <b><p style="color:#2FA8E8;">{{ $event->eo->name }}</p></b>
+            </div>
+            <div class="content-bottom">
+              <p style="margin-bottom:-0.2px">{{ $event->start_date }} - {{ $event->end_date }}</p>
+              <p style="margin-bottom:-0.2px">{{ $event->location }}</p>
+              <p>Rp 100.000,00 - Rp 300.000,00</p>
+            </div>
           </div>
         </div>
-    </div>
-    </a>
-
-    <div class="card">
-      <img src="images/evt-1.png" alt="">
-      <div class="card-content">
-        <div class="content-top"> 
-          <b><p style="color:#FFC60B; margin-bottom:-1.5px;">MafSuzon</p></b>
-          <b><p style="color:#2FA8E8; margin-bottom:-1px;">Social Gathering</p></b>
-          <b><p style="color:#2FA8E8;">EO ABC</p></b>
-        </div>
-        <div class="content-bottom">
-          <p style="margin-bottom:-0.2px">12-02-2050 - 15-02-2050</p>
-          <p style="margin-bottom:-0.2px">Ciputat</p>
-          <p>Rp 100.000,00 - Rp 300.000,00</p>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/evt-1.png" alt="">
-      <div class="card-content">
-        <div class="content-top"> 
-          <b><p style="color:#FFC60B; margin-bottom:-1.5px;">MafSuzon</p></b>
-          <b><p style="color:#2FA8E8; margin-bottom:-1px;">Social Gathering</p></b>
-          <b><p style="color:#2FA8E8;">EO ABC</p></b>
-        </div>
-        <div class="content-bottom">
-          <p style="margin-bottom:-0.2px">12-02-2050 - 15-02-2050</p>
-          <p style="margin-bottom:-0.2px">Ciputat</p>
-          <p>Rp 100.000,00 - Rp 300.000,00</p>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/evt-1.png" alt="">
-      <div class="card-content">
-        <div class="content-top"> 
-          <b><p style="color:#FFC60B; margin-bottom:-1.5px;">MafSuzon</p></b>
-          <b><p style="color:#2FA8E8; margin-bottom:-1px;">Social Gathering</p></b>
-          <b><p style="color:#2FA8E8;">EO ABC</p></b>
-        </div>
-        <div class="content-bottom">
-          <p style="margin-bottom:-0.2px">12-02-2050 - 15-02-2050</p>
-          <p style="margin-bottom:-0.2px">Ciputat</p>
-          <p>Rp 100.000,00 - Rp 300.000,00</p>
-        </div>
-      </div>
-    </div>
+      </a>
+    @endforeach
   </div>
 
   <h2 style="color:#2FA8E8; padding-top: 4rem; padding-bottom: 2rem;">Events You Might Like</h2>

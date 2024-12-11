@@ -1,9 +1,14 @@
 <?php
 
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
+use Illuminate\Http\Request;
+
+
+use function Pest\Laravel\withMiddleware;
 
 Route::get('/db', function () {
     return view('dbview');
@@ -21,18 +26,29 @@ Route::get('/explore', [FrontendController::class, 'viewCategoryBased']);
 
 Route::get('/booth', function () {
     return view('boothlist');
-});
+})->middleware('auth');
 
 Route::get('/booth-rate', function () {
     return view('rateview');
 });
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware("auth:web")->group(function (){
-    Route::get('/home', function () {
-        return view('index');
-    })->middleware('auth:web')->name('home');
-});
+
+// Route::group(['middleware'=> ['auth']], function (){
+//     Route::get('/home', function () {
+//         return view('index');
+//     })->middleware('auth:web')->name('home');
+// });
+
+
+Route::get('/home', [EventController::class, 'list'], function () {
+    return view('index');
+})->middleware('auth')->name('home');
+
+// Route::get('/home', );
+
+
 
 Route::middleware("auth:eventorganizers")->group(function (){
     Route::get('/dashboard', function () {
@@ -84,7 +100,8 @@ Route::post('/signup-eo', [AuthController::class,"signupEOPost"])
 
 
 //GET EVENTS
-Route::get('/home', [EventController::class, 'list']);
+
+Route::get('/', [EventController::class, 'listForHome']);
 
 //EVENT DETAILS
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
@@ -105,7 +122,7 @@ Route::get('/bookingdetail', function () {
 
 Route::get('/profile', function () {
     return view('userprofile');
-});
+})->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

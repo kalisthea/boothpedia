@@ -33,9 +33,6 @@
   <hr style="border: 2px solid #FFC60B; color: #FFC60B;">
 
   <h2 style="color:#FFC60B; padding-bottom: 2rem; padding-top: 2rem;">Current Events</h2>
-
-  
-
   <div class="card-container">
     @foreach ($eventData as $event)
       @php
