@@ -151,3 +151,11 @@ Route::get('/buatevent', function () {
 Route::get('/ubahbasicinfo', function () {  
     return view('editbasicinfo');  
 })->name('editinfo');  
+
+Route::get('/detailevent', function () {  
+    return view('myevents-detail');  
+})->name('eventdetail');  
+
+Route::get('/boothsaya', function () {  
+    return view('booth');  
+})->name('mybooth');  
