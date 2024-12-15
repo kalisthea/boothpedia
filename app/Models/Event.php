@@ -24,5 +24,20 @@ class Event extends Model
     }
 
     // Functions buat save input create event
+    use HasFactory;  
+
+    // Tentukan kolom yang bisa diisi secara massal  
+    protected $table = 'events'; // Menyatakan nama tabel  
+
+    protected $fillable = [  
+        'name',  
+        'description',  
+        'start_date',  
+        'end_date',  
+        'location',  
+        'banner_photo',
+        'layout_photo',
+        'venue'
+    ];
 
 }

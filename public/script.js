@@ -19,10 +19,10 @@ function showTab(tabName) {
     document.querySelector(`.tab-event[onclick="showTab('${tabName}')"]`).classList.add('active');  
 }  
 
-function showPopup() {  
-    document.getElementById('popupBox').style.display = 'flex';  
+function showPopup(popupId) {  
+    document.getElementById(popupId).style.display = 'flex';  
 }  
 
-function hidePopup() {  
-    document.getElementById('popupBox').style.display = 'none';  
+function hidePopup(popupId) {  
+    document.getElementById(popupId).style.display = 'none';  
 }

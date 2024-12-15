@@ -13,21 +13,22 @@
         <img src="images/Logo.png" alt="" class="logo">
         <h1>Buat Event</h1>
     </header>
-    <div class="create-event-container">
+    <form class="create-event-container" id="eventForm" method="POST" enctype="multipart/form-data" action="{{ route('events.store') }}">
+        @csrf  
         <div class="upload-image">
             <button type="button" class="upload-img-button">
                 <i class="fas fa-upload"></i> Upload Gambar
-                <input type="file">
+                <input type="file" id="banner_photo" name="banner_photo" accept="image/*">
             </button>
         </div>
         <ul>
             <li class="event-name">
-                <label for="event-name">Nama Event</label>
-                <input type="text" name="event-name" id="event-name" placeholder="Input nama event..." required>
+                <label for="name">Nama Event</label>
+                <input type="text" name="name" id="name" placeholder="Input nama event..." required>
             </li>
             <li class="event-category">
-                <label for="event-category">Kategori Event</label>
-                <select name="event-category" id="event-category" required>  
+                <label for="category">Kategori Event</label>
+                <select name="category" id="category" required>  
                     <option hidden>Pilih kategori...</option>
                     <option value="education">Education</option>
                     <option value="beauty">Fashion & Beauty</option>
@@ -41,15 +42,15 @@
             </li>
             <div class="date-container">
                 <li class="date-field">
-                    <label for="start-date">Tanggal Mulai</label>
+                    <label for="start_date">Tanggal Mulai</label>
                     <div class="input-date-wrapper">
-                        <input type="date" name="start-date" id="start-date" required>
+                        <input type="date" name="start_date" id="start_date" required>
                     </div>
                 </li>
                 <li class="date-field">
-                    <label for="finish-date">Tanggal Berakhir</label>
+                    <label for="end_date">Tanggal Berakhir</label>
                     <div class="input-date-wrapper">
-                        <input type="date" name="finish-date" id="finish-date" required>
+                        <input type="date" name="end_date" id="end_date" required>
                     </div>
                 </li>
             </div>
@@ -58,14 +59,16 @@
                 <input type="text" name="location" id="location" placeholder="Input lokasi..." required>
             </li>
             <li class="desc">
-                <label for="desc">Deskripsi</label>
-                <input type="text" name="desc" id="desc" placeholder="Input deskripsi..." required>
+                <label for="description">Deskripsi</label>
+                <input type="text" name="description" id="description" placeholder="Input deskripsi..." required>
             </li>
             <li class="button-container">
-                <button type="button" class="cancel-button" name="cancel">Batal</button>
+                <a href="{{route('dashboard')}}">
+                    <button type="button" class="cancel-button" name="cancel">Batal</button>
+                </a>
                 <button type="submit" class="submit-button" name="submit">Simpan</button>
             </li>
         </ul>
-    </div> 
+    </form> 
 </body>
 </html>

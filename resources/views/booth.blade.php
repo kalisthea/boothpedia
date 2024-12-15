@@ -34,26 +34,55 @@
                     <i class="fas fa-upload"></i>Unggah Layout
                 </button>
                 <input type="file" id="fileInput" style="display: none;"/>
-                <button class="add-category-button" onclick="showPopup();">
+                <button class="add-category-button" onclick="showPopup('popup-cat');">
                     <i class="fa-solid fa-plus"></i>Tambah Kategori
                 </button>
             </div>
         </div>
         
-        <section class="popup-box" id="popupBox" style="display:none;">
+        <!-- Pop up Add Category -->
+        <section class="popup-box" id="popup-cat" style="display:none;">
             <div class="popup-content">
                 <div class="popup-header">
                     <h3 style="padding-bottom:20px;">Tambah Kategori Booth</h3>
                 </div>
                 <div style="border-bottom:1px solid black;"></div>
-                <div class="category-box">
+                <div class="field-popup-box">
                     <div style="padding-bottom:20px;">
                         <label for="category" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
                         <input type="text" class="category" placeholder="Input kategori booth..." required>
                     </div>
                     <div class="btn-popup-savecancel">
-                        <button class="cancel-button" onclick="hidePopup()">Batal</button>
-                        <button class="submit-cat-button" style="margin-left:10px">Simpan</button>
+                        <button class="cancel-button" onclick="hidePopup('popup-cat')">Batal</button>
+                        <button class="submit-popup-button" style="margin-left:10px">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pop up Add Booth -->
+        <section class="popup-box" id="popup-addbooth" style="display:none;">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <h3 style="padding-bottom:20px;">Buat Booth Baru</h3>
+                </div>
+                <div style="border-bottom:1px solid black;"></div>
+                <div class="field-popup-box">
+                    <div style="padding-bottom:20px;">
+                        <label for="booth-name" style="padding-bottom:20px;padding-top:20px;">Nama Booth</label>
+                        <input type="text" class="booth-name" placeholder="Input nama booth..." required>
+                    </div>
+                    <div style="padding-bottom:20px;">
+                        <label for="booth-price" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
+                        <input type="number" class="booth-price" placeholder="Input harga booth..." required>
+                    </div>
+                    <div style="padding-bottom:20px;">
+                        <label for="booth-desc" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
+                        <input type="text" class="booth-desc" placeholder="Input deskripsi booth..." required>
+                    </div>
+                    <div class="btn-popup-savecancel">
+                        <button class="cancel-button" onclick="hidePopup('popup-addbooth')">Batal</button>
+                        <button class="submit-popup-button" style="margin-left:10px">Simpan</button>
                     </div>
                 </div>
             </div>
@@ -70,27 +99,9 @@
                 <button id="viewButton">Lihat Booth</button>
             </div>
             <div class="booth-list">
-                <button class="add-booth-button" onclick="showPopup();">
+                <button class="add-booth-button" onclick="showPopup('popup-addbooth');">
                     <i class="fa-solid fa-plus"></i>Tambah Booth
                 </button>
-                <section class="popup-box" id="popupBox" style="display:none;">
-                    <div class="popup-content">
-                        <div class="popup-header">
-                            <h3 style="padding-bottom:20px;">Buat Booth Baru</h3>
-                        </div>
-                        <div style="border-bottom:1px solid black;"></div>
-                        <div class="category-box">
-                            <div style="padding-bottom:20px;">
-                                <label for="category" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
-                                <input type="text" class="category" placeholder="Input kategori booth..." required>
-                            </div>
-                            <div class="btn-popup-savecancel">
-                                <button class="cancel-button" onclick="hidePopup()">Batal</button>
-                                <button class="submit-cat-button" style="margin-left:10px">Simpan</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
                 <!-- <div class="box">
                     <div class="left-side">
                         <div class="box-topic">JEON WONWOO</div>

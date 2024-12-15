@@ -680,14 +680,14 @@
     font-size: 24px;  
   } 
 
-  .category-box label {
+  .field-popup-box label {
     font-weight: bold;
     font-size: 16px;
     padding-bottom: 20px;
     display: block;
   }
 
-  .category-box input[type="text"] {
+  .field-popup-box input[type="text"], input[type="number"]{
     width: 100%;
     height: 56px;
     padding: 10px 40px 10px 10px;
@@ -714,7 +714,7 @@
     margin-top: 10px;  
   }
 
-  .submit-cat-button {  
+  .submit-popup-button {  
     display: inline-block;  
     padding: 10px 20px;  
     background-color: #006AA6;  

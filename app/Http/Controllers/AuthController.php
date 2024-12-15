@@ -124,8 +124,8 @@ class AuthController extends Controller
         
         $request->validate([
             "fullname" => "required",
-            "email" => "required",
-            "phonenum" => "required",
+            "email" => "required|email|unique:eventorganizers,email",
+            "phonenum" => "required|unique:eventorganizers,phonenum",
             "password" => "required",
         ]);
 

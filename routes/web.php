@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
@@ -50,11 +51,11 @@ Route::get('/home', [EventController::class, 'list'], function () {
 
 
 
-Route::middleware("auth:eventorganizers")->group(function (){
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware('auth:eventorganizers')->name('homeEO');
-});
+// Route::middleware("auth:eventorganizers")->group(function (){
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('homeEO');
+// });
 
 
 // REGISTER AND LOGIN FOR TENANT
@@ -106,7 +107,9 @@ Route::get('/', [EventController::class, 'listForHome']);
 //EVENT DETAILS
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
 
-
+// POST EVENTS
+Route::post('/events', [DataController::class, 'storeEvent'])
+->name('events.store');  
 
 Route::get('/event-detail-booth', function () {
     return view('eventbooth');
@@ -124,38 +127,40 @@ Route::get('/profile', function () {
     return view('userprofile');
 })->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware("auth:eventorganizers")->group(function (){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/eventsaya', function () {
-    return view('myevents');
-})->name('events');
+    Route::get('/eventsaya', function () {
+        return view('myevents');
+    })->name('events');
 
-Route::get('/informasidasar', function () {
-    return view('basicinfo');
-})->name('info');
+    Route::get('/informasidasar', function () {
+        return view('basicinfo');
+    })->name('info');
 
-Route::get('/verifikasiprofile', function () {
-    return view('myevents');
-})->name('verif');
+    Route::get('/verifikasiprofile', function () {
+        return view('myevents');
+    })->name('verif');
 
-Route::get('/rekening', function () {
-    return view('account');
-})->name('account');
+    Route::get('/rekening', function () {
+        return view('account');
+    })->name('account');
 
-Route::get('/buatevent', function () {  
-    return view('createevent');  
-})->name('buatevent');  
+    Route::get('/buatevent', function () {  
+        return view('createevent');  
+    })->name('buatevent');  
 
-Route::get('/ubahbasicinfo', function () {  
-    return view('editbasicinfo');  
-})->name('editinfo');  
+    Route::get('/ubahbasicinfo', function () {  
+        return view('editbasicinfo');  
+    })->name('editinfo');  
 
-Route::get('/detailevent', function () {  
-    return view('myevents-detail');  
-})->name('eventdetail');  
+    Route::get('/detailevent', function () {  
+        return view('myevents-detail');  
+    })->name('eventdetail');  
 
-Route::get('/boothsaya', function () {  
-    return view('booth');  
-})->name('mybooth');  
+    Route::get('/boothsaya', function () {  
+        return view('booth');  
+    })->name('mybooth');  
+// });

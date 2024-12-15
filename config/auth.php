@@ -67,12 +67,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
         ],
 
         'eventorganizers' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Eventorganizer::class),
+            'model' => App\Models\Eventorganizer::class,
         ],
 
         // 'users' => [
@@ -102,7 +102,14 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => env('USERS_PASSWORD_BROKER', 'users'),
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'eventorganizers' => [
+            'provider' => env('EO_PASSWORD_BROKER', 'eventorganizers'),
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

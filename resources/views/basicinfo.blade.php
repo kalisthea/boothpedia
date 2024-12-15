@@ -9,8 +9,12 @@
     <title>Informasi Dasar</title>
 </head>
 <body>
-        <!-- Side Bar -->
+    <!-- Side Bar -->
     @include('sidebar')
+
+    @php
+        $eo = Auth::guard('eventorganizers')->user();
+    @endphp
 
     <!-- Content -->
     <div class="container">
@@ -28,20 +32,24 @@
                 <ul>
                     <li class="info-field">
                         <div class="eo-name-title">Nama Organizer</div>
-                        <div class="eo-name">Kenangan Organizer</div>
+                        <div class="eo-name">{{$eo->name}}</div>
                     </li>
                     <li class="info-field">
                         <div class="eo-email-title">Email</div>
-                        <div class="eo-email">adminkenangan@kenangan.co.id</div>
+                        <div class="eo-email">{{$eo->email}}</div>
                     </li>
                     <li class="info-field">
                         <div class="eo-phone-title">Nomor Ponsel</div>
-                        <div class="eo-phone">081234567890</div>
+                        <div class="eo-phone">{{$eo->phonenum}}</div>
                     </li>
                 </ul>
                 <a href="{{ route('editinfo') }}" class="edit-info">Ubah</a>
             </div>
         </div>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit">Logout</button>
+      </form>
     </div>
 </body>
 </html>
