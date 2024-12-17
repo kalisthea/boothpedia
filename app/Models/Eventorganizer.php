@@ -18,6 +18,16 @@ class Eventorganizer extends Authenticatable
         return $this->hasMany('App\Models\Event');
     }
 
+    public function sentMessages()
+    {
+        return $this->hasMany(Chat::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Chat::class, 'receiver_id');
+    }
+
     protected $guard = 'eventorganizers';
 
     /**

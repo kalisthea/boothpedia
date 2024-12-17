@@ -13,10 +13,10 @@ class Event extends Model
 
     // Eloquent -> foreign key connection
 
-    public function user()
-    {
-        return $this->hasManys(User::class, 'id', 'tenant_id');
-    }
+    // public function user()
+    // {
+    //     return $this->hasManys(User::class, 'id', 'tenant_id');
+    // }
 
     public function eo()
     {

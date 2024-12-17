@@ -687,3 +687,19 @@ button:hover{
     left: 35%;
 }
 
+
+/* CHAT MESSAGE */
+
+.chat-container{
+    border: solid 1px #FFC60B;
+    border-radius: 13px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    display: flex;
+}
+
+.chat-content-1{
+    position: relative;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding-right: 1rem;
+}

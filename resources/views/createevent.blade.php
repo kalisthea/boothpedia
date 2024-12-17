@@ -58,6 +58,10 @@
                 <label for="location">Lokasi</label>
                 <input type="text" name="location" id="location" placeholder="Input lokasi..." required>
             </li>
+            <li class="location">
+                <label for="location">Lokasi</label>
+                <input type="text" name="location" id="location" placeholder="Input lokasi..." required>
+            </li>
             <li class="desc">
                 <label for="description">Deskripsi</label>
                 <input type="text" name="description" id="description" placeholder="Input deskripsi..." required>

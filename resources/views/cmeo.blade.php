@@ -43,10 +43,9 @@
           </form>
           {{-- {{ dd($chats) }} --}}
       
-          {{-- @foreach($chats as $chat)
-
-            <a href="{{ url('chatmessage-tenant-active/'.$chat->id) }}">{{ $chat->eo->name }}</a><br>
-          @endforeach --}}
+          @foreach($chats as $chat)
+            <a href="{{ url('chatmessage-tenant-active/'.$chat->eo->id) }}">{{ $chat->eo->name }}</a><br>
+          @endforeach
         </div>
         <div class="chat-content-2">
           <p>Receiver</p><br>

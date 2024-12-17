@@ -1,15 +1,16 @@
 <?php
 
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\EventController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FrontendController;
-use Illuminate\Http\Request;
-
-
 use function Pest\Laravel\withMiddleware;
+
+
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\FrontendController;
 
 Route::get('/db', function () {
     return view('dbview');
@@ -36,26 +37,10 @@ Route::get('/booth-rate', function () {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// Route::group(['middleware'=> ['auth']], function (){
-//     Route::get('/home', function () {
-//         return view('index');
-//     })->middleware('auth:web')->name('home');
-// });
-
 
 Route::get('/home', [EventController::class, 'list'], function () {
     return view('index');
 })->middleware('auth')->name('home');
-
-// Route::get('/home', );
-
-
-
-// Route::middleware("auth:eventorganizers")->group(function (){
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('homeEO');
-// });
 
 
 // REGISTER AND LOGIN FOR TENANT
@@ -101,7 +86,6 @@ Route::post('/signup-eo', [AuthController::class,"signupEOPost"])
 
 
 //GET EVENTS
-
 Route::get('/', [EventController::class, 'listForHome']);
 
 //EVENT DETAILS
@@ -127,6 +111,10 @@ Route::get('/profile', function () {
     return view('userprofile');
 })->middleware('auth');
 
+
+
+
+
 // Route::middleware("auth:eventorganizers")->group(function (){
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -148,9 +136,8 @@ Route::get('/profile', function () {
         return view('account');
     })->name('account');
 
-    Route::get('/buatevent', function () {  
-        return view('createevent');  
-    })->name('buatevent');  
+    Route::get('/buatevent', [EventController::class,"createevent"])
+    ->name("buatevent");  
 
     Route::get('/ubahbasicinfo', function () {  
         return view('editbasicinfo');  
@@ -164,3 +151,23 @@ Route::get('/profile', function () {
         return view('booth');  
     })->name('mybooth');  
 // });
+
+
+
+
+
+// CHAT MESSAGE
+
+Route::get('/chatmessage-tenant', function () {  
+    return view('cmtenant');  
+})->name("chat.tenant"); 
+
+Route::get('/chatmessage-tenant', [MessageController::class, "searchEO"], function (){
+     
+})->name("user.search");
+
+Route::get('chatmessage-tenant-active/{eo_id}', [MessageController::class, 'showChatBox']);
+
+
+// Route::post('/chatmessage-tenant', [MessageController::class,"sendMessage"])
+//     ->name("message.post");
