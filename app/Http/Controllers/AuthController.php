@@ -22,8 +22,8 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only("email", "password");
-        // $credentials ['role'] = 'tenant';
-        if(Auth::guard('web')->attempt($credentials)){
+        $credentials ['role'] = 'tenant';
+        if(Auth::attempt($credentials)){
             return redirect()->intended('home');
         }
         return redirect(route("login"))->withErrors(['email' => 'The provided credentials do not match our records.']);
@@ -40,6 +40,7 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only("phonenum", "password");
+        $credentials ['role'] = 'tenant';
         if(Auth::attempt($credentials)){
             return redirect()->intended("home");
         }
@@ -58,8 +59,8 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only("email", "password");
-        // $credentials ['role'] = 'eventorganizer';
-        if(Auth::guard('eventorganizers')->attempt($credentials)){
+        $credentials ['role'] = 'eventorganizer';
+        if(Auth::attempt($credentials)){
             return redirect()->intended("dashboard");
         }
         return redirect(route("loginEO"))->withErrors(['email' => 'The provided credentials do not match our records.']);
@@ -77,7 +78,7 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only("phonenum", "password");
-        // $credentials ['role'] = 'eventorganizer';
+        $credentials ['role'] = 'eventorganizer';
         if(Auth::attempt($credentials)){
             return redirect()->intended("dashboard");
         }
@@ -91,7 +92,6 @@ class AuthController extends Controller
 
     function signupPost(Request $request){
 
-        
         $request->validate([
             "fullname" => "required",
             "email" => "required",
@@ -104,10 +104,11 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->phonenum = $request->phonenum;
         $user->password = Hash::make($request->password);
+        $user->role = "tenant";
 
         if ($user->save()){
             echo "<script type='text/javascript'>
-            alert('Registration Successful!');
+            alert('Tenant Registration Successful!');
             window.location.href='/login';
             </script>";
         }
@@ -124,20 +125,21 @@ class AuthController extends Controller
         
         $request->validate([
             "fullname" => "required",
-            "email" => "required|email|unique:eventorganizers,email",
-            "phonenum" => "required|unique:eventorganizers,phonenum",
+            "email" => "required|email|unique:users,email",
+            "phonenum" => "required|unique:users,phonenum",
             "password" => "required",
         ]);
 
-        $user = new Eventorganizer();
+        $user = new User();
         $user->name = $request->fullname;
         $user->email = $request->email;
         $user->phonenum = $request->phonenum;
         $user->password = Hash::make($request->password);
+        $user->role = "eventorganizer";
 
         if ($user->save()){
             echo "<script type='text/javascript'>
-            alert('Registration Successful!');
+            alert('Event Organizer Registration Successful!');
             window.location.href='/login-eo';
             </script>";
         }

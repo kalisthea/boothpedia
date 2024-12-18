@@ -91,6 +91,9 @@ Route::get('/', [EventController::class, 'listForHome']);
 //EVENT DETAILS
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
 
+//BOOKING EVENT
+Route::get('booking/{event_name}', [FrontendController::class, 'viewBooking']);
+
 // POST EVENTS
 Route::post('/events', [DataController::class, 'storeEvent'])
 ->name('events.store');  
@@ -162,7 +165,7 @@ Route::get('/chatmessage-tenant', function () {
     return view('cmtenant');  
 })->name("chat.tenant"); 
 
-Route::get('/chatmessage-tenant', [MessageController::class, "searchEO"], function (){
+Route::POST('/chatmessage-tenant', [MessageController::class, "searchEO"], function (){
      
 })->name("user.search");
 

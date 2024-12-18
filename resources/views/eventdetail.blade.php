@@ -30,9 +30,9 @@
 
   <hr style="border: 2px solid #2FA8E8; color:#2FA8E8;">
   <hr style="border: 2px solid #FFC60B; color: #FFC60B;">
-
-  <img class="evt-detail-img" src="images/evt-detail-1.png" alt="">
-
+  <div style="width:1250px; height: 260px; position: relative; left: 14rem;">
+    <img class="evt-detail-img" style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="data:image/jpeg;base64,{{ $events->image_base64 }}" alt="">
+  </div>
   <div class="detail-container">
     <div class="detail-1">
       <div class="detail-content-1">
@@ -48,7 +48,7 @@
     </div>
     <div class="detail-2">
       <p class="price-range">Rp 50.000,00 - Rp 150.000,00</p>
-      <a href="/booking"><button class="book-button" type="button">Book Now</button></a>
+      <a href="{{ url('booking/'.$events->name) }}"><button class="book-button" type="button">Book Now</button></a>
     </div>
   </div>
 

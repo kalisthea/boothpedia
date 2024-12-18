@@ -35,7 +35,8 @@
 
       <div class="chat-container">
         <div class="chat-content-1">
-          <form action="{{ route("user.search") }}" method="GET">
+          <form action="{{ route("user.search") }}" method="POST">
+            @csrf
             <input class="search-hold" type="text" name="finduser" id="finduser" placeholder="Search User">
             @if (session('error'))
               <div class="alert alert-danger">{{ session('error') }}</div>
@@ -43,10 +44,9 @@
           </form>
           {{-- {{ dd($chats) }} --}}
       
-          {{-- @foreach($chats as $chat)
-
-            <a href="{{ url('chatmessage-tenant-active/'.$chat->id) }}">{{ $chat->eo->name }}</a><br>
-          @endforeach --}}
+          @foreach($chats as $chat)
+            <a href="{{ url('chatmessage-tenant-active/'.$chat->id) }}">{{ $chat }}</a><br>
+          @endforeach
         </div>
         <div class="chat-content-2">
           <p>Receiver</p><br>

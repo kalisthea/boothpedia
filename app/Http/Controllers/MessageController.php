@@ -23,7 +23,7 @@ class MessageController extends Controller
 
      
         if ($checkUser instanceof User ) {
-            $users = Eventorganizer::where('name', 'LIKE', '%' . $query . '%')->get();
+            $users = Eventorganizer::where('name', $query)->get();
 
             if ($users->isEmpty()) {
                 return back()->with('error', 'User not found.');
@@ -31,20 +31,21 @@ class MessageController extends Controller
 
             foreach ($users as $user) {
                 $chat = Chat::where(function ($query) use ($user) {
-                    $query->where('sender_id', Auth::user()->id)
-                          ->where('receiver_id', $user->id)
-                          ->orWhere('sender_id', $user->id)
-                          ->where('receiver_id', Auth::user()->id);
+                    $query->where('tenant_id', Auth::user()->id)
+                          ->where('eo_id', $user->id);
                 })->first();
         
                 if (!$chat) {
                     $chat = Chat::create([
-                        'sender_id' => Auth::user()->id,
-                        'receiver_id' => $user->id
+                        'tenant_id' => Auth::user()->id,
+                        'eo_id' => $user->id
                     ]);
                     
                 }
             }
+
+            $chats = Chat::where('tenant_id', $checkUser)->pluck('eo_id');
+            return view('cmtenant', compact('chats'));
 
         } elseif ($checkEO instanceof Eventorganizer) {
             $users = User::where('name', 'LIKE', '%' . $query . '%')->get();
@@ -55,29 +56,22 @@ class MessageController extends Controller
 
             foreach ($users as $user) {
                 $chat = Chat::where(function ($query) use ($user) {
-                    $query->where('sender_id', Auth::guard('eventorganizers')->user()->id)
-                          ->where('receiver_id', $user->id)
-                          ->orWhere('sender_id', $user->id)
-                          ->where('receiver_id', Auth::guard('eventorganizers')->user()->id);
+                    $query->where('eo_id', Auth::guard('eventorganizers')->user()->id)
+                          ->where('tenant_id', $user->id);
                 })->first();
         
                 if (!$chat) {
                     $chat = Chat::create([
-                        'sender_id' => Auth::guard('eventorganizers')->user()->id,
-                        'receiver_id' => $user->id
+                        'eo_id' => Auth::guard('eventorganizers')->user()->id,
+                        'tenant_id' => $user->id
                     ]);
                     
                 }
             }
+
+            $chats = Chat::all();
+            return view('cmtenant', compact('chats'));
         }
-
-       
-
-        $chats = Chat::all();
-
-
-
-        return view('cmtenant', compact('chats'));
     }
 
 

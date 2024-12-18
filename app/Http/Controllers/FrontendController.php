@@ -13,6 +13,11 @@ class FrontendController extends Controller
     public function eventdetail($event_name){
         if(Event::where('name', $event_name)->exists()){
             $events = Event::where('name', $event_name)->first();
+
+            
+            $events->image_base64 = base64_encode($events->banner_photo);
+            
+        
             return view('eventdetail', compact('events'));
         }
         else{
@@ -32,5 +37,23 @@ class FrontendController extends Controller
 
     return view('explore', compact('categories', 'events'));
    }
+
+   // To display on booking page
+
+   public function viewBooking($event_name){
+    if(Event::where('name', $event_name)->exists()){
+        $events = Event::where('name', $event_name)->first();
+
+        
+        $events->image_base64 = base64_encode($events->banner_photo);
+        
+    
+        return view('booking', compact('events'));
+    }
+    else{
+        return redirect('/')->with('status',"Event does not exists");
+    }
+}
+
    
 }

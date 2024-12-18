@@ -11,30 +11,20 @@ class Chat extends Model
     use HasFactory;
 
     protected $fillable = [  
-        'sender_id',  
-        'receiver_id', 
+        'tenant_id',  
+        'eo_id', 
         'updated_at',
         'created_at',
     ];
 
     public function tenant()
     {
-        return $this->belongsTo(User::class, 'sender_id');
-
-        return $this->morphTo([
-            User::class, 'sender_id',
-            Eventorganizer::class, 'sender_id',
-        ]);
+        return $this->belongsTo(User::class, 'tenant_id');
     }   
 
     public function eo()
     {
-        return $this->belongsTo(EventOrganizer::class, 'receiver_id');
-
-        return $this->morphTo([
-            User::class, 'receiver_id',
-            Eventorganizer::class, 'receiver_id',
-        ]);
+        return $this->belongsTo(EventOrganizer::class, 'eo_id');
        
     }
 

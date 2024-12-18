@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <script type="text/javascript" src="myscript.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <script type="text/javascript" src="{{ asset('myscript.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <title>Event Detail</title>
+    <title>Booking {{ $events->name }}</title>
 </head>
 <body>
     <header>
-        <img class= "blogo" src="images/Logo.png" alt="">
+        <img class= "blogo" src="{{ asset('images/Logo.png') }}" alt="">
         <nav class="navbar">
           <div class='nav-left'>
             <a class = "active" href="home">Home</a></li>
@@ -23,8 +23,8 @@
           </div>
           <div  class="nav-right">
             <input class="search-hold" type="text" placeholder="Search">
-            <a href=""><img style="width:35px; height:auto;" src="images/mail.png" alt=""></a>
-            <a href=""><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
+            <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
+            <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
           </div>
         </nav>
       </header>
@@ -97,10 +97,10 @@
       <b><h2 style="color: #FFC60B; padding-top: 3rem; padding-bottom: 2rem;">Payment Method</h2></b>
 
       <div class="payment-method-container"> 
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src="images/bca.png" alt="">
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src="images/mandiri.png" alt="">
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src="images/gopay.png" alt="">
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src="images/dana.png" alt="">
+        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/bca.png") }} alt="">
+        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/mandiri.png") }} alt="">
+        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/gopay.png") }} alt="">
+        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/dana.png") }} alt="">
       </div>
 
       <div id="overlay" class="overlay">
