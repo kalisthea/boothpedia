@@ -14,6 +14,7 @@
 
     @php
         $eo = Auth::guard('eventorganizers')->user();
+        $eo_id = Auth::guard('eventorganizers')->id();
     @endphp
 
     <!-- Content -->
@@ -41,6 +42,10 @@
                     <li class="info-field">
                         <div class="eo-phone-title">Nomor Ponsel</div>
                         <div class="eo-phone">{{$eo->phonenum}}</div>
+                    </li>
+                    <li class="info-field">
+                        <div class="eo-phone-title">Nomor Ponsel</div>
+                        <div class="eo-phone">{{$eo_id}}</div>
                     </li>
                 </ul>
                 <a href="{{ route('editinfo') }}" class="edit-info">Ubah</a>

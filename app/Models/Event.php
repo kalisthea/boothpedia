@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Events\ModelsPruned;
+use Illuminate\Support\Str;  
 
 class Event extends Model
 {
@@ -18,16 +19,27 @@ class Event extends Model
     //     return $this->hasManys(User::class, 'id', 'tenant_id');
     // }
 
+    // Relation with eo
     public function eo()
     {
-        return $this->hasOne(Eventorganizer::class, 'id', 'eo_id');
+        return $this->belongsTo(Eventorganizer::class);
     }
 
-    // Functions buat save input create event
+    // Relation with booth
+    public function booths()  
+    {  
+        return $this->hasMany(Booth::class, 'event_id');  
+    }
+
+    public function boothCategories()  
+    {  
+        return $this->hasManyThrough(BoothCategory::class, Booth::class, 'event_id', 'id', 'id', 'booth_category_id');  
+    }
+
     use HasFactory;  
 
     // Tentukan kolom yang bisa diisi secara massal  
-    protected $table = 'events'; // Menyatakan nama tabel  
+    protected $table = 'events';  
 
     protected $fillable = [  
         'name',  
@@ -37,7 +49,13 @@ class Event extends Model
         'location',  
         'banner_photo',
         'layout_photo',
-        'venue'
+        'venue',
+        'category'
     ];
+
+    public function getSlugAttribute()  
+    {  
+        return Str::slug($this->name);  
+    }
 
 }

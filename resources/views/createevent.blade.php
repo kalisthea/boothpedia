@@ -30,14 +30,14 @@
                 <label for="category">Kategori Event</label>
                 <select name="category" id="category" required>  
                     <option hidden>Pilih kategori...</option>
-                    <option value="education">Education</option>
-                    <option value="beauty">Fashion & Beauty</option>
-                    <option value="hobbies">Hobbies & Crafts</option>
-                    <option value="music">Music</option>
-                    <option value="fnb">Food & Drinks</option>
-                    <option value="art">Art & Culture</option>
-                    <option value="tech">Tech & Start Up</option>
-                    <option value="travel">Travel & Vacation</option>
+                    <option value="Education">Education</option>
+                    <option value="Fashion & Beauty">Fashion & Beauty</option>
+                    <option value="Hobbies & Crafts">Hobbies & Crafts</option>
+                    <option value="Music">Music</option>
+                    <option value="Food & Drinks">Food & Drinks</option>
+                    <option value="Art & Culture">Art & Culture</option>
+                    <option value="Tech & Start Up">Tech & Start Up</option>
+                    <option value="Travel & Vacation">Travel & Vacation</option>
                 </select>
             </li>
             <div class="date-container">
@@ -70,9 +70,18 @@
                 <a href="{{route('dashboard')}}">
                     <button type="button" class="cancel-button" name="cancel">Batal</button>
                 </a>
-                <button type="submit" class="submit-button" name="submit">Simpan</button>
+                <input type="submit" class="submit-button" value="Simpan">
             </li>
         </ul>
     </form> 
+    @if ($errors->any())  
+    <div class="alert alert-danger">  
+        <ul>  
+            @foreach ($errors->all() as $error)  
+                <li>{{ $error }}</li>  
+            @endforeach  
+        </ul>  
+    </div>  
+@endif
 </body>
 </html>

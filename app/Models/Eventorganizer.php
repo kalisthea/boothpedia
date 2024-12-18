@@ -13,10 +13,10 @@ class Eventorganizer extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    public function event()
-    {
-        return $this->hasMany('App\Models\Event');
-    }
+    // public function event()
+    // {
+    //     return $this->hasMany(Event::class, 'eo_id');
+    // }
 
     public function sentMessages()
     {
@@ -63,5 +63,9 @@ class Eventorganizer extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function events() {
+        return $this->hasMany(Event::class, 'eo_id');
     }
 }
