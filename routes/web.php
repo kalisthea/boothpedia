@@ -92,8 +92,8 @@ Route::get('/', [EventController::class, 'listForHome']);
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
 
 // POST EVENTS
-Route::post('/events', [DataController::class, 'storeEvent'])
-->name('events.store');  
+Route::post('/buatevent', [DataController::class, 'storeEvent'])
+    ->name('events.store');  
 
 Route::get('/event-detail-booth', function () {
     return view('eventbooth');
@@ -120,9 +120,7 @@ Route::get('/profile', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/eventsaya', function () {
-        return view('myevents');
-    })->name('events');
+    Route::get('/eventsaya', [FrontendController::class, 'displayEvents'])->name('events');
 
     Route::get('/informasidasar', function () {
         return view('basicinfo');
@@ -143,9 +141,7 @@ Route::get('/profile', function () {
         return view('editbasicinfo');  
     })->name('editinfo');  
 
-    Route::get('/detailevent', function () {  
-        return view('myevents-detail');  
-    })->name('eventdetail');  
+    Route::get('detailevent/{event_name}', [FrontendController::class, 'showEventDetail']);  
 
     Route::get('/boothsaya', function () {  
         return view('booth');  

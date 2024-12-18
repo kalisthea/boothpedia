@@ -54,7 +54,7 @@
                     </div>
                     <div class="btn-popup-savecancel">
                         <button class="cancel-button" onclick="hidePopup('popup-cat')">Batal</button>
-                        <button class="submit-popup-button" style="margin-left:10px">Simpan</button>
+                        <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
                     </div>
                 </div>
             </div>
@@ -82,12 +82,13 @@
                     </div>
                     <div class="btn-popup-savecancel">
                         <button class="cancel-button" onclick="hidePopup('popup-addbooth')">Batal</button>
-                        <button class="submit-popup-button" style="margin-left:10px">Simpan</button>
+                        <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Booth List -->
         <div class="booth-list-container">
             <div class="booth-category">
                 <select name="categoryDropdown" id="categoryDropdown">  

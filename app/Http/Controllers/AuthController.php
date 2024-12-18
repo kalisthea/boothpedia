@@ -60,6 +60,7 @@ class AuthController extends Controller
         $credentials = $request->only("email", "password");
         // $credentials ['role'] = 'eventorganizer';
         if(Auth::guard('eventorganizers')->attempt($credentials)){
+            
             return redirect()->intended("dashboard");
         }
         return redirect(route("loginEO"))->withErrors(['email' => 'The provided credentials do not match our records.']);

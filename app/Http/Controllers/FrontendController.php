@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -32,5 +33,38 @@ class FrontendController extends Controller
 
     return view('explore', compact('categories', 'events'));
    }
+
+   //Display event on event organizer page
+   public function displayEvents()  
+    {  
+        $eo = Auth::guard('eventorganizers')->user();
+        $eo_id = $eo ? $eo->id : null;
+  
+        if (!$eo) {  
+            return redirect('/login-eo');
+        }  
+
+        $events = Event::where('eo_id', $eo_id)->get();  
+
+        return view('myevents', compact('events'));
+    }
+
+    //Display event detail on event organizer page
+    public function showEventDetail($event_name)  
+    {   
+        // Pastikan event organizer adalah pengguna yang terautentikasi  
+        $eo = Auth::guard('eventorganizers')->user();   
+
+        // Cek apakah event dengan nama yang diberikan ada  
+        $event = Event::where('name', $event_name)->first();  
+
+        if ($event) {  
+            // Tampilkan view detail event  
+            return view('myevents-detail', compact('event'));  
+        } else {  
+            // Jika event tidak ditemukan, redirect dengan pesan  
+            return redirect('/eventsaya')->with('status', "Event does not exist");  
+        }  
+    } 
    
 }
