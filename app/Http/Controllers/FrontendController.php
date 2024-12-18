@@ -59,14 +59,15 @@ class FrontendController extends Controller
    //Display event on event organizer page
    public function displayEvents()  
     {  
-        $eo = Auth::guard('eventorganizers')->user();
-        $eo_id = $eo ? $eo->id : null;
+        $user = auth()->user();
   
-        if (!$eo) {  
+        if (!$user) {  
             return redirect('/login-eo');
         }  
 
-        $events = Event::where('eo_id', $eo_id)->get();  
+        $userId = $user->id;
+
+        $events = Event::where('user_id', $userId)->get();  
 
         return view('myevents', compact('events'));
     }
@@ -74,9 +75,6 @@ class FrontendController extends Controller
     //Display event detail on event organizer page
     public function showEventDetail($event_name)  
     {   
-        // Pastikan event organizer adalah pengguna yang terautentikasi  
-        $eo = Auth::guard('eventorganizers')->user();   
-
         // Cek apakah event dengan nama yang diberikan ada  
         $event = Event::where('name', $event_name)->first();  
 

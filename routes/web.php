@@ -118,7 +118,7 @@ Route::get('/profile', function () {
 
 
 
-// Route::middleware("auth:eventorganizers")->group(function (){
+Route::middleware("auth")->group(function (){
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -149,7 +149,7 @@ Route::get('/profile', function () {
     Route::get('/boothsaya', function () {  
         return view('booth');  
     })->name('mybooth');  
-// });
+});
 
 
 

@@ -26,80 +26,19 @@ class DataController extends Controller
         ]);  
 
         $data = new Event($validatedData);
+        $data['user_id'] = Auth::id();
 
         // Menyimpan file sebagai mediumblob  
         if ($request->hasFile('banner_photo')) {  
             $file = $request->file('banner_photo');  
             $data->banner_photo = file_get_contents($file); // Menyimpan konten file ke kolom banner_photo  
         }  
-
-        
-        $data->eo()->associate(Auth::guard('eventorganizers')->user());  
+  
         if ($data->save()) {  
             return redirect()->route('dashboard')->with('success', 'Event created successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to create event.']);  
         } 
-            // Auth::guard('eventorganizers')->user();
-            // $data = new Event($validatedData);
-            // $data->name = $request->name;
-            // $data->description = $request->description;
-            // $data->category = $request->category;
-            // $data->location = $request->location;
-            // $data->start_date = $request->start_date;
-
-            // $data->eo()->associate(Auth::guard('eventorganizers')->user());
-            // $data->save();
-            // dd(auth()->user(), $data);
-
-
-            // return redirect()->route('dashboard')->with('success','yey sukses');
-            // if ($data->save()){
-            //     echo "<script type='text/javascript'>
-            //     alert('Registration Successful!');
-            //     window.location.href='/dashboard';
-            //     </script>";
-            // }
-            // else{
-            //     echo '<script>alert("Registration Failed!")</script>';
-            // }
-
-        // try {
-        //     // Ambil ID pengguna dari guard 'eventorganizers'
-        //     // $eo_id = Auth::guard('eventorganizers')->id();
-        //     // if (!$eo_id) {
-        //     //     return response()->json(['error' => 'Unauthorized'], 401);
-        //     // }
-
-        //     // Mengambil data dari request dan menambahkan status
-        //     Auth::guard('eventorganizers')->user();
-        //     $data = new Event($validatedData);
-        //     $data->eo()->associate(auth()->user()); // Associate the data with the authenticated user
-        //     // $data = $request->except('banner_photo');  
-        //     // $data['status'] = 'active';
-        //     // $data['eo_id'] = $eo_id;
-
-        //     // Menyimpan data event ke database  
-        //     // $event = Event::create($data);  
-
-        //     // Jika ada foto banner
-        //     // if ($request->hasFile('banner_photo')) {  
-        //     //     $path = $request->file('banner_photo')->store('banners', 'public');  
-        //     //     $data->banner_photo = $path;  
-        //     // } 
-
-        //     if ($data->save()){
-        //         echo "<script type='text/javascript'>
-        //         alert('Registration Successful!');
-        //         window.location.href='/dashboard';
-        //         </script>";
-        //     }
-        //     else{
-        //         echo '<script>alert("Registration Failed!")</script>';
-        //     }
-        // } catch (\Exception $e) {  
-        //     return response()->json(['error' => 'Failed to create event: ' . $e->getMessage()], 500);  
-        // }
     }
 
     public function storeBoothCat(Request $request)  
@@ -117,32 +56,5 @@ class DataController extends Controller
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to create event.']);  
         } 
-
-        // try {
-        //     // Ambil ID pengguna dari guard 'eventorganizers'
-        //     $eo_id = Auth::guard('eventorganizers')->id();
-        //     if (!$eo_id) {
-        //         return response()->json(['error' => 'Unauthorized'], 401);
-        //     }
-
-        //     // Mengambil data dari request dan menambahkan status  
-        //     $data = $request->except('banner_photo');  
-        //     $data['status'] = 'active';
-        //     $data['eo_id'] = $eo_id;
-
-        //     // Menyimpan data event ke database  
-        //     $event = Event::create($data);  
-
-        //     // Jika ada foto banner
-        //     if ($request->hasFile('banner_photo')) {  
-        //         $path = $request->file('banner_photo')->store('banners', 'public');  
-        //         $event->banner_photo = $path;  
-        //         $event->save();  
-        //     } 
-
-        //     return response()->json(['success' => 'Event created successfully', 'event' => $event]);  
-        // } catch (\Exception $e) {  
-        //     return response()->json(['error' => 'Failed to create event: ' . $e->getMessage()], 500);  
-        // }
     }
 }

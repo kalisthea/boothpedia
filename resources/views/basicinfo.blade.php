@@ -13,8 +13,7 @@
     @include('sidebar')
 
     @php
-        $eo = Auth::guard('eventorganizers')->user();
-        $eo_id = Auth::guard('eventorganizers')->id();
+        $user = Auth::user();
     @endphp
 
     <!-- Content -->
@@ -33,19 +32,15 @@
                 <ul>
                     <li class="info-field">
                         <div class="eo-name-title">Nama Organizer</div>
-                        <div class="eo-name">{{$eo->name}}</div>
+                        <div class="eo-name">{{$user->name}}</div>
                     </li>
                     <li class="info-field">
                         <div class="eo-email-title">Email</div>
-                        <div class="eo-email">{{$eo->email}}</div>
+                        <div class="eo-email">{{$user->email}}</div>
                     </li>
                     <li class="info-field">
                         <div class="eo-phone-title">Nomor Ponsel</div>
-                        <div class="eo-phone">{{$eo->phonenum}}</div>
-                    </li>
-                    <li class="info-field">
-                        <div class="eo-phone-title">Nomor Ponsel</div>
-                        <div class="eo-phone">{{$eo_id}}</div>
+                        <div class="eo-phone">{{$user->phonenum}}</div>
                     </li>
                 </ul>
                 <a href="{{ route('editinfo') }}" class="edit-info">Ubah</a>

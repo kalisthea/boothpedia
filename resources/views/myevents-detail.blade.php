@@ -24,10 +24,10 @@
         <!-- My Event Content -->
         <div class="event-content">
             @php
-                $src = base64_encode($event->banner_photo);
+                $src = 'data:image/jpeg;base64,' . base64_encode($event->banner_photo);
             @endphp
             <!-- Banner -->  
-            <img src="data:image/jpeg;base64,{{ $event->image_base64 }}" alt="" class="banner"> 
+            <img src="{{ $src }}" alt="" class="banner"> 
 
             <!-- Event Detail Content -->  
             <div class="detailevent-content">  

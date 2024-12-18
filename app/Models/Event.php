@@ -19,10 +19,10 @@ class Event extends Model
     //     return $this->hasManys(User::class, 'id', 'tenant_id');
     // }
 
-    // Relation with eo
-    public function eo()
+    // Relation with user
+    public function user()
     {
-        return $this->belongsTo(Eventorganizer::class);
+        return $this->belongsTo(User::class);
     }
 
     // Relation with booth
@@ -31,10 +31,10 @@ class Event extends Model
         return $this->hasMany(Booth::class, 'event_id');  
     }
 
-    public function boothCategories()  
-    {  
-        return $this->hasManyThrough(BoothCategory::class, Booth::class, 'event_id', 'id', 'id', 'booth_category_id');  
-    }
+    // public function boothCategories()  
+    // {  
+    //     return $this->hasManyThrough(Category::class, Booth::class, 'event_id', 'id', 'id', 'booth_category_id');  
+    // }
 
     use HasFactory;  
 
@@ -52,10 +52,5 @@ class Event extends Model
         'venue',
         'category'
     ];
-
-    public function getSlugAttribute()  
-    {  
-        return Str::slug($this->name);  
-    }
 
 }

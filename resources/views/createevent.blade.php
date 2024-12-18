@@ -58,9 +58,9 @@
                 <label for="location">Lokasi</label>
                 <input type="text" name="location" id="location" placeholder="Input lokasi..." required>
             </li>
-            <li class="location">
-                <label for="location">Lokasi</label>
-                <input type="text" name="location" id="location" placeholder="Input lokasi..." required>
+            <li class="venue">
+                <label for="venue">Venue</label>
+                <input type="text" name="venue" id="venue" placeholder="Input venue..." required>
             </li>
             <li class="desc">
                 <label for="description">Deskripsi</label>

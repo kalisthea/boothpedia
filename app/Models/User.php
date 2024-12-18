@@ -27,6 +27,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chat::class, 'receiver_id');
     }
+
+    // Relation to Event
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
     protected $guard = 'web';
 
     /**
