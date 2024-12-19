@@ -59,7 +59,7 @@ class FrontendController extends Controller
    //Display event on event organizer page
    public function displayEvents()  
     {  
-        $user = auth()->user();
+        $user = Auth::user();
   
         if (!$user) {  
             return redirect('/login-eo');

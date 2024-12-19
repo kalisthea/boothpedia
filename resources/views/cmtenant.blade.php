@@ -44,9 +44,9 @@
           </form>
           {{-- {{ dd($chats) }} --}}
       
-          @foreach($chats as $chat)
+          {{-- @foreach($chats as $chat)
             <a href="{{ url('chatmessage-tenant-active/'.$chat->id) }}">{{ $chat }}</a><br>
-          @endforeach
+          @endforeach --}}
         </div>
         <div class="chat-content-2">
           <p>Receiver</p><br>

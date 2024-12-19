@@ -17,16 +17,12 @@ class Chat extends Model
         'created_at',
     ];
 
-    public function tenant()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'tenant_id');
+        return $this->belongsTo(User::class);
     }   
 
-    public function eo()
-    {
-        return $this->belongsTo(EventOrganizer::class, 'eo_id');
-       
-    }
+
 
     // public function sender()
     // {

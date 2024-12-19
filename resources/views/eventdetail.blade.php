@@ -42,7 +42,7 @@
         <p>{{ $events->venue }}</p>
       </div>
       <div class="detail-content-2">
-        <p>EO ABC 4.8/5</p>
+        <p>{{ $events->user->name }}</p>
         <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
       </div>
     </div>
