@@ -17,13 +17,12 @@ class MessageController extends Controller
     public function searchEO(Request $request)
     {
 
-        $checkUser = Auth::user();
-        $checkEO = Auth::guard('eventorganizers')->user();
+        $checkUser = Auth::user()->role;
         $query = $request->input('finduser');
 
      
-        if ($checkUser instanceof User ) {
-            $users = Eventorganizer::where('name', $query)->get();
+        if ($checkUser == "tenant" ) {
+            $users = User::where('name', $query)->where('role', 'eventorganizer')->get();
 
             if ($users->isEmpty()) {
                 return back()->with('error', 'User not found.');
@@ -44,11 +43,11 @@ class MessageController extends Controller
                 }
             }
 
-            $chats = Chat::where('tenant_id', $checkUser)->pluck('eo_id');
+            $chats = Chat::where('tenant_id', Auth::user()->id)->get();
             return view('cmtenant', compact('chats'));
 
-        } elseif ($checkEO instanceof Eventorganizer) {
-            $users = User::where('name', 'LIKE', '%' . $query . '%')->get();
+        } elseif ($checkUser == "eventorganizer") {
+            $users = User::where('name', $query)->where('role', 'tenant')->get();
 
             if ($users->isEmpty()) {
                 return back()->with('error', 'User not found.');
@@ -56,13 +55,13 @@ class MessageController extends Controller
 
             foreach ($users as $user) {
                 $chat = Chat::where(function ($query) use ($user) {
-                    $query->where('eo_id', Auth::guard('eventorganizers')->user()->id)
+                    $query->where('eo_id', Auth::user()->id)
                           ->where('tenant_id', $user->id);
                 })->first();
         
                 if (!$chat) {
                     $chat = Chat::create([
-                        'eo_id' => Auth::guard('eventorganizers')->user()->id,
+                        'eo_id' => Auth::user()->id,
                         'tenant_id' => $user->id
                     ]);
                     

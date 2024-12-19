@@ -23,7 +23,6 @@ class Chat extends Model
     }   
 
 
-
     // public function sender()
     // {
     //     return $this->morphTo([

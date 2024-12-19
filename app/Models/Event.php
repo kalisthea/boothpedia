@@ -31,10 +31,10 @@ class Event extends Model
         return $this->hasMany(Booth::class, 'event_id');  
     }
 
-    // public function boothCategories()  
-    // {  
-    //     return $this->hasManyThrough(Category::class, Booth::class, 'event_id', 'id', 'id', 'booth_category_id');  
-    // }
+    public function boothCategories()  
+    {  
+        return $this->hasManyThrough(Category::class, Booth::class, 'event_id', 'id', 'id', 'booth_category_id');  
+    }
 
     use HasFactory;  
 
