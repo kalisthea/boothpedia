@@ -30,6 +30,9 @@ class EventController extends Controller
         // return view('index', ['events'=>$eventData]);
     }
 
+    function createevent(){
+        return view("createevent");
+    }
 
   
 }
