@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booth;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Event;
@@ -63,7 +64,34 @@ class DataController extends Controller
         if ($data->save()) {  
             return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Category created successfully.');  
         } else {  
-            return redirect()->back()->withErrors(['error' => 'Failed to create event.']);  
+            return redirect()->back()->withErrors(['error' => 'Failed to create category booth.']);  
         } 
+    }
+
+    public function storeBooth(Request $request, $event_name, $category_name)  
+    {  
+        // Validasi data booth  
+        $validatedData = $request->validate([  
+            'booth_name' => 'required|string|max:255',  
+            'booth_price' => 'required|numeric|between:0,999999999999.99',  
+            'booth_description' => 'required|string|max:255',  
+        ]);  
+
+        // Mencari id kategori berdasarkan nama  
+        $category = Category::where('category_name', $category_name)->first();  
+        
+        if (!$category) {  
+            return redirect()->back()->withErrors(['category' => 'Kategori tidak ditemukan.']);  
+        }  
+
+        // Simpan booth  
+        $data = new Booth($validatedData);
+        $data->booth_category_id = $category->id;;
+        
+        if ($data->save()) {  
+            return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Booth created successfully.');  
+        } else {  
+            return redirect()->back()->withErrors(['error' => 'Failed to create booth.']);  
+        }
     }
 }

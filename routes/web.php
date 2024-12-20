@@ -154,6 +154,9 @@ Route::middleware("auth")->group(function (){
     
     Route::post('/boothsaya/{event_name}/categories', [DataController::class, 'storeBoothCat'])
         ->name('booth.categories.store');
+    
+    Route::post('/boothsaya/{event_name}/{category_name}', [DataController::class, 'storeBooth'])
+        ->name('booth.store');
 });
 
 

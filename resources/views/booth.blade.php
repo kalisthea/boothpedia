@@ -52,7 +52,7 @@
                     <div class="field-popup-box">
                         <div style="padding-bottom:20px;">
                             <label for="category" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
-                            <input type="text" name="category_name" class="category" placeholder="Input kategori booth..." required>
+                            <input type="text" id="category_name" name="category_name" class="category" placeholder="Input kategori booth..." required>
                         </div>
                         <div class="btn-popup-savecancel">
                             <button type="button" class="cancel-button" onclick="hidePopup('popup-cat')">Batal</button>
@@ -63,51 +63,19 @@
             </div>
         </section>
 
-        <!-- Pop up Add Booth -->
-        <section class="popup-box" id="popup-addbooth" style="display:none;">
-            <div class="popup-content">
-                <div class="popup-header">
-                    <h3 style="padding-bottom:20px;">Buat Booth Baru</h3>
-                </div>
-                <div style="border-bottom:1px solid black;"></div>
-                <form id="createBooth" method="POST" action="">
-                    @csrf
-                    <div class="field-popup-box">
-                        <div style="padding-bottom:20px;">
-                            <label for="booth-name" style="padding-bottom:20px;padding-top:20px;">Nama Booth</label>
-                            <input type="text" class="booth-name" placeholder="Input nama booth..." required>
-                        </div>
-                        <div style="padding-bottom:20px;">
-                            <label for="booth-price" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
-                            <input type="number" class="booth-price" placeholder="Input harga booth..." required>
-                        </div>
-                        <div style="padding-bottom:20px;">
-                            <label for="booth-desc" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
-                            <input type="text" class="booth-desc" placeholder="Input deskripsi booth..." required>
-                        </div>
-                        <div class="btn-popup-savecancel">
-                            <button type="button" class="cancel-button" onclick="hidePopup('popup-addbooth')">Batal</button>
-                            <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
-
         <!-- Booth List -->
         <div class="booth-list-container">
             <div class="booth-category">
-                <select name="categoryDropdown" id="categoryDropdown">  
+                <select name="categoryDropdown" id="categoryDropdown" onchange="loadBooths()">  
                     <option hidden>Pilih Kategori</option>  
                     @foreach ($boothCategories as $category)
                         <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                     @endforeach
                 </select>  
-                <button id="viewButton">Lihat Booth</button>
             </div>
             <div class="booth-list">
                 <div class="booth-row first-row">
-                    <button class="add-booth-button" onclick="showPopup('popup-addbooth');">
+                <button class="add-booth-button" onclick="showPopupAddBooth('{{ $event->name }}', document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex].text);">
                         <i class="fa-solid fa-plus"></i>Tambah Booth
                     </button>
                     <div class="booth-box">
@@ -185,6 +153,38 @@
                 </div>
             </div>
         </div>
+
+        <!-- Pop up Add Booth -->
+        <section class="popup-box" id="popup-addbooth" style="display:none;">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <h3 style="padding-bottom:20px;">Buat Booth Baru</h3>
+                </div>
+                <div style="border-bottom:1px solid black;"></div>
+                <form id="createBooth" method="POST" action="#">
+                    @csrf
+                    <input type="hidden" name="category_id" id="selectedCategoryId"/>
+                    <div class="field-popup-box">
+                        <div style="padding-bottom:20px;">
+                            <label for="booth-name" style="padding-bottom:20px;padding-top:20px;">Nama Booth</label>
+                            <input type="text" id="booth-name" name="booth_name" class="booth-name" placeholder="Input nama booth..." required>
+                        </div>
+                        <div style="padding-bottom:20px;">
+                            <label for="booth-price" style="padding-bottom:20px;padding-top:20px;">Harga Booth</label>
+                            <input type="number" id="booth-price" name="booth_price" class="booth-price" placeholder="Input harga booth..." required>
+                        </div>
+                        <div style="padding-bottom:20px;">
+                            <label for="booth-desc" style="padding-bottom:20px;padding-top:20px;">Deskripsi Booth</label>
+                            <input type="text" id="booth-desc" name="booth_description" class="booth-desc" placeholder="Input deskripsi booth..." required>
+                        </div>
+                        <div class="btn-popup-savecancel">
+                            <button type="button" class="cancel-button" onclick="hidePopup('popup-addbooth')">Batal</button>
+                            <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
     </div>
 </body>
 </html>
