@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <img class= "blogo" src="{{ asset('images/Logo.png') }}" alt="">
+      <img class= "blogo" src="{{ asset('images/Logo.png') }}" alt="">
         <nav class="navbar">
           <div class='nav-left'>
             <a class = "active" href="home">Home</a></li>
@@ -27,33 +27,33 @@
             <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
           </div>
         </nav>
-      </header>
-      <hr style="border: 2px solid #2FA8E8; color:#2FA8E8;">
-      <hr style="border: 2px solid #FFC60B; color: #FFC60B;">
+    </header>
+    <hr style="border: 2px solid #2FA8E8; color:#2FA8E8;">
+    <hr style="border: 2px solid #FFC60B; color: #FFC60B;">
 
-      <b><h2 style="color: #FFC60B; padding-bottom: 2rem; padding-top: 2rem;"> Booth Booking </h2></b>
+    <b><h2 style="color: #FFC60B; padding-bottom: 2rem; padding-top: 2rem;"> Booth Booking </h2></b>
       
 
-      <div class="booking-info-container">
-        <div class=book-content>
-            <b><p style="color: #2FA8E8; font-size: 30px; margin:-1px;">Stoodi Fest</p></b>
-            <p style="">Educational</p>
-            <div class="book-content-mid">
-                <p>10-10-2024 - 12-10-2024</p>
-                <p>Tangerang Selatan</p>
-                <p>Nina Busantara University</p>
-            </div>
-            <div class="book-content-bottom" style="color: #FFC60B;">
-                <b><p style="margin:-1px;">Kategori A</p></b>
-                <b><p>Booth A11</p></b>
-            </div>
-        </div>
-        <div class=book-img>
-            <img class="book-img-css" src="images/booking-img.png" alt="">
-        </div>
+    <div class="booking-info-container">
+      <div class=book-content>
+          <b><p style="color: #2FA8E8; font-size: 30px; margin-bottom: -1px;">{{ $events->name }}</p></b>
+          <p style="">{{ $events->category}}</p>
+          <div class="book-content-mid">
+              <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
+              <p>{{ $events->location }}</p>
+              <p>{{ $events->venue }}</p>
+          </div>
+          <div class="book-content-bottom" style="color: #FFC60B;">
+              <b><p style="margin-bottom: -1px;">Kategori A</p></b>
+              <b><p>Booth A11</p></b>
+          </div>
       </div>
+      <div class=book-img>
+          <img class="book-img-css" style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="data:image/jpeg;base64,{{ $events->image_base64 }}" alt="">
+      </div>
+    </div>
 
-      <div class="book-cred-container">
+    <div class="book-cred-container">
         <div class="book-detail-input"> 
             <b><h2 style="color: #FFC60B; padding-top: 3rem;">Booking Detail</h2></b>
             <div class="booking-forms">
@@ -89,7 +89,9 @@
                   <p>Rp x-</p>
                 </div>
               </div>
+              <a href="{{ url('event-detail-booth/' . $events->name) }}"><button class="confirm-button" type="button">Cancel</button></a>
                 <button class="confirm-button" onclick="paymentPopup()" type="button">Confirm</button></a>
+                
             </div>
         </div>
       </div>

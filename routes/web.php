@@ -90,9 +90,12 @@ Route::get('/', [EventController::class, 'listForHome']);
 
 //EVENT DETAILS
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
+Route::get('event-detail-booth/{event_name}', [FrontendController::class, 'eventdetailbooth']);
+
 
 //BOOKING EVENT
-Route::get('booking/{event_name}', [FrontendController::class, 'viewBooking']);
+Route::get('booking/{event_name}', [FrontendController::class, 'viewBooking'])
+    ->middleware('auth');
 
 // POST EVENTS
 Route::post('/buatevent', [DataController::class, 'storeEvent'])

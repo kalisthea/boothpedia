@@ -293,24 +293,29 @@ button:hover{
     border: 1px solid #FFC60B;
     border-radius: 18px;
     display: flex;
-    margin:auto;
     width: 65%;
-    gap: 10%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    
+    height: 50%;
+    margin:auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);   
 } 
 
 .book-content{
-    position: relative;
+    /* position: relative;
     top: 15px;
-    left:5%;
+    left:5%; */
+    width: 70%;
+    padding-left: 2rem;
+    padding-top: 1rem;
 }
 
-.book-img-css {
-    width: 80%;
-    position: relative;
-    left: 52%;
+.book-img{
+    width:480px; 
+    height: 285px; 
+    /* position: relative;
+    left: 286px; */
+    float: right;
 }
+
 
 .book-cred-container{
     display:flex;

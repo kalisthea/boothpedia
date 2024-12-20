@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class FrontendController extends Controller
 {
 
-    //To Display Clicked Events
+    //To Display Clicked Events (Description view)
 
     public function eventdetail($event_name){
         if(Event::where('name', $event_name)->exists()){
@@ -27,6 +27,22 @@ class FrontendController extends Controller
             return redirect('/')->with('status',"Event does not exists");
         }
    }
+
+   //To Display Clicked Events (Booth view)
+   public function eventdetailbooth($event_name){
+        if(Event::where('name', $event_name)->exists()){
+            $events = Event::where('name', $event_name)->first();
+
+            
+            $events->image_base64 = base64_encode($events->banner_photo);
+            
+        
+            return view('eventbooth', compact('events'));
+        }
+        else{
+            return redirect('/')->with('status',"Event does not exists");
+        }
+    }
 
    //To display on explore page based on category
 
