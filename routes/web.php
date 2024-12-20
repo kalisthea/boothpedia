@@ -159,16 +159,18 @@ Route::middleware("auth")->group(function (){
 
 // CHAT MESSAGE
 
-Route::get('/chatmessage-tenant', function () {  
+Route::get('/chatmessage', function () {  
     return view('cmtenant');  
 })->name("chat.tenant"); 
 
-Route::POST('/chatmessage-tenant', [MessageController::class, "searchEO"], function (){
-     
-})->name("user.search");
+Route::POST('/chatmessage', [MessageController::class, "searchEO"])->name("user.search");
 
-Route::get('chatmessage-tenant-active/{eo_id}', [MessageController::class, 'showChatBox']);
+Route::get('/chatmessage', [MessageController::class, "showStartedChats"], function (){   
+});
 
+Route::get('chatmessage-active/{chat_id}', [MessageController::class, 'sendMessage', 'getMessages']);
+   
+Route::post('chatmessage-active/{chat_id}', [MessageController::class,"sendMessage"])
+    ->name("message.post");
 
-// Route::post('/chatmessage-tenant', [MessageController::class,"sendMessage"])
-//     ->name("message.post");
+// Route::get('chatmessage-active/{chat_id}', [MessageController::class, 'getMessages']);

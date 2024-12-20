@@ -43,9 +43,6 @@ class MessageController extends Controller
                 }
             }
 
-            $chats = Chat::where('tenant_id', Auth::user()->id)->get();
-            return view('cmtenant', compact('chats'));
-
         } elseif ($checkUser == "eventorganizer") {
             $users = User::where('name', $query)->where('role', 'tenant')->get();
 
@@ -67,45 +64,83 @@ class MessageController extends Controller
                     
                 }
             }
-
-            $chats = Chat::all();
-            return view('cmtenant', compact('chats'));
         }
+
+        return view('cmtenant');
+    }
+
+    public function showStartedChats(){
+        $checkUser = Auth::user()->role;
+
+        if ($checkUser == "tenant") {
+            $chats = Chat::where('tenant_id', Auth::user()->id)->get(); 
+        } elseif ($checkUser == "eventorganizer") {
+            $chats = Chat::where('eo_id', Auth::user()->id)->get();
+        }
+
+        return view('cmtenant', compact('chats'));
     }
 
 
 
-    public function showChatBox($eo_id){
-        if(Chat::where('receiver_id', $eo_id)->exists()){
-            $chats = Chat::where('receiver_id', $eo_id)->first();
-            return view('cmtenantactive', compact('chats'));
+//     public function showChatBox($chat_id){
+
+     
+//         if(Chat::where('id', $chat_id)->exists()){
+//             $chats = Chat::where('id', $chat_id)->first();
+//             return view('cmtenantactive', compact('chats'));
+//         }
+//         else{
+//             return redirect('/chatmessage')->with('status',"Event does not exists");
+//         }
+        
+        
+//    }
+
+
+    public function sendMessage(Request $request, $chat_id)
+    {   
+        if ($request->isMethod('get')) {
+            if(Chat::where('id', $chat_id)->exists()){
+                $chats = Chat::where('id', $chat_id)->first();
+                $messages = Message::where('chat_id', $chat_id)->orderBy('created_at')->get();
+                return view('cmtenantactive', compact('chats', 'messages'));
+            }
+            else{
+                return redirect('/chatmessage')->with('status',"Event does not exists");
+            }
+
+            
         }
         else{
-            return redirect('/chatmessage-tenant')->with('status',"Event does not exists");
+            $checkUser = Auth::user()->role;
+
+            if ($checkUser == "tenant") {
+                $message = new Message;
+                $message->chat_id = $chat_id; 
+                $message->message = $request->sendtext;
+                $message->sender = "tenant";
+                $message->save();
+    
+            } elseif ($checkUser == "eventorganizer") {
+                $message = new Message;
+                $message->chat_id = $chat_id; 
+                $message->message = $request->sendtext;
+                $message->sender = "eventorganzier";
+                $message->save();
+            }
+           
+            return redirect(route("message.post"));
         }
-   }
+        
 
-
-    public function sendMessage(Request $request)
-    {
-        $message = new Message;
-        $message->sender_id = Auth::user(); 
-        $message->receiver_id = $request->receiver_id;
-        $message->message = $request->message;
-        $message->save();
-
-        return redirect(route("chatmessage-tenant"));
+       
     }
 
-    public function getMessages($userId)
+    public function getMessages($chat_id)
     {
-        $messages = Message::where(function ($query) use ($userId) {
-            $query->where('sender_name', Auth::user())
-                ->where('receiver_name', $userId)
-                ->orWhere('sender_name', $userId)
-                ->where('receiver_name', Auth::user());
-        })->orderBy('created_name')->get();
+        $messages = Message::where('chat_id', $chat_id)->orderBy('created_at')->get();
 
-        return view('messages.chat', compact('messages', 'userId'));
+        return view('cmtenantactive', compact('messages'));
     }
 }

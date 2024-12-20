@@ -10,6 +10,9 @@ class Chat extends Model
 {
     use HasFactory;
 
+
+    protected $table = 'chats';  
+
     protected $fillable = [  
         'tenant_id',  
         'eo_id', 
@@ -17,10 +20,20 @@ class Chat extends Model
         'created_at',
     ];
 
-    public function user()
+    public function tenant()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'tenant_id');
     }   
+
+    public function eo()
+    {
+        return $this->belongsTo(User::class, 'eo_id');
+    }   
+
+    public function messages()  
+    {  
+        return $this->hasMany(Message::class);  
+    }
 
 
     // public function sender()
