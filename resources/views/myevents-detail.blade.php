@@ -67,7 +67,7 @@
                         {{ $event->description }}  
                     </p>  
                     <div style="display: flex; justify-content: flex-end;">
-                        <a href="{{route('mybooth')}}" class="booth-button" >Lihat Booth
+                        <a href="{{ route('mybooth', ['event_name' => $event->name]) }}" class="booth-button" >Lihat Booth
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>

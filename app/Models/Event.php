@@ -26,14 +26,9 @@ class Event extends Model
     }
 
     // Relation with booth
-    public function booths()  
+    public function categories()  
     {  
-        return $this->hasMany(Booth::class, 'event_id');  
-    }
-
-    public function boothCategories()  
-    {  
-        return $this->hasManyThrough(Category::class, Booth::class, 'event_id', 'id', 'id', 'booth_category_id');  
+        return $this->hasMany(Category::class);  
     }
 
     use HasFactory;  

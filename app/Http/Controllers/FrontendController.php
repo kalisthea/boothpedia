@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Booth;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -86,5 +88,20 @@ class FrontendController extends Controller
             return redirect('/eventsaya')->with('status', "Event does not exist");  
         }  
     } 
-   
+
+    // Display all booths in the event
+    public function showBooth($event_name)  
+    {  
+        // Cek apakah event dengan nama yang diberikan ada  
+        $event = Event::where('name', $event_name)->first();  
+    
+        if ($event) {  
+            // Ambil booth yang terkait dengan event ini  
+            $boothCategories = $event->categories;  
+            return view('booth', compact('event', 'boothCategories'));  
+        } else {  
+            // Jika event tidak ditemukan, redirect dengan pesan  
+            return redirect('/eventsaya')->with('status', "Event does not exist");  
+        }   
+    }
 }

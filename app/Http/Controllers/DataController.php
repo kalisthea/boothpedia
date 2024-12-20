@@ -41,18 +41,27 @@ class DataController extends Controller
         } 
     }
 
-    public function storeBoothCat(Request $request)  
+    public function storeBoothCat(Request $request, $event_name)  
     {  
         // Validasi data dari form  
         $validatedData = $request->validate([  
             'category_name' => 'required|string|max:255'
         ]); 
         
-        $data = new Category($validatedData);
-        
-        $data->eo()->associate(Auth::guard('eventorganizers')->user());  
+        // Mengambil ID event berdasarkan nama event  
+        $event = Event::where('name', $event_name)->first();  
+
+        // Pastikan event ditemukan  
+        if (!$event) {  
+            return response()->json(['message' => 'Event not found'], 404);  
+        }  
+
+        // Membuat instance Category  
+        $data = new Category($validatedData);  
+        $data->event_id = $event->id; // Set event_id dengan ID event yang ditemukan  
+
         if ($data->save()) {  
-            return redirect()->route('dashboard')->with('success', 'Event created successfully.');  
+            return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Category created successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to create event.']);  
         } 

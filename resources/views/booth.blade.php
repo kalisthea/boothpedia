@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <script defer src="script.js"></script>
-    <link rel="stylesheet" href="css/style-admin.css">
-    <title>Detail Event</title>
+    <script src="{{ asset('script.js') }}"></script>  
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
+    <title>Booth {{ $event->name }}</title>
 </head>
 <body>
     <!-- Side Bar -->
@@ -25,7 +25,7 @@
         <!-- Booth Content -->
         <div class="booth-detail">
             <div class="booth-detail-content">
-                <h2 style="margin-bottom:30px;">Social Gathering</h2>
+                <h2 style="margin-bottom:30px;">{{ $event->name }}</h2>
                 <p style="margin-bottom:30px;"><strong>Total Booth Terisi : </strong>17</p>
                 <p style="margin-bottom:30px;"><strong>Total Penjualan    : </strong>Rp 30.000.000,-</p>
             </div>
@@ -47,16 +47,19 @@
                     <h3 style="padding-bottom:20px;">Tambah Kategori Booth</h3>
                 </div>
                 <div style="border-bottom:1px solid black;"></div>
-                <div class="field-popup-box">
-                    <div style="padding-bottom:20px;">
-                        <label for="category" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
-                        <input type="text" class="category" placeholder="Input kategori booth..." required>
+                <form id="createCategory" method="POST" action="{{ route('booth.categories.store', ['event_name' => $event->name]) }}">
+                    @csrf
+                    <div class="field-popup-box">
+                        <div style="padding-bottom:20px;">
+                            <label for="category" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
+                            <input type="text" name="category_name" class="category" placeholder="Input kategori booth..." required>
+                        </div>
+                        <div class="btn-popup-savecancel">
+                            <button type="button" class="cancel-button" onclick="hidePopup('popup-cat')">Batal</button>
+                            <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
+                        </div>
                     </div>
-                    <div class="btn-popup-savecancel">
-                        <button class="cancel-button" onclick="hidePopup('popup-cat')">Batal</button>
-                        <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
-                    </div>
-                </div>
+                </form>
             </div>
         </section>
 
@@ -67,24 +70,27 @@
                     <h3 style="padding-bottom:20px;">Buat Booth Baru</h3>
                 </div>
                 <div style="border-bottom:1px solid black;"></div>
-                <div class="field-popup-box">
-                    <div style="padding-bottom:20px;">
-                        <label for="booth-name" style="padding-bottom:20px;padding-top:20px;">Nama Booth</label>
-                        <input type="text" class="booth-name" placeholder="Input nama booth..." required>
+                <form id="createBooth" method="POST" action="">
+                    @csrf
+                    <div class="field-popup-box">
+                        <div style="padding-bottom:20px;">
+                            <label for="booth-name" style="padding-bottom:20px;padding-top:20px;">Nama Booth</label>
+                            <input type="text" class="booth-name" placeholder="Input nama booth..." required>
+                        </div>
+                        <div style="padding-bottom:20px;">
+                            <label for="booth-price" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
+                            <input type="number" class="booth-price" placeholder="Input harga booth..." required>
+                        </div>
+                        <div style="padding-bottom:20px;">
+                            <label for="booth-desc" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
+                            <input type="text" class="booth-desc" placeholder="Input deskripsi booth..." required>
+                        </div>
+                        <div class="btn-popup-savecancel">
+                            <button type="button" class="cancel-button" onclick="hidePopup('popup-addbooth')">Batal</button>
+                            <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
+                        </div>
                     </div>
-                    <div style="padding-bottom:20px;">
-                        <label for="booth-price" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
-                        <input type="number" class="booth-price" placeholder="Input harga booth..." required>
-                    </div>
-                    <div style="padding-bottom:20px;">
-                        <label for="booth-desc" style="padding-bottom:20px;padding-top:20px;">Nama Kategori</label>
-                        <input type="text" class="booth-desc" placeholder="Input deskripsi booth..." required>
-                    </div>
-                    <div class="btn-popup-savecancel">
-                        <button class="cancel-button" onclick="hidePopup('popup-addbooth')">Batal</button>
-                        <input type="submit" value="Simpan" class="submit-popup-button" style="margin-left:10px">
-                    </div>
-                </div>
+                </form>
             </div>
         </section>
 
@@ -93,31 +99,90 @@
             <div class="booth-category">
                 <select name="categoryDropdown" id="categoryDropdown">  
                     <option hidden>Pilih Kategori</option>  
-                    <option value="">Bronze</option>
-                    <option value="">Silver</option>
-                    <option value="">Gold</option>
+                    @foreach ($boothCategories as $category)
+                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                    @endforeach
                 </select>  
                 <button id="viewButton">Lihat Booth</button>
             </div>
             <div class="booth-list">
-                <button class="add-booth-button" onclick="showPopup('popup-addbooth');">
-                    <i class="fa-solid fa-plus"></i>Tambah Booth
-                </button>
-                <!-- <div class="box">
-                    <div class="left-side">
-                        <div class="box-topic">JEON WONWOO</div>
-                        <div class="card-div"></div>
-                        <div class="box-sub">
-                            <div class="account-num">1234567890</div>
-                            <div class="bank-name">BANK SYARIAH INDONESIA</div>
-                            <div class="icon">
-                                <i class="fa-solid fa-circle-info icon-info"></i>
-                                <i class="fa-regular fa-pen-to-square icon-edit"></i>
-                                <i class="fa-regular fa-trash-can icon-delete"></i>
+                <div class="booth-row first-row">
+                    <button class="add-booth-button" onclick="showPopup('popup-addbooth');">
+                        <i class="fa-solid fa-plus"></i>Tambah Booth
+                    </button>
+                    <div class="booth-box">
+                        <div class="booth-left-side">
+                            <div class="booth-box-title">BOOTH A11</div>
+                            <div class="card-div"></div>
+                            <div class="booth-box-sub">
+                                <div class="booth-status">Terisi</div>
+                                <div class="icon">
+                                    <i class="fa-solid fa-circle-info icon-info"></i>
+                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                    <i class="fa-regular fa-trash-can icon-delete"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                    <div class="booth-box">
+                        <div class="booth-left-side">
+                            <div class="booth-box-title">BOOTH A11</div>
+                            <div class="card-div"></div>
+                            <div class="booth-box-sub">
+                                <div class="booth-status">Terisi</div>
+                                <div class="icon">
+                                    <i class="fa-solid fa-circle-info icon-info"></i>
+                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                    <i class="fa-regular fa-trash-can icon-delete"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                <div class="booth-row">  
+                    <div class="booth-box">
+                        <div class="booth-left-side">
+                            <div class="booth-box-title">BOOTH A11</div>
+                            <div class="card-div"></div>
+                            <div class="booth-box-sub">
+                                <div class="booth-status">Terisi</div>
+                                <div class="icon">
+                                    <i class="fa-solid fa-circle-info icon-info"></i>
+                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                    <i class="fa-regular fa-trash-can icon-delete"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="booth-box">
+                        <div class="booth-left-side">
+                            <div class="booth-box-title">BOOTH A11</div>
+                            <div class="card-div"></div>
+                            <div class="booth-box-sub">
+                                <div class="booth-status">Terisi</div>
+                                <div class="icon">
+                                    <i class="fa-solid fa-circle-info icon-info"></i>
+                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                    <i class="fa-regular fa-trash-can icon-delete"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="booth-box">
+                        <div class="booth-left-side">
+                            <div class="booth-box-title">BOOTH A11</div>
+                            <div class="card-div"></div>
+                            <div class="booth-box-sub">
+                                <div class="booth-status">Terisi</div>
+                                <div class="icon">
+                                    <i class="fa-solid fa-circle-info icon-info"></i>
+                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                    <i class="fa-regular fa-trash-can icon-delete"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

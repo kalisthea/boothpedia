@@ -15,13 +15,8 @@ class Booth extends Model
         'booth_description'  
     ];  
 
-    public function event()  
-    {  
-        return $this->belongsTo(Event::class, 'event_id');  
-    }  
-
     public function category()  
     {  
-        return $this->belongsTo(Category::class, 'category_id');  
+        return $this->belongsTo(Category::class);  
     }  
 }

@@ -636,8 +636,18 @@
 
   .booth-list {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .booth-row {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .first-row {
     align-items: center;
-    justify-content: space-between;
   }
 
   .booth-list button {
@@ -646,9 +656,14 @@
     color: #006AA6;  
     font-weight: bold;
     border: 1px solid #006AA6;  
-    border-radius: 5px;  
+    border-radius: 30px;  
     cursor: pointer;  
     text-align: center;
+    width: 340px;
+    height: 149px;
+    font-size: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
   }
 
   .popup-box {  
@@ -726,4 +741,41 @@
     cursor: pointer;  
     text-align: center;  
     margin-top: 10px;  
+  }
+
+  .booth-box {
+    flex: 1 1 calc(33.333% - 20px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    padding: 40px 20px; 
+    border-radius: 30px;  
+    background-color: #ffff; 
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #006AA6;
+    margin: 0 15px;
+    flex: 1;
+  }
+  
+  .booth-left-side {  
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  } 
+  
+  .booth-box-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .booth-box-sub {
+    font-size: 14px;
+    margin-top: 10px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+  }
+
+  .booth-status {
+    margin-bottom: 5px;
   }
