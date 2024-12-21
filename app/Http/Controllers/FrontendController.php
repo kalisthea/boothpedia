@@ -26,9 +26,9 @@ class FrontendController extends Controller
         else{
             return redirect('/')->with('status',"Event does not exists");
         }
-   }
+    }
 
-   //To Display Clicked Events (Booth view)
+    //To Display Clicked Events (Booth view)
    public function eventdetailbooth($event_name){
         if(Event::where('name', $event_name)->exists()){
             $events = Event::where('name', $event_name)->first();
@@ -36,13 +36,16 @@ class FrontendController extends Controller
             
             $events->image_base64 = base64_encode($events->banner_photo);
             
+            $boothCategories = $events->categories;  
+
         
-            return view('eventbooth', compact('events'));
+            return view('eventbooth', compact('events', 'boothCategories'));
         }
         else{
             return redirect('/')->with('status',"Event does not exists");
         }
     }
+
 
    //To display on explore page based on category
 

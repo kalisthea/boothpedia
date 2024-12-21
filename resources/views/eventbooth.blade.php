@@ -1,3 +1,7 @@
+@php
+use App\Models\Booth;
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,13 +65,92 @@
     </div>
   </div>
 
-  <p style="padding-left: 17rem; padding-right: 17rem; padding-top: 2rem;"> {{ $events->description }} </p>
+  <div class="booth-list-container">
+    <form action="" method="GET"> 
+      <div class="booth-category">
+        
+          <select name="categoryDropdown" id="categoryDropdown" onchange="loadBooths()">  
+              <option hidden>Pilih Kategori</option>  
+              @foreach ($boothCategories as $category)
+                  <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+              @endforeach
+          </select>  
+          <button type="submit" class="ok-button">Filter</button> 
+        
+      </div>
+    </form>
+      
+    <div class="booth-list">
+      @php
+          $selectedCategoryId = request()->input('categoryDropdown');
+      @endphp
 
-  <a href="data:image/jpeg;base64,{{ $events->image_base64 }}" download="booth_layout">
-    Download Booth Layout
-  </a>
+      @if ($selectedCategoryId)
+        @php
+          $booths = Booth::where('booth_category_id', $selectedCategoryId)->get();
+        @endphp
+      @else 
+        @php
+          $booths = Booth::all(); 
+        @endphp
+      @endif
 
+      @if (isset($booths) && count($booths) > 0)
+            @foreach ($booths as $booth)
+                @if ($loop->iteration % 4 == 1 && $loop->iteration > 1)
+                    </div><div class="booth-row"> 
+                @endif
 
+                <div class="booth-box">
+                  <input type="checkbox" name="selected_booth_ids[]" value="{{ $booth->id }}" class="selection-input">  
+                  <div class="booth-left-side">
+                    <div class="booth-box-title">{{ $booth->booth_name }}</div> 
+                    <div class="booth-box-sub">
+                        <div class="booth-status">Rp.{{ $booth->booth_price }}</div>
+                        <div class="booth-status">{{ $booth->is_occupied }}</div>
+                    </div>
+                  </div>
+                </div>    
+                
+            @endforeach
+          @else
+            <p>No booths found in this category.</p> 
+      @endif
+    </div>
+  </div>
+  @php
+    $selectedBoothIds = request()->input('selected_booth_ids');
+  @endphp
 
+    {{ $selectedBoothIds }}
+
+  <a href="data:image/jpeg;base64,{{ $events->image_base64 }}" style="padding-left:17rem;" download="booth_layout">Download Booth Layout</a>
+
+  <script>
+    const boothBoxes = document.querySelectorAll('.booth-box');
+
+    boothBoxes.forEach(boothBox => {
+        boothBox.addEventListener('click', () => {
+            boothBox.classList.toggle('selected'); 
+        });
+    });
+
+    function toggleSelection(boothId) {
+        const input = document.querySelector(`input[value="${boothId}"]`);
+        const boothBox = input.closest('.booth-box');
+
+        if (input.hasAttribute('disabled')) {
+            return; // Prevent selection if already disabled
+        }
+
+        if (boothBox.classList.contains('selected')) {
+            boothBox.classList.remove('selected');
+            input.removeAttribute('disabled'); 
+        } else {
+            boothBox.classList.add('selected');
+            input.setAttribute('disabled', ''); 
+        }
+    }
+</script>
 </body>
 </html>

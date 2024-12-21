@@ -287,6 +287,71 @@ button:hover{
     color: #FFC60B;
 }
 
+.booth-category{
+    display: flex;
+    gap: 2rem;
+}
+
+.booth-list-container{
+    padding-top: 2rem;
+    padding-left: 17rem; 
+    padding-right: 17rem;
+    padding-bottom: 2rem;
+}
+
+.booth-list-container select {
+    width: 100%;
+    height: 40px;
+    padding: 10px 40px 10px 10px;
+    border: 1px solid #FFC60B;
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin-bottom: 18px;
+}
+
+.booth-list {
+    display: flex;
+    gap: 20px;
+}
+
+.booth-row {
+    display: flex;
+    align-items: stretch;
+}
+
+
+.booth-box {
+    /* flex: 1 1 calc(33.333% - 20px); */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    padding: 20px 20px; 
+    border-radius: 30px;  
+    background-color: #ffff; 
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #FFC60B;
+    width: 20%;
+    /* margin: 0 15px;
+    flex: 1; */
+}
+
+/* .booth-box.selected{
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    padding: 20px 20px; 
+    border-radius: 30px;  
+    background-color: #FFC60B; 
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #FFC60B;
+    width: 20%;
+} */
+
+.booth-box-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+  
+
 /* BOOKING PAGE */
 
 .booking-info-container {
