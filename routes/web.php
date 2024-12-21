@@ -91,11 +91,15 @@ Route::get('/', [EventController::class, 'listForHome']);
 //EVENT DETAILS
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
 Route::get('event-detail-booth/{event_name}', [FrontendController::class, 'eventdetailbooth']);
+Route::post('event-detail-booth/{event_name}', [FrontendController::class, 'chosenBooth'])->name('store.data');
 
 
 //BOOKING EVENT
-Route::get('booking/{event_name}', [FrontendController::class, 'viewBooking'])
-    ->middleware('auth');
+Route::get('booking/{event_name}', [FrontendController::class, 'viewBooking', 'chosenBooth'])
+    ->middleware('auth')->name("booking.view");
+
+
+
 
 // POST EVENTS
 Route::post('/buatevent', [DataController::class, 'storeEvent'])

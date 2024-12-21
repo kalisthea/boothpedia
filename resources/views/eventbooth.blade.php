@@ -1,5 +1,6 @@
 @php
 use App\Models\Booth;
+session_start();
 @endphp
 
 <!DOCTYPE html>
@@ -50,10 +51,6 @@ use App\Models\Booth;
         <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
       </div>
     </div>
-    <div class="detail-2">
-      <p class="price-range">Rp 50.000,00 - Rp 150.000,00</p>
-      <a href="{{ url('booking/'.$events->name) }}"><button class="book-button" type="button">Book Now</button></a>
-    </div>
   </div>
 
   <div class="nav-detail">
@@ -67,90 +64,86 @@ use App\Models\Booth;
 
   <div class="booth-list-container">
     <form action="" method="GET"> 
+      <input type="hidden" name="selected_booth_ids[]" value=""> 
       <div class="booth-category">
-        
-          <select name="categoryDropdown" id="categoryDropdown" onchange="loadBooths()">  
-              <option hidden>Pilih Kategori</option>  
+          <select name="categoryDropdown" id="categoryDropdown" onchange="loadBooths()" style="padding-top: 5px; padding-bottom: 5px"> 
+              <option>All Booths</option>  
               @foreach ($boothCategories as $category)
-                  <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                  <option value="{{ $category->id }}"  @if (old('categoryDropdown') == $category->id) 
+                    selected 
+                @elseif (request()->input('categoryDropdown') == $category->id) 
+                    selected 
+                @endif>{{ $category->category_name }}</option>
               @endforeach
           </select>  
           <button type="submit" class="ok-button">Filter</button> 
-        
       </div>
     </form>
-      
-    <div class="booth-list">
-      @php
-          $selectedCategoryId = request()->input('categoryDropdown');
-      @endphp
-
-      @if ($selectedCategoryId)
+    <p>*Check the box to select booth </p>
+    <form action="{{ route('store.data', $events->name) }}" method="POST">
+      @csrf
+      <div class="booth-list">
         @php
-          $booths = Booth::where('booth_category_id', $selectedCategoryId)->get();
+            $selectedCategoryId = request()->input('categoryDropdown');
         @endphp
-      @else 
-        @php
-          $booths = Booth::all(); 
-        @endphp
-      @endif
-
-      @if (isset($booths) && count($booths) > 0)
-            @foreach ($booths as $booth)
-                @if ($loop->iteration % 4 == 1 && $loop->iteration > 1)
-                    </div><div class="booth-row"> 
-                @endif
-
-                <div class="booth-box">
-                  <input type="checkbox" name="selected_booth_ids[]" value="{{ $booth->id }}" class="selection-input">  
-                  <div class="booth-left-side">
-                    <div class="booth-box-title">{{ $booth->booth_name }}</div> 
-                    <div class="booth-box-sub">
-                        <div class="booth-status">Rp.{{ $booth->booth_price }}</div>
-                        <div class="booth-status">{{ $booth->is_occupied }}</div>
-                    </div>
-                  </div>
-                </div>    
-                
-            @endforeach
-          @else
-            <p>No booths found in this category.</p> 
-      @endif
-    </div>
+        @if ($selectedCategoryId && $selectedCategoryId != "All Booths")
+          @php
+            $booths = Booth::where('booth_category_id', $selectedCategoryId)->get();
+          @endphp
+        @else 
+          @php
+            $booths = Booth::all(); 
+          @endphp
+        @endif
+        
+          @if (isset($booths) && count($booths) > 0)
+                @foreach ($booths as $booth)
+                    @if ($loop->iteration % 4 == 1 && $loop->iteration > 1)
+                        </div><div class="booth-row"> 
+                    @endif
+                    
+                      <div class="booth-box">
+                        <input type="checkbox" name="selected_booth_ids[]" value="{{ $booth->id }}" class="selection-input">
+                        <div class="booth-left-side">
+                          <div class="booth-box-title">{{ $booth->booth_name }}</div> 
+                          <div class="booth-box-sub">
+                              <div class="booth-status">Rp.{{ $booth->booth_price }}</div>
+                              <div class="booth-status">{{ $booth->is_occupied }}</div>
+                          </div>
+                        </div>
+                      </div>  
+                    
+                @endforeach
+              @else
+                <p>No booths found in this category.</p> 
+          @endif
+      </div>
+      <input type="hidden" name="event_name" value="{{ $events->name }}"> 
+      <button type="submit" id="bookNowButton" class="ok-button" style="">Book Now</button> 
+    </form>
   </div>
-  @php
-    $selectedBoothIds = request()->input('selected_booth_ids');
-  @endphp
 
-    {{ $selectedBoothIds }}
 
   <a href="data:image/jpeg;base64,{{ $events->image_base64 }}" style="padding-left:17rem;" download="booth_layout">Download Booth Layout</a>
 
   <script>
-    const boothBoxes = document.querySelectorAll('.booth-box');
-
-    boothBoxes.forEach(boothBox => {
-        boothBox.addEventListener('click', () => {
-            boothBox.classList.toggle('selected'); 
-        });
+    const selectedBoothIdsInput = document.querySelector('[name="selected_booth_ids[]"]');
+  
+    function updateSelectedBoothIds() {
+      const checkedBoothIds = [];
+      const checkboxes = document.querySelectorAll('.selection-input:checked');
+      for (const checkbox of checkboxes) {
+        checkedBoothIds.push(checkbox.value);
+      }
+      selectedBoothIdsInput.value = checkedBoothIds.join(',');
+    }
+  
+    document.addEventListener('change', (event) => {
+      if (event.target.classList.contains('selection-input')) {
+        updateSelectedBoothIds();
+      }
     });
 
-    function toggleSelection(boothId) {
-        const input = document.querySelector(`input[value="${boothId}"]`);
-        const boothBox = input.closest('.booth-box');
-
-        if (input.hasAttribute('disabled')) {
-            return; // Prevent selection if already disabled
-        }
-
-        if (boothBox.classList.contains('selected')) {
-            boothBox.classList.remove('selected');
-            input.removeAttribute('disabled'); 
-        } else {
-            boothBox.classList.add('selected');
-            input.setAttribute('disabled', ''); 
-        }
-    }
-</script>
+  </script>
 </body>
 </html>

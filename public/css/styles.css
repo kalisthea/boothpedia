@@ -312,6 +312,7 @@ button:hover{
 .booth-list {
     display: flex;
     gap: 20px;
+    padding-bottom: 2rem;
 }
 
 .booth-row {

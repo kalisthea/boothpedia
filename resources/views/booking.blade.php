@@ -74,11 +74,16 @@
                   <p>Booth Quantity</p>
                   <p>Platform Fee</p>
                 </div>
-                <div class="payment-sum-content-2">
-                  <p>Rp x-</p>
-                  <p>Rp x-</p>
-                  <p>Rp x-</p>
-                </div>
+                @if (session('selectedBooths'))
+                  @foreach(session('selectedBooths') as $booth)
+                  <div class="payment-sum-content-2">
+                    <p>Rp.{{ $booth->booth_price }}</p>
+                    <p>{{ count(session('selectedBooths')) }}</p>
+                    <p>Rp.25000.00</p>
+                  </div>
+                  @endforeach
+                @endif
+               
               </div>
               <hr>
               <div class="total-payment">

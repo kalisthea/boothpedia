@@ -19,4 +19,9 @@ class Booth extends Model
     {  
         return $this->belongsTo(Category::class);  
     }  
+
+    public function isInCategory(int $categoryId)
+    {
+        return $this->booth_category_id === $categoryId;
+    }
 }

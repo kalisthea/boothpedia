@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\Auth;
 class FrontendController extends Controller
 {
 
+    //To display on explore page based on category
+
+   public function viewCategoryBased(){
+    $categories = Event::distinct()->pluck('category');
+    $events = Event::all();
+
+    foreach ($events as $item) {
+        $item->image_base64 = base64_encode($item->banner_photo);
+    }
+
+    return view('explore', compact('categories', 'events'));
+   }
+
     //To Display Clicked Events (Description view)
 
     public function eventdetail($event_name){
@@ -46,22 +59,17 @@ class FrontendController extends Controller
         }
     }
 
+    // public function storeBoothSelection(Request $request){
+    //     $selectedBoothIds = $request->input('selected_booth_ids'); 
+    //     Session::put('selectedBoothIds', $selectedBoothIds); 
 
-   //To display on explore page based on category
+    //     // ... your existing logic to handle the selected booth IDs ...
 
-   public function viewCategoryBased(){
-    $categories = Event::distinct()->pluck('category');
-    $events = Event::all();
+    //     return redirect()->back(); // Redirect back to the same page
+    // }
 
-    foreach ($events as $item) {
-        $item->image_base64 = base64_encode($item->banner_photo);
-    }
 
-    return view('explore', compact('categories', 'events'));
-   }
-
-   // To display on booking page
-
+//    To display on booking page
    public function viewBooking($event_name){
     if(Event::where('name', $event_name)->exists()){
         $events = Event::where('name', $event_name)->first();
@@ -76,6 +84,24 @@ class FrontendController extends Controller
         return redirect('/')->with('status',"Event does not exists");
     }
 }
+
+
+
+    //To proceed to booking
+    public function chosenBooth(Request $request){
+
+        $selectedBoothIds = request()->input('selected_booth_ids');
+        $selectedBooths = Booth::whereIn('id', $selectedBoothIds)->get(); 
+        $eventName = $request->input('event_name'); 
+
+
+        return redirect()->route('booking.view', ['event_name' => $eventName])->with([
+            'selectedBooths' => $selectedBooths,
+
+        ]);
+
+
+    }
 
    //Display event on event organizer page
    public function displayEvents()  
