@@ -17,7 +17,7 @@ class Booth extends Model
 
     public function category()  
     {  
-        return $this->belongsTo(Category::class);  
+        return $this->belongsTo(Category::class, 'booth_category_id');  
     }  
 
     public function isInCategory(int $categoryId)

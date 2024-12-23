@@ -135,18 +135,55 @@ class FrontendController extends Controller
     } 
 
     // Display all booths in the event
-    public function showBooth($event_name)  
+    public function showBoothPage(Request $request, $event_name)  
     {  
         // Cek apakah event dengan nama yang diberikan ada  
         $event = Event::where('name', $event_name)->first();  
     
-        if ($event) {  
-            // Ambil booth yang terkait dengan event ini  
-            $boothCategories = $event->categories;  
-            return view('booth', compact('event', 'boothCategories'));  
-        } else {  
+        if (!$event) {   
             // Jika event tidak ditemukan, redirect dengan pesan  
-            return redirect('/eventsaya')->with('status', "Event does not exist");  
-        }   
+            return redirect('/eventsaya')->with('status', "Event does not exist");
+        }
+
+        // Ambil booth categories
+        $boothCategories = $event->categories;
+
+        // Ambil booth berdasarkan kategori jika ada
+        $booths = [];
+        $selectedCategory = null;
+
+        if ($request->has('category_name')) {
+            $selectedCategory = $request->input('category_name');
+            $category = $event->categories()->where('id', $selectedCategory)->first();
+
+            if ($category) {
+                $booths = Booth::where('booth_category_id', $category->id)->get();
+            }
+        }
+        return view('booth', compact('event', 'boothCategories', 'booths', 'selectedCategory'));
     }
+
+    // public function showBooth($event_name, $category_name)  
+    // {  
+    //     // Cek apakah event dengan nama yang diberikan ada  
+    //     $event = Event::where('name', $event_name)->first();  
+
+    //     if (!$event) {  
+    //         return redirect('/eventsaya')->with('status', "Event tidak ditemukan");  
+    //     }  
+        
+    //     // Cek apakah kategori dengan nama yang diberikan ada  
+    //     $category = $event->categories()->where('name', $category_name)->first();  
+        
+    //     if (!$category) {  
+    //         return redirect('/eventsaya')->with('status', "Kategori tidak ditemukan untuk event ini");  
+    //     }  
+
+    //     // Ambil booth terkait  
+    //     $booths = $category->booths()->get(); // Mengasumsikan ada relasi booths di model Category  
+        
+    //     // Kembalikan tampilan dengan data booth  
+    //     return view('booth.show', compact('event', 'category', 'booths'));  
+    // }
+
 }

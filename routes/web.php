@@ -153,7 +153,7 @@ Route::middleware("auth")->group(function (){
 
     Route::get('detailevent/{event_name}', [FrontendController::class, 'showEventDetail']);  
 
-    Route::get('/boothsaya/{event_name}', [FrontendController::class, 'showBooth'])
+    Route::get('/boothsaya/{event_name}', [FrontendController::class, 'showBoothPage'])
         ->name('mybooth');  
     
     Route::post('/boothsaya/{event_name}/categories', [DataController::class, 'storeBoothCat'])

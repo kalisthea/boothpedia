@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <script src="{{ asset('script.js') }}"></script>  
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
-    <title>Booth {{ $event->name }}</title>
+    <title>{{ $event->name }}: Booth Saya</title>
 </head>
 <body>
     <!-- Side Bar -->
@@ -66,90 +66,68 @@
         <!-- Booth List -->
         <div class="booth-list-container">
             <div class="booth-category">
-                <select name="categoryDropdown" id="categoryDropdown" onchange="loadBooths()">  
-                    <option hidden>Pilih Kategori</option>  
-                    @foreach ($boothCategories as $category)
-                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                    @endforeach
-                </select>  
+                <form action="{{ route('mybooth', $event->name) }}" method="get" id="categoryForm">  
+                    <select name="category_name" onchange="this.form.submit()" id="categoryDropdown">  
+                        <option value="hidden">Pilih Kategori</option>  
+                        @foreach($boothCategories as $category)  
+                            <option value="{{ $category->id }}" {{ (isset($selectedCategory) && $selectedCategory == $category->id) ? 'selected' : '' }}>
+                                {{ $category->category_name }}
+                            </option>  
+                        @endforeach  
+                    </select>  
+                </form>  
             </div>
             <div class="booth-list">
                 <div class="booth-row first-row">
-                <button class="add-booth-button" onclick="showPopupAddBooth('{{ $event->name }}', document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex].text);">
-                        <i class="fa-solid fa-plus"></i>Tambah Booth
-                    </button>
-                    <div class="booth-box">
-                        <div class="booth-left-side">
-                            <div class="booth-box-title">BOOTH A11</div>
-                            <div class="card-div"></div>
-                            <div class="booth-box-sub">
-                                <div class="booth-status">Terisi</div>
-                                <div class="icon">
-                                    <i class="fa-solid fa-circle-info icon-info"></i>
-                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
-                                    <i class="fa-regular fa-trash-can icon-delete"></i>
+                    @if (isset($selectedCategory))
+                        <button class="add-booth-button"  id="addBoothButton" style="display:flex;"
+                                onclick="showPopupAddBooth('{{ $event->name }}', '{{ $selectedCategory }}', document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex].text);">
+                            <i class="fa-solid fa-plus"></i>Tambah Booth
+                        </button>
+                    @endif
+
+                    @if ($booths && count($booths) > 0)
+                        @foreach ($booths as $index => $booth)
+                            @if ($index < 2)
+                                <div class="booth-box">
+                                    <div class="booth-left-side">
+                                        <div class="booth-box-title">{{ $booth->booth_name }}</div>
+                                        <div class="card-div"></div>
+                                        <div class="booth-box-sub">
+                                            <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Terisi' : 'Kosong' }}</div>
+                                            <div class="icon">
+                                                <i class="fa-solid fa-circle-info icon-info"></i>
+                                                <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                                <i class="fa-regular fa-trash-can icon-delete"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="booth-box">
-                        <div class="booth-left-side">
-                            <div class="booth-box-title">BOOTH A11</div>
-                            <div class="card-div"></div>
-                            <div class="booth-box-sub">
-                                <div class="booth-status">Terisi</div>
-                                <div class="icon">
-                                    <i class="fa-solid fa-circle-info icon-info"></i>
-                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
-                                    <i class="fa-regular fa-trash-can icon-delete"></i>
+                            @endif
+                        @endforeach
+                    @endif
+                </div>
+                <div class="booth-row">
+                    @if ($booths && count($booths) > 0)
+                        @foreach ($booths as $index => $booth)
+                            @if ($index >= 2)
+                                <div class="booth-box">
+                                    <div class="booth-left-side">
+                                        <div class="booth-box-title">{{ $booth->booth_name }}</div>
+                                        <div class="card-div"></div>
+                                        <div class="booth-box-sub">
+                                            <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Terisi' : 'Kosong' }}</div>
+                                            <div class="icon">
+                                                <i class="fa-solid fa-circle-info icon-info"></i>
+                                                <i class="fa-regular fa-pen-to-square icon-edit"></i>
+                                                <i class="fa-regular fa-trash-can icon-delete"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-                <div class="booth-row">  
-                    <div class="booth-box">
-                        <div class="booth-left-side">
-                            <div class="booth-box-title">BOOTH A11</div>
-                            <div class="card-div"></div>
-                            <div class="booth-box-sub">
-                                <div class="booth-status">Terisi</div>
-                                <div class="icon">
-                                    <i class="fa-solid fa-circle-info icon-info"></i>
-                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
-                                    <i class="fa-regular fa-trash-can icon-delete"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="booth-box">
-                        <div class="booth-left-side">
-                            <div class="booth-box-title">BOOTH A11</div>
-                            <div class="card-div"></div>
-                            <div class="booth-box-sub">
-                                <div class="booth-status">Terisi</div>
-                                <div class="icon">
-                                    <i class="fa-solid fa-circle-info icon-info"></i>
-                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
-                                    <i class="fa-regular fa-trash-can icon-delete"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="booth-box">
-                        <div class="booth-left-side">
-                            <div class="booth-box-title">BOOTH A11</div>
-                            <div class="card-div"></div>
-                            <div class="booth-box-sub">
-                                <div class="booth-status">Terisi</div>
-                                <div class="icon">
-                                    <i class="fa-solid fa-circle-info icon-info"></i>
-                                    <i class="fa-regular fa-pen-to-square icon-edit"></i>
-                                    <i class="fa-regular fa-trash-can icon-delete"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            @endif
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -163,7 +141,7 @@
                 <div style="border-bottom:1px solid black;"></div>
                 <form id="createBooth" method="POST" action="#">
                     @csrf
-                    <input type="hidden" name="category_id" id="selectedCategoryId"/>
+                    <input type="hidden" name="booth_category_id" id="selectedCategoryId"/>
                     <div class="field-popup-box">
                         <div style="padding-bottom:20px;">
                             <label for="booth-name" style="padding-bottom:20px;padding-top:20px;">Nama Booth</label>

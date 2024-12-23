@@ -631,11 +631,11 @@
 
   .booth-row {
     display: flex;
-    align-items: stretch;
+    justify-content: flex-start;
   }
 
   .first-row {
-    align-items: center;
+    justify-content: flex-start;
   }
 
   .booth-list button {
@@ -741,7 +741,7 @@
     border-style: solid;
     border-color: #006AA6;
     margin: 0 15px;
-    flex: 1;
+    width: 340px;
   }
   
   .booth-left-side {  
@@ -767,3 +767,5 @@
   .booth-status {
     margin-bottom: 5px;
   }
+
+  

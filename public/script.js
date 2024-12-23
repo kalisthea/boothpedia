@@ -11,8 +11,8 @@ function showTab(tabName) {
     document.querySelector(`.tab-event[onclick="showTab('${tabName}')"]`).classList.add('active');  
 }  
 
-function showPopupAddBooth(eventName, categoryName) {  
-    document.getElementById('selectedCategoryId').value = document.getElementById('categoryDropdown').value;  
+function showPopupAddBooth(eventName, categoryId, categoryName) {  
+    document.getElementById('selectedCategoryId').value = categoryId;  
     const encodedCategoryName = encodeURIComponent(categoryName);   
     const actionUrl = `/boothsaya/${encodeURIComponent(eventName)}/${encodedCategoryName}`; 
     document.getElementById('createBooth').setAttribute('action', actionUrl);  
@@ -25,10 +25,4 @@ function showPopup(popupId) {
 
 function hidePopup(popupId) {  
     document.getElementById(popupId).style.display = 'none';  
-}
-
-function loadBooths() {
-    const categoryId = document.getElementById('categoryDropdown');
-
-    fetch
 }

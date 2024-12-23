@@ -13,7 +13,7 @@ class Category extends Model
 
     public function booths()  
     {  
-        return $this->hasMany(Booth::class);  
+        return $this->hasMany(Booth::class, 'booth_category_id');  
     }  
 
     public function event()  
