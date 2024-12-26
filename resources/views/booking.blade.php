@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <title>Booking {{ $events->name }}</title>
+    <title>Booking {{ $event->name }}</title>
 </head>
 <body>
     <header>
@@ -33,97 +33,106 @@
 
     <b><h2 style="color: #FFC60B; padding-bottom: 2rem; padding-top: 2rem;"> Booth Booking </h2></b>
       
-
-    <div class="booking-info-container">
-      <div class=book-content>
-          <b><p style="color: #2FA8E8; font-size: 30px; margin-bottom: -1px;">{{ $events->name }}</p></b>
-          <p style="">{{ $events->category}}</p>
-          <div class="book-content-mid">
-              <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
-              <p>{{ $events->location }}</p>
-              <p>{{ $events->venue }}</p>
-          </div>
-          <div class="book-content-bottom" style="color: #FFC60B;">
-              <b><p style="margin-bottom: -1px;">Kategori A</p></b>
-              <b><p>Booth A11</p></b>
-          </div>
-      </div>
-      <div class=book-img>
-          <img class="book-img-css" style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="data:image/jpeg;base64,{{ $events->image_base64 }}" alt="">
-      </div>
-    </div>
-
-    <div class="book-cred-container">
-        <div class="book-detail-input"> 
-            <b><h2 style="color: #FFC60B; padding-top: 3rem;">Booking Detail</h2></b>
-            <div class="booking-forms">
-              <label for="fullname">Fullname</label><br>
-              <input class="book-input"  type="fullname" id="fullname" name="fullname"><br>
-              <label for="phonenumber">Phone Number</label><br>
-              <input class="book-input" type="text" id="phonenumber" name="phonenumber"><br>
-              <label for="email">Email</label><br>
-              <input class="book-input"  type="text" id="email" name="email"><br>
+      <div class="booking-info-container">
+        <div class=book-content>
+            <b><p style="color: #2FA8E8; font-size: 30px; margin-bottom: -1px;">{{ $event->name }}</p></b>
+            <p style="">{{ $event->category}}</p>
+            <div class="book-content-mid">
+                <p>{{ $event->start_date }} - {{ $event->end_date }}</p>
+                <p>{{ $event->location }}</p>
+                <p>{{ $event->venue }}</p>
+            </div>
+            <div class="book-content-bottom" style="color: #FFC60B;">
+              @if (isset($selectedBooth) && $selectedBooth->count() > 0)
+                @php
+                  $boothNames = [];
+                  foreach ($selectedBooth as $booth) {
+                      $boothNames[] = $booth->booth_name;
+                  }
+                  $boothNamesString = implode(', ', $boothNames); 
+                @endphp
+                <b><p>Booths: {{ $boothNamesString }}</p></b>
+              @endif
             </div>
         </div>
-        <div class="book-payment-sum">
-            <b><h2 style="color: #FFC60B; padding-top: 3rem; padding-bottom: 2rem; padding-right: 100px;">Payment Summary</h2></b>
-            <div class="payment-sum-container"> 
-              <div class="payment-sum-content-container"> 
-                <div class="payment-sum-content-1">
-                  <p>Booth Price</p>
-                  <p>Booth Quantity</p>
-                  <p>Platform Fee</p>
-                </div>
-                @if (session('selectedBooths'))
-                  @foreach(session('selectedBooths') as $booth)
-                  <div class="payment-sum-content-2">
-                    <p>Rp.{{ $booth->booth_price }}</p>
-                    <p>{{ count(session('selectedBooths')) }}</p>
-                    <p>Rp.25000.00</p>
+        <div class=book-img>
+            <img class="book-img-css" style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="data:image/jpeg;base64,{{ $event->image_base64 }}" alt="">
+        </div>
+      </div>
+   
+      <div class="book-cred-container">
+          <div class="book-payment-sum">
+              <b><h2 style="color: #FFC60B; padding-top: 3rem; padding-bottom: 2rem; padding-right: 100px;">Payment Summary</h2></b>
+              <div class="payment-sum-container"> 
+                <div class="payment-sum-content-container"> 
+                  <div class="payment-sum-content-1">
+                    <p>Booth Price</p>
+                    <p>Booth Quantity</p>
+                    <p>Platform Fee</p>
                   </div>
-                  @endforeach
-                @endif
-               
-              </div>
-              <hr>
-              <div class="total-payment">
-                <div class="total-payment-content-1"> 
-                  <p>Total Payment</p>
-                </div>
-                <div class="total-payment-content-2"> 
-                  <p>Rp x-</p>
-                </div>
-              </div>
-              <a href="{{ url('event-detail-booth/' . $events->name) }}"><button class="confirm-button" type="button">Cancel</button></a>
-                <button class="confirm-button" onclick="paymentPopup()" type="button">Confirm</button></a>
-                
-            </div>
-        </div>
-      </div>
-    
-      <b><h2 style="color: #FFC60B; padding-top: 3rem; padding-bottom: 2rem;">Payment Method</h2></b>
+                    @if (isset($selectedBooth) && $selectedBooth->count() > 0)
+                    
+                      <?php 
+                        $qty = $selectedBooth->count(); 
+                        $total = 0; 
+                      ?>
+                      @foreach($selectedBooth as $booth)
+                  
+                        <?php $total += $booth->booth_price; ?>
+                      @endforeach
+                      
+                      <div class="payment-sum-content-2">
+                        <p>Rp {{ number_format($total, 0, ',', '.') }},00</p>
+                        <p>{{ $qty }}</p>
+                        <p>Rp 25.000,00</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="total-payment">
+                      <div class="total-payment-content-1"> 
+                        <p>Total Payment</p>
+                      </div>
+                      <div class="total-payment-content-2"> 
 
-      <div class="payment-method-container"> 
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/bca.png") }} alt="">
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/mandiri.png") }} alt="">
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/gopay.png") }} alt="">
-        <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/dana.png") }} alt="">
-      </div>
-
-      <div id="overlay" class="overlay">
-        <div id="paymentInfoPopup" class="payment-info-popup">
-          <b><p style="color: #FFC60B">Complete Payment</p></b>
-          <div class="payment-info-container">
-            <b><p>Virtual Account</p></b>
-            <b><p>17128111700769</p></b>
+                        <p>Rp {{ number_format($total + 25000 , 0, ',', '.')}},00</p>
+                      </div>
+                    </div>
+                    <a href="{{ url('event-detail-booth/' . $event->name) }}"><button class="confirm-button" type="button">Cancel</button></a>
+                    @endif
+              </div>
           </div>
-          <div class="payment-status-detail">
-            <b><p style="font-size: 13px;">Payment Status</p></b>
-            <b><p style="font-size: 13px;">Incomplete</p></b>
-          </div>
-          <a href="/bookingdetail"><button class="ok-button">OK</button></a>
         </div>
-      </div>
       
+        <b><h2 style="color: #FFC60B; padding-top: 3rem; padding-bottom: 2rem;">Payment Method</h2></b>
+      
+            
+        <div class="payment-method-container"> 
+          <input type="radio" id="bca" name="payment_method" value="BCA Virtual Account" checked>
+          <img class="payment-method-content"  src={{ asset("images/bca.png") }} alt="">
+          {{-- <img class="payment-method-content" onclick="selectPaymentMethod(event)" src={{ asset("images/mandiri.png") }} alt=""> --}}
+          <input type="radio" id="gopay" name="payment_method" value="GoPay QRIS">
+          <img class="payment-method-content"  src={{ asset("images/gopay.png") }} alt="">
+          <input type="radio" id="dana" name="payment_method" value="Dana">
+          <img class="payment-method-content"  src={{ asset("images/dana.png") }} alt="">
+        </div>
+  
+        <button class="confirm-button" onclick="paymentPopup()">Confirm</button></a>
+      
+        <div id="overlay" class="overlay" style="display: none;"> 
+          <div id="paymentInfoPopup" class="payment-info-popup"> 
+              <div id="paymentSpecificInfo"></div> 
+              <form id="paymentConfirmationForm" method="POST" action="{{ route('booked.data', $event->name) }}">
+                @csrf
+                @foreach ($selectedBooth as $booth)
+                  <input type="hidden" name="booth_id[]" value="{{ $booth->id }}">
+                  <input type="hidden" name="booth_price[]" value="{{ $booth->booth_price }}">
+                @endforeach  
+                <input type="hidden" name="payment_method" id="selectedPaymentMethod"> 
+                <input type="hidden" name="payment_confirmed" value="true"> 
+                <button type="button" class="ok-button" onclick="submitPaymentForm()">OK</button>
+            </form>
+          </div>
+        </div>
+    
 </body>
 </html>

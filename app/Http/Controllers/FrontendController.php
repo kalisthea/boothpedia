@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booth;
+use App\Models\Event;
+use App\Models\Invoice;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Event;
-use App\Models\Booth;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -69,40 +70,145 @@ class FrontendController extends Controller
     // }
 
 
-//    To display on booking page
+
+    //Display booths
+    public function showBooths(Request $request, $event_name)  
+    {  
+        // Cek apakah event dengan nama yang diberikan ada  
+        if(Event::where('name', $event_name)->exists()){
+            $events = Event::where('name', $event_name)->first();
+
+            
+            $events->image_base64 = base64_encode($events->banner_photo);
+            
+        }
+        else{
+            return redirect('/')->with('status',"Event does not exists");
+        }
+        // Ambil booth categories
+        $boothCategories = $events->categories;
+
+        // Ambil booth berdasarkan kategori jika ada
+        $booths = [];
+        $selectedCategory = null;
+
+        if ($request->has('category_name')) {
+            $selectedCategory = $request->input('category_name');
+            $category = $events->categories()->where('id', $selectedCategory)->first();
+
+            if ($category) {
+                $booths = Booth::where('booth_category_id', $category->id)->get();
+            }
+        }
+        return view('eventbooth', compact('events', 'boothCategories', 'booths', 'selectedCategory'));
+    }
+
+
+    //    To display on booking page
    public function viewBooking($event_name){
-    if(Event::where('name', $event_name)->exists()){
-        $events = Event::where('name', $event_name)->first();
+        if(Event::where('name', $event_name)->exists()){
+            $events = Event::where('name', $event_name)->first();
 
+            
+            $events->image_base64 = base64_encode($events->banner_photo);
+            
         
-        $events->image_base64 = base64_encode($events->banner_photo);
-        
+            return view('booking', compact('events'));
+        }
+        else{
+            return redirect('/')->with('status',"Event does not exists");
+        }
+    }
+
+
+        //To proceed to booking
+        public function chosenBooth(Request $request){
+
+            $selectedBoothIds = request()->input('selected_booth_ids');
+            $request->session()->put('selectedBooths', $selectedBoothIds); 
+
+            $selectedBooths = Booth::whereIn('id', $selectedBoothIds)->get(); 
+
+            $eventName = $request->input('event_name');
+            if(Event::where('name', $eventName)->exists()){
+                $events = Event::where('name', $eventName)->first();
     
-        return view('booking', compact('events'));
+                
+                $events->image_base64 = base64_encode($events->banner_photo);
+            }
+            else{
+                return redirect('/')->with('status',"Event does not exists");
+            }
+
+            return view('booking', [
+                'selectedBooth' => $selectedBooths ,
+                'event' => $events
+            ]); 
+    
+            // return redirect()->route('booking.view', ['event_name' => $eventName])->with([
+            //     'selectedBooths' => $selectedBoothIds,
+    
+            // ]);
+    
+    
+        }
+
+    //Save booking detail
+    public function bookedData(Request $request, $event_name){
+        if (!Event::where('name', $event_name)->exists()) {
+            return redirect('/')->with('status', "Event does not exist");
+        }
+    
+        $events = Event::where('name', $event_name)->first();
+        $events->image_base64 = base64_encode($events->banner_photo);
+
+        $user = Auth::user();
+        $user_id = $user->id;
+        $method =  $request->input('payment_method');
+
+   
+        $boothIds= $request->input('booth_id',[]);
+        $boothPrices = $request->input('booth_price',[]);
+        if ($request->has('payment_confirmed') && $request->input('payment_confirmed') === 'true') { 
+            foreach ($boothIds as $index => $boothId) { 
+                $boothPrice = $boothPrices[$index]; // 
+    
+                    $invoice = new Invoice(); 
+                    $invoice->tenant_id = $user_id;
+                    $invoice->event_id = $events->id;
+                    $invoice->booth_id = $boothId; 
+                    $invoice->payment_method = $method; 
+                    $invoice->price = $boothPrice; 
+                    $invoice->total_price = $boothPrice + 25000; 
+                    $invoice->save(); 
+            }
+
+            session()->forget('selectedBooths'); 
+
+            return redirect()->route('bookedbooth.list');
+    
+        }
+        
+       
     }
-    else{
-        return redirect('/')->with('status',"Event does not exists");
-    }
-}
 
+    //To display booked view
+    public function bookedView($event_name){
+        if(Event::where('name', $event_name)->exists()){
+            $events = Event::where('name', $event_name)->first();
 
-
-    //To proceed to booking
-    public function chosenBooth(Request $request){
-
-        $selectedBoothIds = request()->input('selected_booth_ids');
-        $selectedBooths = Booth::whereIn('id', $selectedBoothIds)->get(); 
-        $eventName = $request->input('event_name'); 
-
-
-        return redirect()->route('booking.view', ['event_name' => $eventName])->with([
-            'selectedBooths' => $selectedBooths,
-
-        ]);
-
-
+            
+            $events->image_base64 = base64_encode($events->banner_photo);
+            
+        
+            return view('booking', compact('events'));
+        }
+        else{
+            return redirect('/')->with('status',"Event does not exists");
+        }
     }
 
+        
    //Display event on event organizer page
    public function displayEvents()  
     {  

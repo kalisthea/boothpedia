@@ -26,9 +26,7 @@ Route::get('/explore', function () {
 
 Route::get('/explore', [FrontendController::class, 'viewCategoryBased']);
 
-Route::get('/booth', function () {
-    return view('boothlist');
-})->middleware('auth');
+
 
 Route::get('/booth-rate', function () {
     return view('rateview');
@@ -90,15 +88,19 @@ Route::get('/', [EventController::class, 'listForHome']);
 
 //EVENT DETAILS
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
-Route::get('event-detail-booth/{event_name}', [FrontendController::class, 'eventdetailbooth']);
+Route::get('event-detail-booth/{event_name}', [FrontendController::class, 'showBooths']);
 Route::post('event-detail-booth/{event_name}', [FrontendController::class, 'chosenBooth'])->name('store.data');
 
 
 //BOOKING EVENT
 Route::get('booking/{event_name}', [FrontendController::class, 'viewBooking', 'chosenBooth'])
     ->middleware('auth')->name("booking.view");
+Route::post('booking/{event_name}', [FrontendController::class, 'bookedData'])->name('booked.data');
 
-
+// Show booked booth list
+Route::get('/booth', function () {
+    return view('boothlist');
+})->middleware('auth')->name("bookedbooth.list");
 
 
 // POST EVENTS
@@ -113,7 +115,7 @@ Route::get('/booking', function () {
     return view('booking');
 });
 
-Route::get('/bookingdetail', function () {
+Route::get('/booking-detail', function () {
     return view('bookingdetail');
 });
 

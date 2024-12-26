@@ -383,10 +383,10 @@ button:hover{
 }
 
 
-.book-cred-container{
+/* .book-cred-container{
     display:flex;
     gap: 30%;
-}
+} */
 
 .booking-forms{
   padding-top: 2rem;
@@ -413,6 +413,7 @@ button:hover{
     border-radius: 18px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     padding: 40px;
+    width: 40%;
 }
 
 .payment-sum-content-container {
@@ -438,13 +439,12 @@ button:hover{
     border-radius: 11px;
     background-color: #FFC60B;
     color: white;
-    position: relative;
-    left: 37%;
 }
 
 .payment-method-container{
     display: flex;
     gap: 2rem;
+    padding-bottom: 1.5rem;
 }
 
 .payment-method-content{
@@ -478,13 +478,11 @@ button:hover{
 }
 
 .payment-info-popup{
-    display: none;
     margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* border: 1px solid; */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 11px;
     background-color: white;
@@ -497,11 +495,9 @@ button:hover{
 .payment-info-container{
     border: 1px solid #FFC60B;
     border-radius: 13px;
+    padding: 10px 50px 10px 50px;
 }
 
-.payment-status-detail{
-    display: flex;
-}
 
 /* BOOKING DETAIL */
 
