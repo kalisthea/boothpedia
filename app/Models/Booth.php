@@ -24,4 +24,9 @@ class Booth extends Model
     {
         return $this->booth_category_id === $categoryId;
     }
+
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class); 
+    }
 }

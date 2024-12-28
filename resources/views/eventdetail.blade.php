@@ -36,7 +36,7 @@
   <div class="detail-container">
     <div class="detail-1">
       <div class="detail-content-1">
-        <p>{{ $events->name }}</p>
+        <b><p style="color:#2FA8E8">{{ $events->name }}</p></b>
         <p>{{ $events->category }}</p>
         <p style="padding-top:2rem;">{{ $events->location }}</p>
         <p>{{ $events->venue }}</p>
@@ -45,10 +45,6 @@
         <p>{{ $events->user->name }}</p>
         <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
       </div>
-    </div>
-    <div class="detail-2">
-      <p class="price-range">Rp 50.000,00 - Rp 150.000,00</p>
-      <a href="{{ url('booking/'.$events->name) }}"><button class="book-button" type="button">Book Now</button></a>
     </div>
   </div>
 

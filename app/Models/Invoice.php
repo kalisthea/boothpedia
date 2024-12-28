@@ -18,8 +18,8 @@ class Invoice extends Model
 
     protected $fillable = [ 
         'tenant_id',
-        'event_id',
-        'booth_id',  
+        'event_id',  
+        'quantity',
         'price',
         'total_price',
         'payment_method'
@@ -27,16 +27,21 @@ class Invoice extends Model
 
     public function tenant()  
     {  
-        return $this->belongsTo(User::class, 'tenant_id');  
+        return $this->belongsTo(User::class);  
     }  
 
     public function event()  
     {  
-        return $this->belongsTo(Event::class, 'event_id');  
+        return $this->belongsTo(Event::class);  
     }  
 
-    public function booth()  
-    {  
-        return $this->belongsTo(Booth::class, 'booth_id');  
-    }  
+    public function booths()
+    {
+        return $this->belongsToMany(Booth::class, 'invoicebooths'); 
+    }
+
+    // public function booth()  
+    // {  
+    //     return $this->belongsTo(Booth::class);  
+    // }  
 }

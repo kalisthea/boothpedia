@@ -98,9 +98,11 @@ Route::get('booking/{event_name}', [FrontendController::class, 'viewBooking', 'c
 Route::post('booking/{event_name}', [FrontendController::class, 'bookedData'])->name('booked.data');
 
 // Show booked booth list
-Route::get('/booth', function () {
-    return view('boothlist');
-})->middleware('auth')->name("bookedbooth.list");
+Route::get('booth/', [FrontendController::class, 'bookedView'])
+    ->middleware('auth')->name("bookedbooth.list");
+
+// Booking detail
+Route::get('booking-detail/{event_name}', [FrontendController::class, 'bookingDetail']);
 
 
 // POST EVENTS
@@ -113,10 +115,6 @@ Route::get('/event-detail-booth', function () {
 
 Route::get('/booking', function () {
     return view('booking');
-});
-
-Route::get('/booking-detail', function () {
-    return view('bookingdetail');
 });
 
 Route::get('/profile', function () {

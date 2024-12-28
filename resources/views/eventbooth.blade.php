@@ -1,5 +1,6 @@
 @php
 use App\Models\Booth;
+use App\Models\Category;
 session_start();
 @endphp
 
@@ -21,9 +22,9 @@ session_start();
     <img class= "blogo" src="{{ asset('images/Logo.png') }}" alt="">
     <nav class="navbar">
       <div class='nav-left'>
-        <a class = "active" href="home">Home</a></li>
-        <a href="explore">Explore</a></li>
-        <a href="booth">Booth</a></li>
+        <a class = "active" href="/home">Home</a></li>
+        <a href="/explore">Explore</a></li>
+        <a href="/booth">Booth</a></li>
       </div>
       <div  class="nav-right">
         <input class="search-hold" type="text" placeholder="Search">
@@ -92,7 +93,9 @@ session_start();
           @endphp
         @else 
           @php
-            $booths = Booth::all(); 
+            $categories = Category::where('event_id', $events->id)->pluck('id')->toArray();
+            $booths = Booth::whereIn('booth_category_id', $categories)->get(); 
+
           @endphp
         @endif
         
@@ -103,23 +106,27 @@ session_start();
                     @endif
                     
                       <div class="booth-box">
-                        <input type="checkbox" name="selected_booth_ids[]" value="{{ $booth->id }}" class="selection-input">
+                        <input type="checkbox" name="selected_booth_ids[]" value="{{ $booth->id }}" class="selection-input" @if ($booth->is_occupied === 'Y')
+                        disabled
+                      @endif>
                         <div class="booth-left-side">
                           <div class="booth-box-title">{{ $booth->booth_name }}</div> 
                           <div class="booth-box-sub">
-                              <div class="booth-status">Rp.{{ $booth->booth_price }}</div>
-                              <div class="booth-status">{{ $booth->is_occupied }}</div>
+                              <div class="booth-status">Rp {{ number_format($booth->booth_price , 0, ',', '.')}},00</div>
+                              <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Unavailable' : 'Available' }}</div>
                           </div>
                         </div>
                       </div>  
                     
                 @endforeach
               @else
-                <p>No booths found in this category.</p> 
+                <p style="color: red">No booths found in this category.</p> 
           @endif
       </div>
       <input type="hidden" name="event_name" value="{{ $events->name }}"> 
-      <button type="submit" id="bookNowButton" class="ok-button" style="">Book Now</button> 
+      <div style="padding-top: 2rem;">
+        <button type="submit" id="bookNowButton" class="ok-button" style="">Book Now</button> 
+      </div>
     </form>
   </div>
 

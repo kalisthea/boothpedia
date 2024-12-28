@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Invoice;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -15,14 +16,14 @@ class FrontendController extends Controller
     //To display on explore page based on category
 
    public function viewCategoryBased(){
-    $categories = Event::distinct()->pluck('category');
-    $events = Event::all();
+        $categories = Event::distinct()->pluck('category');
+        $events = Event::all();
 
-    foreach ($events as $item) {
-        $item->image_base64 = base64_encode($item->banner_photo);
-    }
+        foreach ($events as $item) {
+            $item->image_base64 = base64_encode($item->banner_photo);
+        }
 
-    return view('explore', compact('categories', 'events'));
+        return view('explore', compact('categories', 'events'));
    }
 
     //To Display Clicked Events (Description view)
@@ -169,19 +170,54 @@ class FrontendController extends Controller
    
         $boothIds= $request->input('booth_id',[]);
         $boothPrices = $request->input('booth_price',[]);
+
         if ($request->has('payment_confirmed') && $request->input('payment_confirmed') === 'true') { 
-            foreach ($boothIds as $index => $boothId) { 
-                $boothPrice = $boothPrices[$index]; // 
+            // foreach ($boothIds as $index => $boothId) { 
+            //     $boothPrice = $boothPrices[$index]; // 
     
-                    $invoice = new Invoice(); 
-                    $invoice->tenant_id = $user_id;
-                    $invoice->event_id = $events->id;
-                    $invoice->booth_id = $boothId; 
-                    $invoice->payment_method = $method; 
-                    $invoice->price = $boothPrice; 
-                    $invoice->total_price = $boothPrice + 25000; 
-                    $invoice->save(); 
+            //         $invoice = new Invoice(); 
+            //         $invoice->tenant_id = $user_id;
+            //         $invoice->event_id = $events->id;
+            //         $invoice->booth_id = $boothId; 
+            //         $invoice->payment_method = $method; 
+            //         $invoice->price = $boothPrice; 
+            //         $invoice->total_price = $boothPrice + 25000; 
+            //         $invoice->save(); 
+            // }
+
+            $invoice = new Invoice(); 
+            $invoice->tenant_id = $user_id;
+            $invoice->event_id = $events->id;
+            $invoice->payment_method = $method; 
+            
+            
+            $totalPrice = 0;
+            $qty = 0;
+
+            foreach($boothIds as $index => $boothId){
+                $boothPrice = $boothPrices[$index];
+                $totalPrice += $boothPrice;
+                $qty++;
             }
+
+            $invoice->quantity = $qty;
+            $invoice->price = $totalPrice; 
+            $invoice->total_price = $totalPrice + 25000; 
+            $invoice->save(); 
+
+            foreach($boothIds as $boothId) {
+                $invoice->booths()->attach($boothId); // Attach booth IDs to the invoice
+
+                   // Find the booth by ID
+                $booth = Booth::find($boothId);
+
+                // Update the booth's is_occupied status
+                if ($booth) { 
+                    $booth->is_occupied = 'Y'; 
+                    $booth->save(); 
+                }
+            }
+    
 
             session()->forget('selectedBooths'); 
 
@@ -192,23 +228,60 @@ class FrontendController extends Controller
        
     }
 
-    //To display booked view
-    public function bookedView($event_name){
+    //Display booked booths
+
+    public function bookedView(){
+        $user = Auth::user();
+        $user_id = $user->id;
+        if (!Invoice::where('tenant_id', $user_id)->exists()) {
+            echo "<script type='text/javascript'>
+            alert('You currently have no booths booked!');
+            window.location.href='/home';
+            </script>";
+        }
+
+        $today = Carbon::now();
+        
+        $invoices = Invoice::where('tenant_id', $user_id)
+                        ->with('event') 
+                        ->whereHas('event', function ($query) use ($today) {
+                            $query->whereDate('end_date', '>=', $today); 
+                        })
+                        ->get();
+
+        
+        
+        $pastinvoices = Invoice::where('tenant_id', $user_id)
+                        ->with('event') 
+                        ->whereHas('event', function ($query) use ($today) {
+                            $query->whereDate('end_date', '<', $today); 
+                        })
+                        ->get();
+
+        return view('boothlist', compact('invoices', 'pastinvoices'));
+    }
+
+    // Display booking detail
+    public function bookingDetail($event_name){
+        $user = Auth::user();
+        $user_id = $user->id;
+
         if(Event::where('name', $event_name)->exists()){
             $events = Event::where('name', $event_name)->first();
 
             
             $events->image_base64 = base64_encode($events->banner_photo);
             
-        
-            return view('booking', compact('events'));
         }
         else{
-            return redirect('/')->with('status',"Event does not exists");
+            return redirect('/home')->with('status',"Event does not exists");
         }
+
+        $invoices = Invoice::where('tenant_id', $user_id)->where('event_id', $events->id)->get();
+
+        return view('bookingdetail', compact('events', 'invoices'));
     }
 
-        
    //Display event on event organizer page
    public function displayEvents()  
     {  

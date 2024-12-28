@@ -31,6 +31,11 @@ class Event extends Model
         return $this->hasMany(Category::class);  
     }
 
+    //Relation with invoice
+    public function invoices(){
+        return $this->hasMany(Invoice::class);  
+    }
+
     use HasFactory;  
 
     // Tentukan kolom yang bisa diisi secara massal  

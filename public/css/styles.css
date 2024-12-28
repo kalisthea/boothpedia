@@ -132,8 +132,7 @@ button:hover{
 }
 
 .content-cta {
-    display: flex;
-    gap: 6rem;
+    padding-bottom:1rem;
 }
 
 .detail-button{
@@ -201,7 +200,7 @@ button:hover{
     border-width: 1px;
     border-color: #FFC60B;
     border-radius: 18px;
-    padding: 1px 320px 1px 320px;
+    padding: 1px 350px 1px 350px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
@@ -525,8 +524,7 @@ button:hover{
 .transaction-detail-content-container-2{
     display: flex;
     gap: 17rem;
-    position: relative;
-    left: 8%;
+    padding-left: 2.5rem;
 }
 
 

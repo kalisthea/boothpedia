@@ -13,40 +13,48 @@
     <title>Booked {{ $events->name }}</title>
 </head>
 <body>
-    <header>
-        <img class= "blogo" src="images/Logo.png" alt="">
-        <nav class="navbar">
-          <div class='nav-left'>
-            <a class = "active" href="home">Home</a></li>
-            <a href="explore">Explore</a></li>
-            <a href="booth">Booth</a></li>
-          </div>
-          <div  class="nav-right">
-            <input class="search-hold" type="text" placeholder="Search">
-            <a href=""><img style="width:35px; height:auto;" src="images/mail.png" alt=""></a>
-            <a href=""><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
-          </div>
-        </nav>
-      </header>
-
+  <header>
+    <img class= "blogo" src="{{ asset('images/Logo.png') }}" alt="">
+      <nav class="navbar">
+        <div class='nav-left'>
+          <a class = "active" href="/home">Home</a></li>
+          <a href="explore">Explore</a></li>
+          <a href="booth">Booth</a></li>
+        </div>
+        <div  class="nav-right">
+          <input class="search-hold" type="text" placeholder="Search">
+          <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
+          <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
+        </div>
+      </nav>
+  </header>
       <hr style="border: 2px solid #2FA8E8; color:#2FA8E8;">
       <hr style="border: 2px solid #FFC60B; color: #FFC60B;">
 
       <b><h2 style="color: #FFC60B; padding-bottom: 2rem; padding-top: 2rem;"> Successfully Booked Booth! </h2></b>
       
-
+    @foreach($invoices as $invoice)
       <div class="booking-info-container">
         <div class=book-content>
-            <b><p style="color: #2FA8E8; font-size: 30px; margin:-1px;">Stoodi Fest</p></b>
-            <p style="">Educational</p>
+            <b><p style="color: #2FA8E8; font-size: 30px; margin:-1px;">{{ $events->name }}</p></b>
+            <p style="">{{ $events->category }}</p>
             <div class="book-content-mid">
-                <p>10-10-2024 - 12-10-2024</p>
-                <p>Tangerang Selatan</p>
-                <p>Nina Busantara University</p>
+                <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
+                <p>{{ $events->location }}</p>
+                <p>{{ $events->venue }}</p>
             </div>
             <div class="book-content-bottom" style="color: #FFC60B;">
-                <b><p style="margin:-1px;">Kategori A</p></b>
-                <b><p>Booth A11</p></b>
+                @php
+                  $boothNames = [];
+                  $categoryNames = [];
+                  foreach($invoice->booths as $booth){
+                    $boothNames[] = $booth->booth_name;
+                    $categoryNames[] =  $booth->category->category_name;
+                  }
+                  $boothNamesString = implode(', ', $boothNames); 
+                  $catNamesString = implode(', ', $categoryNames); 
+                @endphp
+                <b><p>{{ $boothNamesString }}</p></b>
             </div>
         </div>
         <div class=book-img>
@@ -55,40 +63,14 @@
       </div>
 
       <div style="padding-bottom: 7rem;" class="book-cred-container">
-        <div class="book-detail-input"> 
-            <b><h2 style="color: #FFC60B; padding-top: 3rem;">Booking Detail</h2></b>
-            <div class="booking-detail-container">
-              <div class="book-detail-content-1">
-                <b><p>Invoice</p></b>
-                <b><p>Transaction Date</p></b>
-                <b><p>Name</p></b>
-                <b><p>Phone Number</p></b>
-                <b><p>Email</p></b>
-              </div>
-              <div class="book-detail-content-2">
-                <p>:</p>
-                <p>:</p>
-                <p>:</p>
-                <p>:</p>
-                <p>:</p>
-              </div>
-              <div class="book-detail-content-3">
-                <p>INV/100923/002</p>
-                <p>10-09-2023</p>
-                <p>John Doe</p>
-                <p>081234567890</p>
-                <p>johndoe@iniemail.com</p>
-              </div>
-            </div>
-        </div>
         <div class="book-payment-sum">
-            <b><h2 style="color: #FFC60B; padding-top: 3rem;padding-right: 100px;">Transaction Detail</h2></b>
+            <b><h2 style="color: #FFC60B; padding-top: 3rem;padding-right: 100px;">Invoice Detail</h2></b>
             <div class="transaction-detail-container"> 
                 <div class="transaction-detail-content-container">
                     <div class="transaction-detail-content-1">
                         <b><p>Payment Method</p></b>
-                        <b><p>Booth Price</p></b>
                         <b><p>Booth Quantity</p></b>
+                        <b><p>Booth Price</p></b>
                         <b><p>Platform Fee</p></b>
                     </div>
                     <div class="transaction-detail-content-2">
@@ -98,24 +80,25 @@
                         <p>:</p>
                     </div>
                     <div class="transaction-detail-content-3">
-                        <p>Virtual Account BCA</p>
-                        <p>Rp x-</p>
-                        <p>1</p>
-                        <p>Rp x-</p>
+                        <p>{{ $invoice->payment_method }}</p>
+                        <p>{{ $invoice->quantity }}</p>
+                        <p>Rp {{ number_format($invoice->price , 0, ',', '.')}},00</p>
+                        <p>Rp 25.000,00</p>
                     </div>
                 </div>
-                <hr style="position: relative; left: 7%; width: 500px;">
+                <hr style="position: relative; left: 2%; width: 500px;">
                 <div class="transaction-detail-content-container-2">
                     <div class="transaction-detail-content-4">
                         <b><p>Total Payment</p></b>
                     </div>
                     <div class="transaction-detail-content-5">
-                        <b><p>Rp x-</p></b>
+                        <b><p>Rp {{ number_format($invoice->total_price , 0, ',', '.')}},00</p></b>
                     </div>
                 </div>
             </div>
         </div>
       </div>
+    @endforeach
       <a href="/home"><button style="position:relative; left: 45%;" class="ok-button">OK</button></a>
 </body>
 </html>
