@@ -66,7 +66,7 @@ class MessageController extends Controller
             }
         }
 
-        return view('cmtenant');
+        return redirect()->back();
     }
 
     public function showStartedChats(){

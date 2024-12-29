@@ -177,10 +177,11 @@ Route::get('/chatmessage', function () {
     return view('cmtenant');  
 })->name("chat.tenant"); 
 
-Route::POST('/chatmessage', [MessageController::class, "searchEO"])->name("user.search");
-
 Route::get('/chatmessage', [MessageController::class, "showStartedChats"], function (){   
 });
+
+Route::POST('/chatmessage', [MessageController::class, "searchEO"])->name("user.search");
+
 
 Route::get('chatmessage-active/{chat_id}', [MessageController::class, 'sendMessage', 'getMessages']);
    
