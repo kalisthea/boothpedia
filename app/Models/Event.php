@@ -38,7 +38,6 @@ class Event extends Model
 
     use HasFactory;  
 
-    // Tentukan kolom yang bisa diisi secara massal  
     protected $table = 'events';  
 
     protected $fillable = [  

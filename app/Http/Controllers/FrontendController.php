@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Rating;
 use App\Models\Invoice;
 use App\Models\Category;
+use App\Models\Verification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +77,6 @@ class FrontendController extends Controller
     //Display booths
     public function showBooths(Request $request, $event_name)  
     {  
-        // Cek apakah event dengan nama yang diberikan ada  
         if(Event::where('name', $event_name)->exists()){
             $events = Event::where('name', $event_name)->first();
 
@@ -87,10 +87,9 @@ class FrontendController extends Controller
         else{
             return redirect('/')->with('status',"Event does not exists");
         }
-        // Ambil booth categories
+
         $boothCategories = $events->categories;
 
-        // Ambil booth berdasarkan kategori jika ada
         $booths = [];
         $selectedCategory = null;
 
@@ -329,14 +328,12 @@ class FrontendController extends Controller
     //Display event detail on event organizer page
     public function showEventDetail($event_name)  
     {   
-        // Cek apakah event dengan nama yang diberikan ada  
         $event = Event::where('name', $event_name)->first();  
 
         if ($event) {  
-            // Tampilkan view detail event  
+
             return view('myevents-detail', compact('event'));  
         } else {  
-            // Jika event tidak ditemukan, redirect dengan pesan  
             return redirect('/eventsaya')->with('status', "Event does not exist");  
         }  
     } 
@@ -344,18 +341,14 @@ class FrontendController extends Controller
     // Display all booths in the event
     public function showBoothPage(Request $request, $event_name)  
     {  
-        // Cek apakah event dengan nama yang diberikan ada  
         $event = Event::where('name', $event_name)->first();  
     
         if (!$event) {   
-            // Jika event tidak ditemukan, redirect dengan pesan  
             return redirect('/eventsaya')->with('status', "Event does not exist");
         }
 
-        // Ambil booth categories
         $boothCategories = $event->categories;
 
-        // Ambil booth berdasarkan kategori jika ada
         $booths = [];
         $selectedCategory = null;
 
@@ -370,27 +363,15 @@ class FrontendController extends Controller
         return view('booth', compact('event', 'boothCategories', 'booths', 'selectedCategory'));
     }
 
-    // public function showBooth($event_name, $category_name)  
-    // {  
-    //     // Cek apakah event dengan nama yang diberikan ada  
-    //     $event = Event::where('name', $event_name)->first();  
+    public function displayVerifProfile()  
+    {  
+        $user = Auth::user();
 
-    //     if (!$event) {  
-    //         return redirect('/eventsaya')->with('status', "Event tidak ditemukan");  
-    //     }  
-        
-    //     // Cek apakah kategori dengan nama yang diberikan ada  
-    //     $category = $event->categories()->where('name', $category_name)->first();  
-        
-    //     if (!$category) {  
-    //         return redirect('/eventsaya')->with('status', "Kategori tidak ditemukan untuk event ini");  
-    //     }  
+        $userId = $user->id;
 
-    //     // Ambil booth terkait  
-    //     $booths = $category->booths()->get(); // Mengasumsikan ada relasi booths di model Category  
-        
-    //     // Kembalikan tampilan dengan data booth  
-    //     return view('booth.show', compact('event', 'category', 'booths'));  
-    // }
+        $verifProfile = Verification::where('user_id', $userId)->first();  
+
+        return view('verification', compact('verifProfile'));
+    }
 
 }

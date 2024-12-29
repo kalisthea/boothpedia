@@ -26,3 +26,17 @@ function showPopup(popupId) {
 function hidePopup(popupId) {  
     document.getElementById(popupId).style.display = 'none';  
 }
+
+function displayFileName(inputId, spanId) {  
+    const input = document.getElementById(inputId);  
+    const fileNameSpan = document.getElementById(spanId);  
+
+    // Ambil file yang di-upload (jika ada)  
+    if (input.files.length > 0) {  
+        // Tampilkan nama file  
+        fileNameSpan.textContent = input.files[0].name;  
+    } else {  
+        // Jika tidak ada file, kosongkan  
+        fileNameSpan.textContent = '';  
+    }  
+}

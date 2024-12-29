@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\Verification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -134,15 +135,34 @@ Route::middleware("auth")->group(function (){
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/eventsaya', [FrontendController::class, 'displayEvents'])->name('events');
+    Route::get('/eventsaya', [FrontendController::class, 'displayEvents'])
+        ->name('events');
 
     Route::get('/informasidasar', function () {
         return view('basicinfo');
     })->name('info');
 
-    Route::get('/verifikasiprofile', function () {
-        return view('myevents');
-    })->name('verif');
+    Route::get('/tambahprofile', function () {  
+        return view('addverifprofile');  
+    })->name('addverif');
+
+    Route::post('/tambahprofile', [DataController::class, 'storeVerifProfile'])
+    ->name('addverif.store');
+
+    Route::get('/verifikasiprofile', [FrontendController::class, 'displayVerifProfile'])
+        ->name('verif');
+    
+    Route::get('/profile', function () {  
+        $user = auth()->user();
+
+        $profileExists = Verification::where('user_id', $user->id)->exists();  
+    
+        if (!$profileExists) {  
+            return redirect()->route('addverif');  
+        }  
+    
+        return redirect()->route('verif');  
+    })->name('verifprofile');
 
     Route::get('/rekening', function () {
         return view('account');

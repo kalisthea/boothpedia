@@ -5,16 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Booth;
 use App\Models\Category;
+use App\Models\Verification;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str; 
 
 class DataController extends Controller
 {
     public function storeEvent(Request $request)  
     {  
-        // Validasi data dari form  
         $validatedData = $request->validate([  
             'name' => 'required|string|max:255',  
             'description' => 'required|string', 
@@ -29,10 +28,10 @@ class DataController extends Controller
         $data = new Event($validatedData);
         $data['user_id'] = Auth::id();
 
-        // Menyimpan file sebagai mediumblob  
+        // Save file as mediumblob  
         if ($request->hasFile('banner_photo')) {  
             $file = $request->file('banner_photo');  
-            $data->banner_photo = file_get_contents($file); // Menyimpan konten file ke kolom banner_photo  
+            $data->banner_photo = file_get_contents($file);
         }  
   
         if ($data->save()) {  
@@ -48,18 +47,15 @@ class DataController extends Controller
         $validatedData = $request->validate([  
             'category_name' => 'required|string|max:255'
         ]); 
-        
-        // Mengambil ID event berdasarkan nama event  
+
         $event = Event::where('name', $event_name)->first();  
 
-        // Pastikan event ditemukan  
         if (!$event) {  
             return response()->json(['message' => 'Event not found'], 404);  
         }  
 
-        // Membuat instance Category  
         $data = new Category($validatedData);  
-        $data->event_id = $event->id; // Set event_id dengan ID event yang ditemukan  
+        $data->event_id = $event->id;
 
         if ($data->save()) {  
             return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Category created successfully.');  
@@ -69,22 +65,19 @@ class DataController extends Controller
     }
 
     public function storeBooth(Request $request, $event_name, $category_name)  
-    {  
-        // Validasi data booth  
+    {   
         $validatedData = $request->validate([  
             'booth_name' => 'required|string|max:255',  
             'booth_price' => 'required|numeric|between:0,999999999999.99',  
             'booth_description' => 'required|string|max:255',  
         ]);  
 
-        // Mencari id kategori berdasarkan nama  
         $category = Category::where('category_name', $category_name)->first();  
         
         if (!$category) {  
             return redirect()->back()->withErrors(['category' => 'Kategori tidak ditemukan.']);  
         }  
 
-        // Simpan booth  
         $data = new Booth($validatedData);
         $data->booth_category_id = $category->id;;
         
@@ -92,6 +85,31 @@ class DataController extends Controller
             return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Booth created successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to create booth.']);  
+        }
+    }
+
+    public function storeVerifProfile(Request $request)  
+    {  
+        $validatedData = $request->validate([  
+            'id_num' => 'required|string|max:20',  
+            'id_name' => 'required|string|max:255', 
+            'id_address' => 'required|string|max:255',
+            'id_photo' => 'required|file|mimes:jpeg,jpg,png|max:2048'
+        ]);  
+
+        $data = new Verification($validatedData);
+        $data['user_id'] = Auth::id();
+
+        // Save file as mediumblob
+        if ($request->hasFile('id_photo')) {  
+            $file = $request->file('id_photo');  
+            $data->id_photo = file_get_contents($file);
+        }  
+  
+        if ($data->save()) {  
+            return redirect()->route('verif')->with('success', 'Verification added successfully.');  
+        } else {  
+            return redirect()->back()->withErrors(['error' => 'Failed to add verification.']);  
         }
     }
 }

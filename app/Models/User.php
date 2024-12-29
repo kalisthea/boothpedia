@@ -43,6 +43,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class);
     }
+
+    // Relation to Verification
+    public function verif()
+    {
+        return $this->hasOne(Verification::class);
+    }
     protected $guard = 'web';
 
     /**

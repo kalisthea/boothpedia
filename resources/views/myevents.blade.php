@@ -17,15 +17,15 @@
         <!-- Header -->
         <div class="header">
             <div class="header-name">
-                <h1>Event Saya</h1>
+                <h1>My Events</h1>
             </div>
             @include('navheader')
         </div>
         <!-- My Event Content -->
         <div class="event-content">
             <div class="tab-events-header">
-                <div class="tab-event active" onclick="showTab('tab1')">Event Aktif</div>  
-                <div class="tab-event" onclick="showTab('tab2')">Event Lalu</div>  
+                <div class="tab-event active" onclick="showTab('tab1')">Active Events</div>  
+                <div class="tab-event" onclick="showTab('tab2')">Past Events</div>  
             </div>
             <div class="tab-events-content">
                 <div id="tab1" class="tab active">
@@ -48,7 +48,6 @@
                                     <div class="content-bottom">
                                         <p style="margin-bottom:-0.2px">{{ $event->start_date }} - {{ $event->end_date }}</p>
                                         <p style="margin-bottom:-0.2px">{{ $event->location }}</p>
-                                        <p>Rp 100.000,00 - Rp 300.000,00</p>
                                     </div>
                                     </div>
                                 </div>

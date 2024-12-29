@@ -11,23 +11,23 @@
       </li>
       <li class="{{ request()->routeIs('events') ? 'active' : '' }}">
         <a href="{{ route('events') }}">
-          <i class="fa-regular fa-calendar-check"></i>Event Saya
+          <i class="fa-regular fa-calendar-check"></i>My Events
         </a>
       </li>
       <div class="divider"></div>
       <li class="{{ request()->routeIs('info') ? 'active' : '' }}">
         <a href="{{ route('info') }}">
-          <i class="fa-regular fa-id-card"></i>Informasi Dasar
+          <i class="fa-regular fa-id-card"></i>Profile
         </a>
       </li>
-      <!-- <li class="{{ request()->routeIs('verif') ? 'active' : '' }}">
-        <a href="{{ route('verif') }}">
-          <i class="fa-regular fa-calendar-check"></i>Verifikasi Profile
+      <li class="{{ request()->routeIs('verifprofile') ? 'active' : '' }}">
+        <a href="{{ route('verifprofile') }}">
+          <i class="fa-regular fa-calendar-check"></i>Profile Verification
         </a>
-      </li> -->
+      </li>
       <li class="{{ request()->routeIs('account') ? 'active' : '' }}">
         <a href="{{ route('account') }}">
-        <i class="fa-regular fa-credit-card"></i>Rekening
+        <i class="fa-regular fa-credit-card"></i>Bank Account
         </a>
       </li>
       <!-- <li class="{{ request()->routeIs('events') ? 'active' : '' }}">

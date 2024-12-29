@@ -39,8 +39,8 @@
                 </div>
                 <div class="box">
                     <div class="left-side">
-                        <div class="box-topic">Total Transaksi</div>
-                        <div class="number">120</div>
+                        <div class="box-topic">Rating</div>
+                        <div class="number">4.9/5</div>
                     </div>
                 </div>
                 <div class="box">

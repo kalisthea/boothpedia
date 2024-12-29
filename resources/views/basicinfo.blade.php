@@ -21,7 +21,7 @@
         <!-- Header -->
         <div class="header">
             <div class="header-name">
-                <h1>Informasi Dasar</h1>
+                <h1>Profile</h1>
             </div>
             @include('navheader')
         </div>
@@ -31,7 +31,7 @@
             <div class="info-container">
                 <ul>
                     <li class="info-field">
-                        <div class="eo-name-title">Nama Organizer</div>
+                        <div class="eo-name-title">Name</div>
                         <div class="eo-name">{{$user->name}}</div>
                     </li>
                     <li class="info-field">
@@ -39,11 +39,11 @@
                         <div class="eo-email">{{$user->email}}</div>
                     </li>
                     <li class="info-field">
-                        <div class="eo-phone-title">Nomor Ponsel</div>
+                        <div class="eo-phone-title">Phone Number</div>
                         <div class="eo-phone">{{$user->phonenum}}</div>
                     </li>
                 </ul>
-                <a href="{{ route('editinfo') }}" class="edit-info">Ubah</a>
+                <a href="{{ route('editinfo') }}" class="edit-info">Edit</a>
             </div>
         </div>
         <form method="POST" action="{{ route('logout') }}">
