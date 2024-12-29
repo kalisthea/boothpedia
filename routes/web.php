@@ -101,9 +101,13 @@ Route::post('booking/{event_name}', [FrontendController::class, 'bookedData'])->
 Route::get('booth/', [FrontendController::class, 'bookedView'])
     ->middleware('auth')->name("bookedbooth.list");
 
+
 // Booking detail
 Route::get('booking-detail/{event_name}', [FrontendController::class, 'bookingDetail']);
 
+// Rating
+Route::post('booth/', [FrontendController::class, 'giveRating'])
+    ->middleware('auth')->name("rate.eo");
 
 // POST EVENTS
 Route::post('/buatevent', [DataController::class, 'storeEvent'])

@@ -18,6 +18,16 @@ class User extends Authenticatable
     //     return $this->hasMany('App\Models\Event');
     // }
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'eo_id', 'id'); 
+    }   
+
+    public function isRatedBy(User $user, Event $event)
+    {
+        return $this->ratings()->where('tenant_id', $user->id)->where('event_id', $event->id)->exists();
+    }
+
     public function sentMessages()
     {
         return $this->hasMany(Chat::class, 'sender_id');

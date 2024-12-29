@@ -68,12 +68,25 @@ function submitPaymentForm() {
 }
 
 
-function ratingPopup(){
+function ratingPopup(eoId, eoName, eventId){
+
     document.getElementById(
         "overlay"
     ).style.display = "block";
     document.getElementById(
         "ratePopup"
     ).style.display = "block";
+    document.getElementById('eoName').textContent = eoName; 
+    document.getElementById('eo_id').value = eoId; 
+    document.getElementById('event_id').value = eventId; 
+
+    
 }
+
+function closePopup() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("ratePopup").style.display = "none";
+}
+
+
 

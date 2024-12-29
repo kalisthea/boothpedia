@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booth;
 use App\Models\Event;
+use App\Models\Rating;
 use App\Models\Invoice;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -281,6 +282,33 @@ class FrontendController extends Controller
 
         return view('bookingdetail', compact('events', 'invoices'));
     }
+
+    // To give rating 
+    public function giveRating(Request $request){
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        $eo_id = $request->input('eo_id');
+        $event_id = $request->input('event_id');
+        $rating = $request->input('rating');
+
+        $rate = new Rating();
+        $rate->eo_id = $eo_id;
+        $rate->tenant_id = $user_id;
+        $rate->event_id = $event_id;
+        $rate->rating = $rating;
+
+        
+       
+        if ($rate->save()) {
+            return redirect()->back()->with('success', 'Successfully rated event organizer!'); 
+        } else {
+            return redirect()->back()->with('error', 'Failed to rate event organizer.');
+        }
+        
+        
+    }
+        
 
    //Display event on event organizer page
    public function displayEvents()  

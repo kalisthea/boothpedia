@@ -88,18 +88,40 @@
                   <p style="margin-bottom:-0.2px">{{ $invoice->event->location }}</p>
                 </div>
                 <div class="content-cta-2">
-                  <button class="rate-button" type="button" onclick="ratingPopup()">Rate</button>
-                </div>
+                  @if (! $invoice->event->user->isRatedBy(Auth::user(), $invoice->event)) 
+                    <button class="rate-button" type="button" onclick="ratingPopup('{{ $invoice->event->user->id }}', '{{ $invoice->event->user->name }}', '{{ $invoice->event->id }}')">Rate</button>
+                  @else
+                    <button class="rate-button" type="button" disabled>Rated</button> 
+                  @endif
+                  </div>
               </div>
           </div>
           @endforeach
       </div>
 
+    
       <div id="overlay" class="overlay">
         <div id="ratePopup" class="rate-popup">
           <b><p style="color: #FFC60B">Rate Event Organizer</p></b>
-          <b><p style="color: #2FA8E8">EO ABC</p></b>
-          <a href="/booth"><button class="ok-button">Done</button></a>
+          <b><p style="color: #2FA8E8" id="eoName"></p></b>
+          <form action="{{ route('rate.eo') }}" method="POST">
+            @csrf
+            <div class="rating" style="padding-bottom: 1rem;">
+              <input type="radio" id="star5" name="rating" value="1">
+              <label for="1" style="padding-right: 1rem;">1</label>
+              <input type="radio" id="star4" name="rating" value="2">
+              <label for="2" style="padding-right: 1rem;">2</label>
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="3" style="padding-right: 1rem;">3</label>
+              <input type="radio" id="star2" name="rating" value="4">
+              <label for="4" style="padding-right: 1rem;">4</label>
+              <input type="radio" id="star1" name="rating" value="5">
+              <label for="5">5</label>
+              <input type="hidden" name="eo_id" id="eo_id" value="">
+              <input type="hidden" name="event_id" id="event_id" value="">
+            </div>
+            <button class="ok-button" type="submit">Done</button></a>
+          </form>
         </div>
       </div>
 
