@@ -44,13 +44,21 @@
     margin-right: 20px;
   }
   
-  .side-menu li a{
+  .side-menu li a,
+  .side-menu li button {
     font-size: 18px;
     padding: 25px 40px;
     color: white;
     display: flex;
     align-items: center;
     font-weight: bold;
+  }
+
+  .side-menu li button {
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
   }
   
   .side-menu li a:hover {
@@ -639,7 +647,8 @@
     justify-content: flex-start;
   }
 
-  .booth-list .add-booth-button {
+  .add-booth-button, 
+  .add-bank-button {
     padding: 50px;  
     background-color: white;  
     color: #006AA6;  
@@ -769,7 +778,8 @@
     margin-bottom: 5px;
   }
 
-  .verif-container {
+  .verif-container,
+  .bank-container {
     width: 100%;
   }
 
@@ -780,16 +790,17 @@
     padding-bottom: 40px;
   }
 
-  .verif-field {
+  .verif-field,
+  .bank-field {
     margin-bottom: 40px;
   }
 
   .id-num-title,
   .id-name-title,
   .id-address-title,
-  .tax-num-title,
-  .tax-name-title,
-  .tax-address-title {
+  .account-name-title,
+  .account-num-title,
+  .bank-name-title {
     font-weight: bold;
     font-size: 20px;
     padding-bottom: 20px;
@@ -799,9 +810,9 @@
   .id-num, 
   .id-name,
   .id-address,
-  .tax-num, 
-  .tax-name,
-  .tax-address {
+  .account-name,
+  .account-num,
+  .bank-name {
     font-size: 16px;
     padding: 5px 0;
     border-bottom: 1px solid black;
@@ -819,7 +830,8 @@
     cursor: pointer;
   }
 
-  .add-verif input[type="text"] {
+  .add-verif input[type="text"],
+  .add-bank input[type="text"] {
     width: 100%;
     padding: 10px 40px 10px 10px;
     border: none;

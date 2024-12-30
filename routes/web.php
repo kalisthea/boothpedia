@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\BankAccount;
 use App\Models\Verification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -164,9 +165,27 @@ Route::middleware("auth")->group(function (){
         return redirect()->route('verif');  
     })->name('verifprofile');
 
-    Route::get('/bankaccount', function () {
-        return view('account');
-    })->name('account');
+    Route::get('/bankaccount', [FrontendController::class, 'displayBankAccount'])
+        ->name('account');
+
+    Route::get('/addbankaccount', function () {
+        return view('addbankaccount');
+    })->name('addbank');
+
+    Route::post('/addbankaccount', [DataController::class, 'storeBankAccount'])
+    ->name('addbank.store');
+
+    Route::get('/bank', function () {  
+        $user = auth()->user();
+
+        $bankAccountExists = BankAccount::where('user_id', $user->id)->exists();  
+    
+        if (!$bankAccountExists) {  
+            return redirect()->route('addbank');  
+        }  
+    
+        return redirect()->route('account');  
+    })->name('bankaccount');
 
     Route::get('/createevent', [EventController::class,"createevent"])
     ->name("buatevent");  

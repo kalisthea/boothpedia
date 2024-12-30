@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankAccount;
 use App\Models\Booth;
 use App\Models\Event;
 use App\Models\Rating;
@@ -363,6 +364,7 @@ class FrontendController extends Controller
         return view('booth', compact('event', 'boothCategories', 'booths', 'selectedCategory'));
     }
 
+    // Display Verification Profile data
     public function displayVerifProfile()  
     {  
         $user = Auth::user();
@@ -372,6 +374,18 @@ class FrontendController extends Controller
         $verifProfile = Verification::where('user_id', $userId)->first();  
 
         return view('verification', compact('verifProfile'));
+    }
+
+    // Display Bank Account data
+    public function displayBankAccount()  
+    {  
+        $user = Auth::user();
+
+        $userId = $user->id;
+
+        $bankAccount = BankAccount::where('user_id', $userId)->first();  
+
+        return view('account', compact('bankAccount'));
     }
 
 }

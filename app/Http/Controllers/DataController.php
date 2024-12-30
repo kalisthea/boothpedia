@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\Booth;
 use App\Models\Category;
 use App\Models\Verification;
@@ -52,7 +53,6 @@ class DataController extends Controller
 
     public function storeBoothCat(Request $request, $event_name)  
     {  
-        // Validasi data dari form  
         $validatedData = $request->validate([  
             'category_name' => 'required|string|max:255'
         ]); 
@@ -132,6 +132,24 @@ class DataController extends Controller
             return redirect()->route('verif')->with('success', 'Verification added successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to add verification.']);  
+        }
+    }
+
+    public function storeBankAccount(Request $request)  
+    {  
+        $validatedData = $request->validate([  
+            'account_num' => 'required|string|max:20',  
+            'account_name' => 'required|string|max:255', 
+            'bank_name' => 'required|string|max:255'
+        ]);  
+
+        $data = new BankAccount($validatedData);
+        $data['user_id'] = Auth::id();
+
+        if ($data->save()) {  
+            return redirect()->route('account')->with('success', 'Bank account added successfully.');  
+        } else {  
+            return redirect()->back()->withErrors(['error' => 'Failed to add bank account.']);  
         }
     }
 }

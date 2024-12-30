@@ -25,15 +25,19 @@
           <i class="fa-regular fa-calendar-check"></i>Profile Verification
         </a>
       </li>
-      <li class="{{ request()->routeIs('account') ? 'active' : '' }}">
-        <a href="{{ route('account') }}">
-        <i class="fa-regular fa-credit-card"></i>Bank Account
+      <li class="{{ request()->routeIs('bankaccount') ? 'active' : '' }}">
+        <a href="{{ route('bankaccount') }}">
+          <i class="fa-regular fa-credit-card"></i>Bank Account
         </a>
       </li>
-      <!-- <li class="{{ request()->routeIs('events') ? 'active' : '' }}">
-        <a href="{{ route('events') }}">
-          <i class="fa-regular fa-calendar-check"></i>Keluar
-        </a>
-      </li> -->
+      <li style="padding-top: 230px;">
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit">
+            <i class="fa-solid fa-right-from-bracket"></i>Logout
+          </button>
+        </form>
+      </li>
     </ul>
 </div>
+

@@ -49,6 +49,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Verification::class);
     }
+
+    // Relation to Bank Account
+    public function bank()
+    {
+        return $this->hasOne(Verification::class);
+    }
+
     protected $guard = 'web';
 
     /**

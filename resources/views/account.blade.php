@@ -23,22 +23,23 @@
         </div>
         
         <!-- Account Content -->
-        <div class="content">
-            <div class="overview-boxes">
-                <div class="box">
-                    <div class="left-side">
-                        <div class="box-topic">JEON WONWOO</div>
-                        <div class="card-div"></div>
-                        <div class="box-sub">
-                            <div class="account-num">1234567890</div>
-                            <div class="bank-name">BANK SYARIAH INDONESIA</div>
-                            <div class="icon">
-                                <i class="fa-regular fa-pen-to-square icon-edit"></i>
-                                <i class="fa-regular fa-trash-can icon-delete"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="content" style="display:block;">
+            <div class="bank-container">
+                <ul>
+                    <li class="bank-field">
+                        <div class="account-name-title">Name</div>
+                        <div class="account-name">{{ $bankAccount->account_name }}</div>
+                    </li>
+                    <li class="bank-field">
+                        <div class="account-num-title">Bank Account Number</div>
+                        <div class="account-num">{{ $bankAccount->account_num }}</div>
+                    </li>
+                    <li class="bank-field">
+                        <div class="bank-name-title">Address</div>
+                        <div class="bank-name">{{ $bankAccount->bank_name }}</div>
+                    </li>
+                    <a href="{{ route('editinfo') }}" class="edit-verif">Edit</a>
+                </ul>
             </div>
         </div>
     </div>
