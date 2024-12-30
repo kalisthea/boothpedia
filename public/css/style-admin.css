@@ -186,21 +186,21 @@
     margin-bottom: 5px;
   }  
 
-  .icon i {
+  .booth-box-sub .icon button {
     padding: 0;
     margin: 0;
     font-size: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
   }
 
-  .icon-info {
-    color: #21AAFC
-  }
-
-  .icon-edit {
+  .booth-box-sub .icon .icon-edit {
     color: #006AA6;
   }
 
-  .icon-delete {
+  .booth-box-sub .icon .icon-delete {
     color: #CF0000;
   }
 
@@ -565,7 +565,8 @@
     margin-top: 10px;  
   }
 
-  .booth-button {  
+  .booth-button,
+  .see-proposal-button {  
     display: inline-block;  
     padding: 10px 20px;  
     background-color: white;  
@@ -638,7 +639,7 @@
     justify-content: flex-start;
   }
 
-  .booth-list button {
+  .booth-list .add-booth-button {
     padding: 50px;  
     background-color: white;  
     color: #006AA6;  
@@ -828,8 +829,7 @@
   }
 
   .upload-id-button, 
-  .upload-proposal-button,
-  .see-proposal-button {
+  .upload-proposal-button {
     display: block;
     padding: 15px 10px;  
     background-color: white;  

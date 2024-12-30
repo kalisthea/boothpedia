@@ -111,7 +111,7 @@ Route::post('booth/', [FrontendController::class, 'giveRating'])
     ->middleware('auth')->name("rate.eo");
 
 // POST EVENTS
-Route::post('/buatevent', [DataController::class, 'storeEvent'])
+Route::post('/createevent', [DataController::class, 'storeEvent'])
     ->name('events.store');  
 
 Route::get('/event-detail-booth', function () {
@@ -135,21 +135,21 @@ Route::middleware("auth")->group(function (){
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/eventsaya', [FrontendController::class, 'displayEvents'])
+    Route::get('/myevents', [FrontendController::class, 'displayEvents'])
         ->name('events');
 
-    Route::get('/informasidasar', function () {
+    Route::get('/profileinformation', function () {
         return view('basicinfo');
     })->name('info');
 
-    Route::get('/tambahprofile', function () {  
+    Route::get('/addverificationprofile', function () {  
         return view('addverifprofile');  
     })->name('addverif');
 
-    Route::post('/tambahprofile', [DataController::class, 'storeVerifProfile'])
+    Route::post('/addverificationprofile', [DataController::class, 'storeVerifProfile'])
     ->name('addverif.store');
 
-    Route::get('/verifikasiprofile', [FrontendController::class, 'displayVerifProfile'])
+    Route::get('/verificationprofile', [FrontendController::class, 'displayVerifProfile'])
         ->name('verif');
     
     Route::get('/profile', function () {  
@@ -164,27 +164,34 @@ Route::middleware("auth")->group(function (){
         return redirect()->route('verif');  
     })->name('verifprofile');
 
-    Route::get('/rekening', function () {
+    Route::get('/bankaccount', function () {
         return view('account');
     })->name('account');
 
-    Route::get('/buatevent', [EventController::class,"createevent"])
+    Route::get('/createevent', [EventController::class,"createevent"])
     ->name("buatevent");  
 
-    Route::get('/ubahbasicinfo', function () {  
+    Route::get('/editprofileinformation', function () {  
         return view('editbasicinfo');  
     })->name('editinfo');  
 
-    Route::get('detailevent/{event_name}', [FrontendController::class, 'showEventDetail']);  
+    Route::get('/eventdetail/{event_name}', [FrontendController::class, 'showEventDetail'])
+        ->name('myevent.detail');
 
-    Route::get('/boothsaya/{event_name}', [FrontendController::class, 'showBoothPage'])
+    Route::delete('/eventdetail/{event_name}/{id}', [DataController::class, 'deleteEvent'])
+        ->name('event.delete');
+
+    Route::get('/mybooths/{event_name}', [FrontendController::class, 'showBoothPage'])
         ->name('mybooth');  
     
-    Route::post('/boothsaya/{event_name}/categories', [DataController::class, 'storeBoothCat'])
+    Route::post('/mybooths/{event_name}/categories', [DataController::class, 'storeBoothCat'])
         ->name('booth.categories.store');
     
-    Route::post('/boothsaya/{event_name}/{category_name}', [DataController::class, 'storeBooth'])
+    Route::post('/mybooths/{event_name}/{category_name}', [DataController::class, 'storeBooth'])
         ->name('booth.store');
+
+    Route::delete('/mybooths/{event_name}/{category_name}/{id}', [DataController::class, 'deleteBooth'])
+        ->name('booth.delete');
 });
 
 

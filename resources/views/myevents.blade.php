@@ -34,7 +34,7 @@
                         @php
                             $src = 'data:image/jpeg;base64,' . base64_encode($event->banner_photo);
                         @endphp
-                            <a href="{{ url('detailevent/'.$event->name) }}">  
+                            <a href="{{ url('eventdetail/'.$event->name) }}">  
                                 <div style="border-radius: 18px;" class="card">
                                     <div style="width:290px; height: 150px;">
                                         <img style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="{{ $src }}" alt="">

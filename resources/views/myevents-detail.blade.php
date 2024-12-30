@@ -17,7 +17,7 @@
         <!-- Header -->
         <div class="header">
             <div class="header-name">
-                <h1>Event Saya</h1>
+                <h1>My Event</h1>
             </div>
             @include('navheader')
         </div>
@@ -33,45 +33,49 @@
             <div class="detailevent-content">  
                 <!-- Left box: Event Detail -->  
                 <div class="box-event event-details">  
-                    <p style="font-size:16px; padding-bottom:2px;">Nama Event</p>
+                    <p style="font-size:16px; padding-bottom:2px;">Event Name</p>
                     <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->name }}</strong></p>  
-                    <p style="font-size:16px; padding-bottom:2px;">Kategori Event</p>
+                    <p style="font-size:16px; padding-bottom:2px;">Event Category</p>
                     <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->category }}</strong></p>  
-                    <p style="font-size:16px; padding-bottom:2px;">Lokasi</p>
+                    <p style="font-size:16px; padding-bottom:2px;">Location</p>
                     <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->location }}</strong></p>
                     <div class="event-date-container">
                         <div class="start-date">
-                            <p style="font-size:16px; padding-bottom:2px;">Tanggal Mulai</p>
+                            <p style="font-size:16px; padding-bottom:2px;">Start Date</p>
                             <p style="font-size:24px; padding-bottom:15px;"><strong>{{ \Carbon\Carbon::parse($event->start_date)->format('d-m-Y') }}</strong></p>
                         </div>
                         <div class="end-date">
-                            <p style="font-size:16px; padding-bottom:2px;">Tanggal Selesai</p>
+                            <p style="font-size:16px; padding-bottom:2px;">End Date</p>
                             <p style="font-size:24px; padding-bottom:15px;"><strong>{{ \Carbon\Carbon::parse($event->end_date)->format('d-m-Y') }}</strong></p>
                         </div>                         
                     </div>
                     <div class="event-button-container" style="display: flex; justify-content: flex-end;">
                         <button class="edit-event-button">
-                            <i class="fa-regular fa-pen-to-square"></i>Ubah Event
+                            <i class="fa-regular fa-pen-to-square"></i>Edit Event
                         </button>
-                        <button class="delete-event-button" style="margin-left: 10px;">
-                            <i class="fa-solid fa-trash-can"></i>Hapus Event
-                        </button>
+                        <form action="{{ route('event.delete', ['event_name' => $event->name, 'id' => $event->id]) }}" method="POST" onsubmit="return confirmDeletion(this, 'event');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-event-button" style="margin-left: 10px;">
+                                <i class="fa-regular fa-trash-can"></i>Delete Event
+                            </button>
+                        </form>
                     </div> 
                      
                 </div>  
 
                 <!-- Right box: Event Description -->  
                 <div class="box-event">  
-                    <p><strong>Deskripsi</strong></p>
+                    <p><strong>Description</strong></p>
                     <p class="description">
                         {{ $event->description }}  
                     </p>  
                     <div>
-                        <a href="{{ route('mybooth', ['event_name' => $event->name]) }}" class="booth-button" >Lihat Booth
+                        <a href="{{ route('mybooth', ['event_name' => $event->name]) }}" class="booth-button" >See Booth
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
-                        <button class="see-proposal-button">
-                            <i class="fa-solid fa-eye"></i> See Proposal Event
+                        <button class="see-proposal-button">See Proposal Event
+                            <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>  

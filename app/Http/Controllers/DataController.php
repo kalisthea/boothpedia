@@ -41,6 +41,15 @@ class DataController extends Controller
         } 
     }
 
+    public function deleteEvent($event_name, $id)  
+    {  
+        $event = Event::findOrFail($id);  
+
+        $event->delete();  
+ 
+        return redirect()->route('events')->with('success', 'Delete event success.');  
+    }
+
     public function storeBoothCat(Request $request, $event_name)  
     {  
         // Validasi data dari form  
@@ -79,13 +88,26 @@ class DataController extends Controller
         }  
 
         $data = new Booth($validatedData);
-        $data->booth_category_id = $category->id;;
+        $data->booth_category_id = $category->id;
         
         if ($data->save()) {  
             return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Booth created successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to create booth.']);  
         }
+    }
+
+    public function deleteBooth($event_name, $category_name, $id)  
+    {  
+        $booth = Booth::findOrFail($id);  
+
+        $category = $booth->category;  
+ 
+        $eventName = $category ? $category->event->name : $event_name;  
+
+        $booth->delete();  
+ 
+        return redirect()->route('mybooth', ['event_name' => $eventName])->with('success', 'Delete booth success.');  
     }
 
     public function storeVerifProfile(Request $request)  
