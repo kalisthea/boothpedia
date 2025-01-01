@@ -51,10 +51,9 @@
                     <b><p style="color:#2FA8E8; margin-bottom:-1px;">{{ $event->category }}</p></b>
                     <b><p style="color:#2FA8E8;">{{ $event->user->name }}</p></b>
                   </div>
-                  <div class="content-bottom">
+                  <div class="content-bottom" style="padding-bottom: 1rem;">
                     <p style="margin-bottom:-0.2px">{{ $event->start_date }} - {{ $event->end_date }}</p>
                     <p style="margin-bottom:-0.2px">{{ $event->location }}</p>
-                    <p>Rp 100.000,00 - Rp 300.000,00</p>
                   </div>
                 </div>
               </div>

@@ -49,7 +49,7 @@
           $averageRating = Rating::where('eo_id', $getEO)->avg('rating'); 
         @endphp
         <p>Event Organizer : {{ $events->user->name }}</p>
-        <p>Rating : {{ number_format($averageRating, 1, '.', ''); }}</p>
+        <p>Rating : {{ number_format($averageRating, 1, '.', ''); }}/5</p>
         <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
       </div>
     </div>
