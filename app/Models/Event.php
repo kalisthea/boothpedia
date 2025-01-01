@@ -36,6 +36,7 @@ class Event extends Model
         return $this->hasMany(Invoice::class);  
     }
 
+
     use HasFactory;  
 
     protected $table = 'events';  

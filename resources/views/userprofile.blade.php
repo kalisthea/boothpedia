@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style-admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -38,27 +39,28 @@
         $user = Auth::user();
       @endphp
 
-      <div class="account-container">
-        <div class="account-content">
-            <div class="account-content-1">
-                <b><p style="color: #FFC60B;">Username</p></b>
-               
-                <p style="color: #FFC60B;"> {{$user->name}}</p>
-      
-                <b><p style="color: #FFC60B;">Phonenumber</p></b>
-                @php
-                print_r($user->phonenum);
-                @endphp
-                <b><p style="color: #FFC60B;">Email</p></b>
-                @php
-                print_r($user->email);
-                @endphp
-            </div>
+      <div class="content">
+        <div class="info-container">
+            <ul>
+                <li class="info-field">
+                    <div class="eo-name-title">Name</div>
+                    <div class="eo-name">{{$user->name}}</div>
+                </li>
+                <li class="info-field">
+                    <div class="eo-email-title">Email</div>
+                    <div class="eo-email">{{$user->email}}</div>
+                </li>
+                <li class="info-field">
+                    <div class="eo-phone-title">Phone Number</div>
+                    <div class="eo-phone">{{$user->phonenum}}</div>
+                </li>
+            </ul>
         </div>
+      </div>
 
         <form method="POST" action="{{ route('logout') }}">
           @csrf
-          <button type="submit">Logout</button>
+          <button type="submit" class="ok-button">Logout</button>
       </form>
       </div>
 

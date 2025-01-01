@@ -123,9 +123,9 @@ Route::get('/booking', function () {
     return view('booking');
 });
 
-Route::get('/profile', function () {
+Route::get('/tenant-profile', function () {
     return view('userprofile');
-})->middleware('auth');
+});
 
 
 

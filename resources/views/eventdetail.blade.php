@@ -37,12 +37,19 @@
     <div class="detail-1">
       <div class="detail-content-1">
         <b><p style="color:#2FA8E8">{{ $events->name }}</p></b>
-        <p>{{ $events->category }}</p>
+        <p style="color: #FFC60B">{{ $events->category }}</p>
         <p style="padding-top:2rem;">{{ $events->location }}</p>
         <p>{{ $events->venue }}</p>
       </div>
       <div class="detail-content-2">
-        <p>{{ $events->user->name }}</p>
+        @php
+          use App\Models\Rating;
+          $getEO = $events->user->id;
+
+          $averageRating = Rating::where('eo_id', $getEO)->avg('rating'); 
+        @endphp
+        <p>Event Organizer : {{ $events->user->name }}</p>
+        <p>Rating : {{ number_format($averageRating, 1, '.', ''); }}</p>
         <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
       </div>
     </div>

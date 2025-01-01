@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 
 class EventController extends Controller
@@ -10,7 +11,9 @@ class EventController extends Controller
    
     function list(){
 
-        $eventData = Event::all();
+        $currentDate = Carbon::now();
+
+        $eventData = Event::whereDate('start_date', '>=', $currentDate)->get();
         foreach ($eventData as $item) {
             $item->image_base64 = base64_encode($item->banner_photo);
         }
@@ -21,7 +24,9 @@ class EventController extends Controller
 
     function listForHome(){
 
-        $eventData = Event::all();
+       $currentDate = Carbon::now();
+
+        $eventData = Event::whereDate('start_date', '>=', $currentDate)->get();
         foreach ($eventData as $item) {
             $item->image_base64 = base64_encode($item->banner_photo);
         }

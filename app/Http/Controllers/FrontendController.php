@@ -19,8 +19,9 @@ class FrontendController extends Controller
     //To display on explore page based on category
 
    public function viewCategoryBased(){
-        $categories = Event::distinct()->pluck('category');
-        $events = Event::all();
+        $currentDate = Carbon::now(); 
+        $categories = Event::distinct()->pluck('category'); 
+        $events = Event::whereDate('start_date', '>', $currentDate)->get();
 
         foreach ($events as $item) {
             $item->image_base64 = base64_encode($item->banner_photo);

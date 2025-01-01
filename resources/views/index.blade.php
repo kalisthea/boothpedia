@@ -24,7 +24,7 @@
       <div  class="nav-right">
         <input class="search-hold" type="text" placeholder="Search">
           <a href="/chatmessage"><img style="width:35px; height:auto;" src="images/mail.png" alt=""></a>
-          <a href="/profile"><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
+          <a href="/tenant-profile"><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
       </div>
     </nav>
   </header>

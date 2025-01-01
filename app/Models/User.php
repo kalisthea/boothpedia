@@ -18,6 +18,7 @@ class User extends Authenticatable
     //     return $this->hasMany('App\Models\Event');
     // }
 
+
     public function ratings()
     {
         return $this->hasMany(Rating::class, 'eo_id', 'id'); 
