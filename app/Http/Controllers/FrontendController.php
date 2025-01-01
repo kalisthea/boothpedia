@@ -338,7 +338,25 @@ class FrontendController extends Controller
         } else {  
             return redirect('/eventsaya')->with('status', "Event does not exist");  
         }  
-    } 
+    }
+
+    public function editEvent($event_name, $id)
+    {
+        $event = Event::findOrFail(($id));
+        return view('editevent', compact('event'));
+    }
+
+    //Display proposal on other tab
+    public function showProposal($event_name)  
+    {   
+        $event = Event::where('name', $event_name)->first();
+        
+        $file = $event->proposal_doc;
+
+        return response($file, 200)  
+            ->header('Content-Type', 'application/pdf') 
+            ->header('Content-Disposition', 'inline; filename="proposal_event.pdf"'); 
+    }
 
     // Display all booths in the event
     public function showBoothPage(Request $request, $event_name)  
@@ -362,7 +380,12 @@ class FrontendController extends Controller
                 $booths = Booth::where('booth_category_id', $category->id)->get();
             }
         }
-        return view('booth', compact('event', 'boothCategories', 'booths', 'selectedCategory'));
+
+        $occupiedBooths = Booth::where('is_occupied', 'Y')
+            ->whereIn('booth_category_id', $event->categories->pluck('id'))  
+            ->count();
+
+        return view('booth', compact('event', 'boothCategories', 'booths', 'selectedCategory', 'occupiedBooths'));
     }
 
     // Display Verification Profile data
@@ -375,6 +398,12 @@ class FrontendController extends Controller
         $verifProfile = Verification::where('user_id', $userId)->first();  
 
         return view('verification', compact('verifProfile'));
+    }
+
+    public function editVerifProfile($id)
+    {
+        $profile = Verification::findOrFail(($id));
+        return view('editverifprofile', compact('profile'));
     }
 
     // Display Bank Account data

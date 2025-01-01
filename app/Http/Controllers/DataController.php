@@ -23,23 +23,71 @@ class DataController extends Controller
             'end_date' => 'required|date|after:start_date',
             'location' => 'required|string|max:255',  
             'venue' => 'required|string|max:255',
-            'banner_photo' => 'nullable|file|mimes:jpeg,jpg,png,gif|max:2048'
+            'banner_photo' => 'nullable|file|mimes:jpeg,jpg,png,gif|max:2048',
+            'proposal_doc' => 'nullable|file|mimes:pdf,ppt,pptx,docx|max:5120'
         ]);  
 
         $data = new Event($validatedData);
         $data['user_id'] = Auth::id();
 
-        // Save file as mediumblob  
+        // Save banner as mediumblob  
         if ($request->hasFile('banner_photo')) {  
             $file = $request->file('banner_photo');  
             $data->banner_photo = file_get_contents($file);
-        }  
+        }
+        
+        // Save proposal as mediumblob  
+        if ($request->hasFile('proposal_doc')) {  
+            $file = $request->file('proposal_doc');  
+            $data->proposal_doc = file_get_contents($file);
+        }
   
         if ($data->save()) {  
             return redirect()->route('dashboard')->with('success', 'Event created successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to create event.']);  
         } 
+    }
+
+    public function updateEvent(Request $request, $event_name, $id)  
+    {  
+        $request->validate([  
+            'name' => 'nullable|string|max:255',  
+            'description' => 'nullable|string', 
+            'category' => 'nullable|string|in:Education,Fashion & Beauty,Hobbies & Crafts,Music,Food & Drinks,Art & Culture,Tech & Start Up,Travel & Vacation', 
+            'start_date' => 'nullable|date',  
+            'end_date' => 'nullable|date|after:start_date',
+            'location' => 'nullable|string|max:255',  
+            'venue' => 'nullable|string|max:255',
+            'banner_photo' => 'nullable|file|mimes:jpeg,jpg,png,gif|max:2048',
+            'proposal_doc' => 'nullable|file|mimes:pdf,ppt,pptx,docx|max:5120'
+        ]); 
+        
+        $event = Event::findOrFail($id); 
+
+        $event->name = $request->input('name', $event->name);  
+        $event->description = $request->input('description', $event->description);  
+        $event->category = $request->input('category', $event->category);
+        $event->start_date = $request->input('start_date', $event->start_date); 
+        $event->end_date = $request->input('end_date', $event->end_date); 
+        $event->location = $request->input('location', $event->location); 
+        $event->venue = $request->input('venue', $event->venue);
+
+        // Save banner as mediumblob
+        if ($request->hasFile('banner_photo')) {  
+            $file = $request->file('banner_photo')->getRealPath();  
+            $event->banner_photo = file_get_contents($file);
+        }
+
+        // Save proposal as mediumblob
+        if ($request->hasFile('proposal_doc')) {  
+            $file = $request->file('proposal_doc')->getRealPath();  
+            $event->proposal_doc = file_get_contents($file);
+        } 
+  
+        $event->save();  
+
+        return redirect()->route('myevent.detail', ['event_name' => $event_name])->with('success', 'Event updated successfully.');
     }
 
     public function deleteEvent($event_name, $id)  
@@ -77,8 +125,7 @@ class DataController extends Controller
     {   
         $validatedData = $request->validate([  
             'booth_name' => 'required|string|max:255',  
-            'booth_price' => 'required|numeric|between:0,999999999999.99',  
-            'booth_description' => 'required|string|max:255',  
+            'booth_price' => 'required|numeric|between:0,999999999999.99' 
         ]);  
 
         $category = Category::where('category_name', $category_name)->first();  
@@ -133,6 +180,32 @@ class DataController extends Controller
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to add verification.']);  
         }
+    }
+
+    public function updateVerifProfile(Request $request, $id)  
+    {  
+        $request->validate([  
+            'id_num' => 'nullable|string|max:20',  
+            'id_name' => 'nullable|string|max:255', 
+            'id_address' => 'nullable|string|max:255',
+            'id_photo' => 'nullable|file|mimes:jpeg,jpg,png|max:2048'
+        ]); 
+        
+        $profile = Verification::findOrFail($id); 
+
+        $profile->id_num = $request->input('id_num', $profile->id_num);  
+        $profile->id_name = $request->input('id_name', $profile->id_name);  
+        $profile->id_address = $request->input('id_address', $profile->id_address); 
+
+        // Save file as mediumblob
+        if ($request->hasFile('id_photo')) {  
+            $file = $request->file('id_photo')->getRealPath();  
+            $profile->id_photo = file_get_contents($file);
+        }  
+  
+        $profile->save();  
+
+         return redirect()->route('verif')->with('success', 'Profile updated successfully.');
     }
 
     public function storeBankAccount(Request $request)  

@@ -43,13 +43,8 @@
                         <div class="eo-phone">{{$user->phonenum}}</div>
                     </li>
                 </ul>
-                <a href="{{ route('editinfo') }}" class="edit-info">Edit</a>
             </div>
         </div>
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <button type="submit">Logout</button>
-      </form>
     </div>
 </body>
 </html>

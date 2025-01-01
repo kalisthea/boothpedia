@@ -50,7 +50,8 @@ class Event extends Model
         'banner_photo',
         'layout_photo',
         'venue',
-        'category'
+        'category',
+        'proposal_doc'
     ];
 
 }

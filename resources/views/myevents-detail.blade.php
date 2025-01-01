@@ -36,7 +36,9 @@
                     <p style="font-size:16px; padding-bottom:2px;">Event Name</p>
                     <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->name }}</strong></p>  
                     <p style="font-size:16px; padding-bottom:2px;">Event Category</p>
-                    <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->category }}</strong></p>  
+                    <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->category }}</strong></p>
+                    <p style="font-size:16px; padding-bottom:2px;">Venue</p>
+                    <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->venue }}</strong></p>
                     <p style="font-size:16px; padding-bottom:2px;">Location</p>
                     <p style="font-size:24px; padding-bottom:15px;"><strong>{{ $event->location }}</strong></p>
                     <div class="event-date-container">
@@ -50,9 +52,9 @@
                         </div>                         
                     </div>
                     <div class="event-button-container" style="display: flex; justify-content: flex-end;">
-                        <button class="edit-event-button">
+                        <a href="{{ route('myevent.edit', ['event_name' => $event->name, 'id' => $event->id]) }}" class="edit-event-button">
                             <i class="fa-regular fa-pen-to-square"></i>Edit Event
-                        </button>
+                        </a>
                         <form action="{{ route('event.delete', ['event_name' => $event->name, 'id' => $event->id]) }}" method="POST" onsubmit="return confirmDeletion(this, 'event');">
                             @csrf
                             @method('DELETE')
@@ -70,13 +72,16 @@
                     <p class="description">
                         {{ $event->description }}  
                     </p>  
-                    <div>
-                        <a href="{{ route('mybooth', ['event_name' => $event->name]) }}" class="booth-button" >See Booth
-                            <i class="fa-solid fa-arrow-right"></i>
+                    <div class="group-btn" style="display:block;">
+                        <a href="{{ route('mybooth', ['event_name' => $event->name]) }}" class="booth-button" >
+                            <i class="fa-solid fa-store"></i>My Booths
                         </a>
-                        <button class="see-proposal-button">See Proposal Event
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
+                        <a href="{{ route('myevent.proposal', ['event_name' => $event->name]) }}" class="booth-button" target="_blank">
+                            <i class="fa-solid fa-file-pdf"></i>Proposal Event
+                        </a>
+                        <a class="booth-button">
+                            <i class="fa-solid fa-receipt"></i>Invoices
+                        </a>
                     </div>
                 </div>  
             </div>

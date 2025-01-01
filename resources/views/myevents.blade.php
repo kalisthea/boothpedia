@@ -47,6 +47,7 @@
                                     </div>
                                     <div class="content-bottom">
                                         <p style="margin-bottom:-0.2px">{{ $event->start_date }} - {{ $event->end_date }}</p>
+                                        <p style="margin-bottom:-0.2px">{{ $event->venue }}</p>
                                         <p style="margin-bottom:-0.2px">{{ $event->location }}</p>
                                     </div>
                                     </div>

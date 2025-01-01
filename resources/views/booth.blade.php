@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <script src="{{ asset('script.js') }}"></script>  
@@ -26,7 +27,7 @@
         <div class="booth-detail">
             <div class="booth-detail-content">
                 <h2 style="margin-bottom:30px;">{{ $event->name }}</h2>
-                <p style="margin-bottom:30px;"><strong>Occupied Booths : </strong>17</p>
+                <p style="margin-bottom:30px;"><strong>Occupied Booths : </strong>{{$occupiedBooths}}</p>
             </div>
             <div class="button-booth-container">
                 <button class="upload-layout-button" onclick="document.getElementById('fileInput').click();">
@@ -96,20 +97,19 @@
                                             <div class="booth-price">Rp {{ number_format($booth->booth_price, 2, ',', '.') }}</div>
                                             <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Occupied' : 'Available' }}</div>
                                             <div class="icon">
-                                                <!-- <form action="" method="POST"  onsubmit="return confirmDeletion(this);">
-                                                    @csrf
-                                                    <button type="submit" class="icon-edit">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                    </button>
-                                                </form> -->
-                                                
-                                                <form action="{{ route('booth.delete', ['event_name' => $event->name, 'category_name' => $selectedCategory, 'id' => $booth->id]) }}" method="POST" onsubmit="return confirmDeletion(this, 'booth');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="icon-delete">
+                                                @if ($booth->is_occupied === 'Y')
+                                                    <button type="submit" class="icon-delete" style="color:grey; cursor: not-allowed;" title="Cannot delete occupied booth">
                                                         <i class="fa-regular fa-trash-can"></i>
                                                     </button>
-                                                </form>
+                                                @else
+                                                    <form action="{{ route('booth.delete', ['event_name' => $event->name, 'category_name' => $selectedCategory, 'id' => $booth->id]) }}" method="POST" onsubmit="return confirmDeletion(this, 'booth');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="icon-delete">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -130,20 +130,19 @@
                                             <div class="booth-price">Rp {{ number_format($booth->booth_price, 2, ',', '.') }}</div>
                                             <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Occupied' : 'Available' }}</div>
                                             <div class="icon">
-                                                <!-- <form action="" method="POST"  onsubmit="return confirmDeletion(this, 'booth');">
-                                                    @csrf
-                                                    <button type="submit" class="icon-edit btn-link">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                    </button>
-                                                </form> -->
-                                                
-                                                <form action="{{ route('booth.delete', ['event_name' => $event->name, 'category_name' => $selectedCategory, 'id' => $booth->id]) }}" method="POST" onsubmit="return confirmDeletion(this, 'booth');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="icon-delete btn-link">
+                                                @if ($booth->is_occupied === 'Y')
+                                                    <button type="submit" class="icon-delete" style="color:grey; cursor: not-allowed;" title="Cannot delete occupied booth">
                                                         <i class="fa-regular fa-trash-can"></i>
                                                     </button>
-                                                </form>
+                                                @else
+                                                    <form action="{{ route('booth.delete', ['event_name' => $event->name, 'category_name' => $selectedCategory, 'id' => $booth->id]) }}" method="POST" onsubmit="return confirmDeletion(this, 'booth');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="icon-delete">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

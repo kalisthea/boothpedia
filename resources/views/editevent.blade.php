@@ -12,10 +12,11 @@
 <body>
     <header>
         <img src="images/Logo.png" alt="" class="logo">
-        <h1>Create Event</h1>
+        <h1>Edit Event</h1>
     </header>
-    <form class="create-event-container" id="eventForm" method="POST" enctype="multipart/form-data" action="{{ route('events.store') }}">
-        @csrf  
+    <form class="create-event-container" id="eventForm" method="POST" enctype="multipart/form-data" action="{{ route('myevent.update', $event->name) }}">
+        @csrf
+        @method('PUT')
         <div class="upload-image" style="display:flex;align-items:center;">
             <button type="button" class="upload-banner-button" onclick="document.getElementById('banner_photo').click();">  
                 <i class="fas fa-upload"></i> Upload Banner  
@@ -32,50 +33,50 @@
         <ul>
             <li class="event-name">
                 <label for="name">Event Name</label>
-                <input type="text" name="name" id="name" placeholder="Input event name..." required>
+                <input type="text" name="name" id="name" placeholder="Input event name..." value="{{ old('name', $event->name) }}">
             </li>
             <li class="event-category">
                 <label for="category">Event Category</label>
-                <select name="category" id="category" required>  
+                <select name="category" id="category">  
                     <option hidden>Choose category...</option>
-                    <option value="Education">Education</option>
-                    <option value="Fashion & Beauty">Fashion & Beauty</option>
-                    <option value="Hobbies & Crafts">Hobbies & Crafts</option>
-                    <option value="Music">Music</option>
-                    <option value="Food & Drinks">Food & Drinks</option>
-                    <option value="Art & Culture">Art & Culture</option>
-                    <option value="Tech & Start Up">Tech & Start Up</option>
-                    <option value="Travel & Vacation">Travel & Vacation</option>
+                    <option value="Education" {{ $event->category == 'Education' ? 'selected' : '' }}>Education</option>  
+                    <option value="Fashion & Beauty" {{ $event->category == 'Fashion & Beauty' ? 'selected' : '' }}>Fashion & Beauty</option>  
+                    <option value="Hobbies & Crafts" {{ $event->category == 'Hobbies & Crafts' ? 'selected' : '' }}>Hobbies & Crafts</option>  
+                    <option value="Music" {{ $event->category == 'Music' ? 'selected' : '' }}>Music</option>  
+                    <option value="Food & Drinks" {{ $event->category == 'Food & Drinks' ? 'selected' : '' }}>Food & Drinks</option>  
+                    <option value="Art & Culture" {{ $event->category == 'Art & Culture' ? 'selected' : '' }}>Art & Culture</option>  
+                    <option value="Tech & Start Up" {{ $event->category == 'Tech & Start Up' ? 'selected' : '' }}>Tech & Start Up</option>  
+                    <option value="Travel & Vacation" {{ $event->category == 'Travel & Vacation' ? 'selected' : '' }}>Travel & Vacation</option>
                 </select>
             </li>
             <div class="date-container">
                 <li class="date-field">
                     <label for="start_date">Start Date</label>
                     <div class="input-date-wrapper">
-                        <input type="date" name="start_date" id="start_date" required>
+                        <input type="date" name="start_date" id="start_date" value="{{ old('start_date', $event->start_date) }}">
                     </div>
                 </li>
                 <li class="date-field">
                     <label for="end_date">End Date</label>
                     <div class="input-date-wrapper">
-                        <input type="date" name="end_date" id="end_date" required>
+                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date', $event->end_date) }}">
                     </div>
                 </li>
             </div>
             <li class="location">
                 <label for="location">Location</label>
-                <input type="text" name="location" id="location" placeholder="Input location..." required>
+                <input type="text" name="location" id="location" placeholder="Input location..." value="{{ old('location', $event->location) }}">
             </li>
             <li class="venue">
                 <label for="venue">Venue</label>
-                <input type="text" name="venue" id="venue" placeholder="Input venue..." required>
+                <input type="text" name="venue" id="venue" placeholder="Input venue..." value="{{ old('venue', $event->venue) }}">
             </li>
             <li class="desc">
                 <label for="description">Description</label>
-                <input type="text" name="description" id="description" placeholder="Input description..." required>
+                <input type="text" name="description" id="description" placeholder="Input description..." value="{{ old('description', $event->description) }}">
             </li>
             <li class="button-container">
-                <a href="{{route('dashboard')}}">
+                <a href="{{route('myevent.detail', ['event_name' => $event->name])}}">
                     <button type="button" class="cancel-button" name="cancel">Cancel</button>
                 </a>
                 <input type="submit" class="submit-button" value="Save">
