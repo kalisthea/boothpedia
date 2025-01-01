@@ -45,7 +45,7 @@
                         <div class="id-address-title">Address</div>
                         <div class="id-address">{{ $verifProfile->id_address }}</div>
                     </li>
-                    <a href="{{ route('editinfo') }}" class="edit-verif">Edit</a>
+                    <a href="{{ route('editverif', ['id' => $verifProfile->id]) }}" class="edit-verif">Edit</a>
                 </ul>
             </div>
         </div>

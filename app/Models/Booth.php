@@ -11,8 +11,7 @@ class Booth extends Model
 
     protected $fillable = [   
         'booth_name',  
-        'booth_price',  
-        'booth_description'  
+        'booth_price' 
     ];  
 
     public function category()  

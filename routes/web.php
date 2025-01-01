@@ -109,11 +109,7 @@ Route::get('booking-detail/{event_name}', [FrontendController::class, 'bookingDe
 
 // Rating
 Route::post('booth/', [FrontendController::class, 'giveRating'])
-    ->middleware('auth')->name("rate.eo");
-
-// POST EVENTS
-Route::post('/createevent', [DataController::class, 'storeEvent'])
-    ->name('events.store');  
+    ->middleware('auth')->name("rate.eo");  
 
 Route::get('/event-detail-booth', function () {
     return view('eventbooth');
@@ -148,11 +144,17 @@ Route::middleware("auth")->group(function (){
     })->name('addverif');
 
     Route::post('/addverificationprofile', [DataController::class, 'storeVerifProfile'])
-    ->name('addverif.store');
+        ->name('addverif.store');
 
     Route::get('/verificationprofile', [FrontendController::class, 'displayVerifProfile'])
         ->name('verif');
+
+    Route::get('/verificationprofile/{id}/edit', [FrontendController::class, 'editVerifProfile'])
+        ->name('editverif');
     
+    Route::put('/verificationprofile/{id}', [DataController::class, 'updateVerifProfile'])  
+        ->name('editverif.update');
+
     Route::get('/profile', function () {  
         $user = auth()->user();
 
@@ -188,17 +190,25 @@ Route::middleware("auth")->group(function (){
     })->name('bankaccount');
 
     Route::get('/createevent', [EventController::class,"createevent"])
-    ->name("buatevent");  
+        ->name("buatevent");  
 
-    Route::get('/editprofileinformation', function () {  
-        return view('editbasicinfo');  
-    })->name('editinfo');  
+    Route::post('/createevent', [DataController::class, 'storeEvent'])
+        ->name('events.store');
+
+    Route::get('/eventdetail/{event_name}/{id}/edit', [FrontendController::class, 'editEvent'])
+        ->name('myevent.edit');
+    
+    Route::put('/eventdetail/{event_name}', [DataController::class, 'updateEvent'])  
+        ->name('myevent.update');
 
     Route::get('/eventdetail/{event_name}', [FrontendController::class, 'showEventDetail'])
         ->name('myevent.detail');
 
     Route::delete('/eventdetail/{event_name}/{id}', [DataController::class, 'deleteEvent'])
         ->name('event.delete');
+
+    Route::get('/eventdetail/{event_name}/proposal', [FrontendController::class, 'showProposal'])
+        ->name('myevent.proposal');
 
     Route::get('/mybooths/{event_name}', [FrontendController::class, 'showBoothPage'])
         ->name('mybooth');  

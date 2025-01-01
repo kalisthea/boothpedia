@@ -12,12 +12,14 @@ function showTab(tabName) {
 }  
 
 function showPopupAddBooth(eventName, categoryId, categoryName) {  
-    document.getElementById('selectedCategoryId').value = categoryId;  
+    document.getElementById('selectedCategoryId').value = categoryId;
+
     const encodedCategoryName = encodeURIComponent(categoryName);   
-    const actionUrl = `/boothsaya/${encodeURIComponent(eventName)}/${encodedCategoryName}`; 
-    document.getElementById('createBooth').setAttribute('action', actionUrl);  
+    const actionUrl = `/mybooths/${encodeURIComponent(eventName)}/${encodedCategoryName}`; 
+    document.getElementById('createBooth').setAttribute('action', actionUrl);
+
     document.getElementById('popup-addbooth').style.display = 'flex';  
-}  
+}
 
 function showPopup(popupId) {  
     document.getElementById(popupId).style.display = 'flex';  
@@ -40,4 +42,4 @@ function displayFileName(inputId, spanId) {
 
 function confirmDeletion(form, object) {
     return confirm(`Are you sure you want to delete this ${object}?`);
-  } 
+}
