@@ -29,19 +29,19 @@
                     <div class="box">
                         <div class="left-side">
                             <div class="box-topic">Active Events</div>
-                            <div class="number">5</div>
+                            <div class="number">{{ $totalActiveEvents }}</div>
                         </div>
                     </div>
                     <div class="box">
                         <div class="left-side">
                             <div class="box-topic">Past Events</div>
-                            <div class="number">28</div>
+                            <div class="number">{{ $totalPastEvents }}</div>
                         </div>
                     </div>
                     <div class="box">
                         <div class="left-side">
                             <div class="box-topic">Rating</div>
-                            <div class="number">4.9/5</div>
+                            <div class="number">{{ number_format($averageRating, 1)}}/5</div>
                         </div>
                     </div>
                 </div>
@@ -49,19 +49,19 @@
                 <div class="box">
                         <div class="left-side">
                             <div class="box-topic">Active Booths</div>
-                            <div class="number">37</div>
+                            <div class="number">{{ $totalActiveBooths }}</div>
                         </div>
                     </div>
                     <div class="box">
                         <div class="left-side">
                             <div class="box-topic">Total Sales</div>
-                            <div class="number">Rp 123.456.789</div>
+                            <div class="number">Rp {{ number_format($totalSales, 2, ',', '.') }}</div>
                         </div>
                     </div>
                     <div class="box">
                         <div class="left-side">
                             <div class="box-topic">Total Booths Sold</div>
-                            <div class="number">120</div>
+                            <div class="number">{{ $totalBoothsSold }}</div>
                         </div>
                     </div>
                 </div>
