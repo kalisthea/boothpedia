@@ -155,7 +155,7 @@ Route::middleware("auth")->group(function (){
     Route::put('/verificationprofile/{id}', [DataController::class, 'updateVerifProfile'])  
         ->name('editverif.update');
 
-    Route::get('/profile', function () {  
+    Route::get('/eo-profile', function () {  
         $user = auth()->user();
 
         $profileExists = Verification::where('user_id', $user->id)->exists();  
@@ -175,7 +175,13 @@ Route::middleware("auth")->group(function (){
     })->name('addbank');
 
     Route::post('/addbankaccount', [DataController::class, 'storeBankAccount'])
-    ->name('addbank.store');
+        ->name('addbank.store');
+
+    Route::get('/bankaccount/{id}/edit', [FrontendController::class, 'editBankAccount'])
+        ->name('editbank');
+    
+    Route::put('/bankaccount/{id}', [DataController::class, 'updateBankAccount'])  
+        ->name('editbank.update');
 
     Route::get('/bank', function () {  
         $user = auth()->user();
@@ -198,7 +204,7 @@ Route::middleware("auth")->group(function (){
     Route::get('/eventdetail/{event_name}/{id}/edit', [FrontendController::class, 'editEvent'])
         ->name('myevent.edit');
     
-    Route::put('/eventdetail/{event_name}', [DataController::class, 'updateEvent'])  
+    Route::put('/eventdetail/{event_name}/{id}', [DataController::class, 'updateEvent'])  
         ->name('myevent.update');
 
     Route::get('/eventdetail/{event_name}', [FrontendController::class, 'showEventDetail'])
@@ -221,6 +227,9 @@ Route::middleware("auth")->group(function (){
 
     Route::delete('/mybooths/{event_name}/{category_name}/{id}', [DataController::class, 'deleteBooth'])
         ->name('booth.delete');
+
+    Route::get('/invoices/{event_name}', [FrontendController::class, 'showInvoice'])
+        ->name('invoice');
 });
 
 

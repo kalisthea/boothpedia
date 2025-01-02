@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
-    <title>Informasi Dasar</title>
+    <title>Profile Verification</title>
 </head>
 <body>
         <!-- Side Bar -->
@@ -17,12 +17,12 @@
         <!-- Header -->
         <div class="header">
             <div class="header-name">
-                <h1>Informasi Dasar</h1>
+                <h1>Edit Profile Verification</h1>
             </div>
             @include('navheader')
         </div>
         
-        <!-- Edit Basic Information -->
+        <!-- Edit Profile Verification -->
         <div class="content">
             <div class="verif-container">
                 <form class="add-verif" id="verifForm" method="POST" enctype="multipart/form-data" action="{{ route('editverif.update', $profile->id) }}">
@@ -51,7 +51,7 @@
                             </li>
                         </ul>
                         <div class="btn-savecancel">
-                            <a href="{{ route('verifprofile') }}" class="cancel-info">Batal</a>
+                            <a href="{{ route('verifprofile') }}" class="cancel-info">Cancel</a>
                             <input type="submit" value="Submit" class="submit-btn" style="margin-left:10px">
                         </div>
                     </div>

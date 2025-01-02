@@ -78,7 +78,7 @@
                 </form>  
             </div>
             <div class="booth-list">
-                <div class="booth-row first-row">
+                <div class="first-row" style="padding-bottom:20px">
                     @if (isset($selectedCategory))
                         <button class="add-booth-button"  id="addBoothButton" style="display:flex;"
                                 onclick="showPopupAddBooth('{{ $event->name }}', '{{ $selectedCategory }}', document.getElementById('categoryDropdown').options[document.getElementById('categoryDropdown').selectedIndex].text);">

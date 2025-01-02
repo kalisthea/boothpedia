@@ -225,4 +225,23 @@ class DataController extends Controller
             return redirect()->back()->withErrors(['error' => 'Failed to add bank account.']);  
         }
     }
+
+    public function updateBankAccount(Request $request, $id)  
+    {  
+        $request->validate([  
+            'account_num' => 'nullable|string|max:20',  
+            'account_name' => 'nullable|string|max:255', 
+            'bank_name' => 'nullable|string|max:255'
+        ]); 
+        
+        $bankAcc = BankAccount::findOrFail($id); 
+
+        $bankAcc->account_num = $request->input('account_num', $bankAcc->account_num);  
+        $bankAcc->account_name = $request->input('account_name', $bankAcc->account_name);  
+        $bankAcc->bank_name = $request->input('bank_name', $bankAcc->bank_name); 
+
+        $bankAcc->save();  
+
+         return redirect()->route('account')->with('success', 'Bank account updated successfully.');
+    }
 }

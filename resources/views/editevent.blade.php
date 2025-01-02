@@ -14,7 +14,7 @@
         <img src="images/Logo.png" alt="" class="logo">
         <h1>Edit Event</h1>
     </header>
-    <form class="create-event-container" id="eventForm" method="POST" enctype="multipart/form-data" action="{{ route('myevent.update', $event->name) }}">
+    <form class="create-event-container" id="eventForm" method="POST" enctype="multipart/form-data" action="{{ route('myevent.update', [$event->name, $event->id]) }}">
         @csrf
         @method('PUT')
         <div class="upload-image" style="display:flex;align-items:center;">

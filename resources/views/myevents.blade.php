@@ -41,9 +41,8 @@
                                     </div>
                                     <div class="card-content">
                                     <div class="content-top"> 
-                                        <b><p style="color:#FFC60B; margin-bottom:-1.5px;padding-top:5px;">{{ $event->name }}</p></b>
-                                        <b><p style="color:#2FA8E8; margin-bottom:-1px;">{{ $event->category }}</p></b>
-                                        <b><p style="color:#2FA8E8; padding-bottom:5px;">{{ $event->user->name }}</p></b>
+                                        <b><p style="color:#006AA6; margin-bottom:-1.5px;padding-top:5px;">{{ $event->name }}</p></b>
+                                        <b><p style="color:#2FA8E8; margin-bottom:-1px; font-size:12px; padding-bottom:1rem">{{ $event->category }}</p></b>
                                     </div>
                                     <div class="content-bottom">
                                         <p style="margin-bottom:-0.2px">{{ $event->start_date }} - {{ $event->end_date }}</p>
@@ -57,7 +56,31 @@
                     </div>
                 </div>  
                 <div id="tab2" class="tab">
-                
+                    <div class="card-container">
+                        @foreach ($pastEvents as $pastEvent)
+                        @php
+                            $src = 'data:image/jpeg;base64,' . base64_encode($pastEvent->banner_photo);
+                        @endphp
+                            <a href="{{ url('eventdetail/'.$pastEvent->name) }}">  
+                                <div style="border-radius: 18px;" class="card">
+                                    <div style="width:290px; height: 150px;">
+                                        <img style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="{{ $src }}" alt="">
+                                    </div>
+                                    <div class="card-content">
+                                    <div class="content-top"> 
+                                        <b><p style="color:#FFC60B; margin-bottom:-1.5px;padding-top:5px;">{{ $pastEvent->name }}</p></b>
+                                        <b><p style="color:#2FA8E8; margin-bottom:-1px;">{{ $pastEvent->category }}</p></b>
+                                    </div>
+                                    <div class="content-bottom">
+                                        <p style="margin-bottom:-0.2px">{{ $pastEvent->start_date }} - {{ $pastEvent->end_date }}</p>
+                                        <p style="margin-bottom:-0.2px">{{ $pastEvent->venue }}</p>
+                                        <p style="margin-bottom:-0.2px">{{ $pastEvent->location }}</p>
+                                    </div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>                
                 </div> 
             </div>
         </div>

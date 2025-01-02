@@ -79,7 +79,7 @@
                         <a href="{{ route('myevent.proposal', ['event_name' => $event->name]) }}" class="booth-button" target="_blank">
                             <i class="fa-solid fa-file-pdf"></i>Proposal Event
                         </a>
-                        <a class="booth-button">
+                        <a href="{{ route('invoice', ['event_name' => $event->name]) }}"  class="booth-button">
                             <i class="fa-solid fa-receipt"></i>Invoices
                         </a>
                     </div>

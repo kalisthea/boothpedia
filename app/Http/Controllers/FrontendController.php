@@ -322,9 +322,15 @@ class FrontendController extends Controller
 
         $userId = $user->id;
 
-        $events = Event::where('user_id', $userId)->get();  
+        $events = Event::where('user_id', $userId)
+                    ->where('end_date', '>', today())
+                    ->get();
 
-        return view('myevents', compact('events'));
+        $pastEvents = Event::where('user_id', $userId)  
+                       ->where('end_date', '<', today())
+                       ->get();
+
+        return view('myevents', compact('events', 'pastEvents'));
     }
 
     //Display event detail on event organizer page
@@ -416,6 +422,27 @@ class FrontendController extends Controller
         $bankAccount = BankAccount::where('user_id', $userId)->first();  
 
         return view('account', compact('bankAccount'));
+    }
+
+    public function editBankAccount($id)
+    {
+        $bankAcc = BankAccount::findOrFail(($id));
+        return view('editbankaccount', compact('bankAcc'));
+    }
+
+    public function showInvoice($event_name){
+
+        $event = Event::where('name', $event_name)->first();
+
+        $invoices = Invoice::with(['tenant', 'booths.category'])
+                        ->where('event_id', $event->id)
+                        ->get();
+
+        $totalQty = $invoices->sum('quantity');
+
+        $totalSales = $invoices->sum('total_price');
+
+        return view('bookinginvoices', compact('event', 'invoices', 'totalQty', 'totalSales'));
     }
 
 }

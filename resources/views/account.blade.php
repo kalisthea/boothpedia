@@ -38,7 +38,7 @@
                         <div class="bank-name-title">Address</div>
                         <div class="bank-name">{{ $bankAccount->bank_name }}</div>
                     </li>
-                    <a href="{{ route('editinfo') }}" class="edit-verif">Edit</a>
+                    <a href="{{ route('editbank', ['id' => $bankAccount->id]) }}" class="edit-verif">Edit</a>
                 </ul>
             </div>
         </div>
