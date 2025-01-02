@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class=book-img>
-            <img class="book-img-css" src="images/booking-img.png" alt="">
+          <img class="book-img-css" style="width: 100%; height:100%; object-fit:cover; border-radius:18px;" src="data:image/jpeg;base64,{{ $events->image_base64 }}" alt="">
         </div>
       </div>
 

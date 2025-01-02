@@ -120,7 +120,7 @@
       
         <div id="overlay" class="overlay" style="display: none;"> 
           <div id="paymentInfoPopup" class="payment-info-popup"> 
-              <div id="paymentSpecificInfo"></div> 
+              <div id="paymentSpecificInfo" style="padding-bottom:1rem;"></div> 
               <form id="paymentConfirmationForm" method="POST" action="{{ route('booked.data', $event->name) }}">
                 @csrf
                 @foreach ($selectedBooth as $booth)
@@ -133,6 +133,9 @@
             </form>
           </div>
         </div>
+      <script>
+          window.imageUrl = "{{ asset('images/qris.jpg') }}"; 
+      </script>
     
 </body>
 </html>

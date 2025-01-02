@@ -47,12 +47,13 @@ function paymentPopup(){
         paymentSpecificInfo.innerHTML = `
             <p><b>Payment Method:</b> GoPay</p>
             <p><b>Instructions:</b> Scan the QR code below:</p> 
-            <img src="{{ asset("images/gopay_qr.png") }}" alt="GoPay QR Code"> 
+            <img src="${window.imageUrl}" alt="GoPay QR Code" style="width:30%"> 
         `;
     } else if (selectedPaymentMethod === "Dana") {
         paymentSpecificInfo.innerHTML = `
             <p><b>Payment Method:</b> Dana</p>
-            <p><b>Instructions:</b> Enter the Dana ID: 081234567890</p> 
+            <p><b>Instructions:</b> Scan the QR code below:</p> 
+            <img src="${window.imageUrl}" alt="Dana QR Code" style="width:30%">
         `;
     }
         document.getElementById("overlay").style.display = "block";

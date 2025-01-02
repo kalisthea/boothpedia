@@ -59,7 +59,7 @@
                       $boothNamesString = implode(', ', $boothNames); 
                     @endphp
                     <b><p style="color: #FFC60B; font-size: 15px;">{{ $boothNamesString }}</p></b>
-                    <a href="{{ url('booking-detail/'. $invoice->event->name) }}"><button class="detail-button" type="button">Detail</button></a>
+                    <a href="{{ url('booking-detail/'. $invoice->event->name) }}"><button class="detail-button" type="button" style="padding">Detail</button></a>
                   </div>
                 </div>
             </div>
@@ -88,6 +88,7 @@
                   <p style="margin-bottom:-0.2px">{{ $invoice->event->location }}</p>
                 </div>
                 <div class="content-cta-2">
+                  <a href="{{ url('booking-detail/'. $invoice->event->name) }}"><button class="detail-button" type="button">Detail</button></a>
                   @if (! $invoice->event->user->isRatedBy(Auth::user(), $invoice->event)) 
                     <button class="rate-button" type="button" onclick="ratingPopup('{{ $invoice->event->user->id }}', '{{ $invoice->event->user->name }}', '{{ $invoice->event->id }}')">Rate</button>
                   @else
