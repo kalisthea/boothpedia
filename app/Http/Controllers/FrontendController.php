@@ -309,10 +309,49 @@ class FrontendController extends Controller
         
         
     }
-        
 
-   //Display event on event organizer page
-   public function displayEvents()  
+    public function displayDashboard()  
+    {  
+        $user = Auth::user();  
+        $userId = $user->id;  
+
+        $allEvents = Event::where('user_id', $userId)->get();  
+
+        $activeEvents = Event::where('user_id', $userId)  
+                            ->where('end_date', '>', today())  
+                            ->get();  
+
+        $pastEvents = Event::where('user_id', $userId)  
+                        ->where('end_date', '<', today())  
+                        ->get();  
+
+        $totalActiveEvents = $activeEvents->count();  
+        $totalPastEvents = $pastEvents->count();  
+
+        $averageRating = Rating::whereIn('event_id', $allEvents->pluck('id'))  
+                                ->avg('rating');
+
+        $totalActiveBooths = Booth::whereIn('booth_category_id', $activeEvents->flatMap->categories->pluck('id'))  
+                                ->count();  
+
+        $totalSales = Invoice::whereIn('event_id', $allEvents->pluck('id'))  
+                            ->sum('total_price');
+
+        $totalBoothsSold = Invoice::whereIn('event_id', $allEvents->pluck('id'))  
+                                ->sum('quantity');
+
+        return view('dashboard', compact(  
+            'totalActiveEvents',  
+            'totalPastEvents',  
+            'averageRating',  
+            'totalActiveBooths',  
+            'totalSales',  
+            'totalBoothsSold'  
+        ));  
+    }
+
+    //Display event on event organizer page
+    public function displayEvents()  
     {  
         $user = Auth::user();
   

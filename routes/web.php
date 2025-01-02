@@ -128,9 +128,8 @@ Route::get('/tenant-profile', function () {
 
 
 Route::middleware("auth")->group(function (){
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [FrontendController::class, 'displayDashboard'])
+        ->name('dashboard');
 
     Route::get('/myevents', [FrontendController::class, 'displayEvents'])
         ->name('events');

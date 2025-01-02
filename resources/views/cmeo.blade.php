@@ -12,26 +12,18 @@
     <title>Chat Message</title>
 </head>
 <body>
-    <header>
-        <img class= "blogo" src="images/Logo.png" alt="">
-        <nav class="navbar">
-          <div class='nav-left'>
-            <a class = "active" href="home">Home</a></li>
-            <a href="explore">Explore</a></li>
-            <a href="booth">Booth</a></li>
-          </div>
-          <div  class="nav-right">
-            <input class="search-hold" type="text" placeholder="Search">
-              <a href=""><img style="width:35px; height:auto;" src="images/mail.png" alt=""></a>
-              <a href="/profile"><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
-          </div>
-        </nav>
-      </header>
-      
-      <hr style="border: 2px solid #2FA8E8; color:#2FA8E8;">
-      <hr style="border: 2px solid #FFC60B; color: #FFC60B;">
+    <!-- Side Bar -->
+    @include('sidebar')
 
-      <h2 style="color:#FFC60B; padding-bottom: 2rem; padding-top: 2rem;">Chat Messages</h2>
+    <!-- Content -->
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+          <div class="header-name">
+              <h1>Chat Messages</h1>
+          </div>
+          @include('navheader')
+      </div>
 
       <div class="chat-container">
         <div class="chat-content-1">

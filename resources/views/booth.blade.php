@@ -95,7 +95,9 @@
                                         <div class="card-div"></div>
                                         <div class="booth-box-sub">
                                             <div class="booth-price">Rp {{ number_format($booth->booth_price, 2, ',', '.') }}</div>
-                                            <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Occupied' : 'Available' }}</div>
+                                            <div class="booth-status" style="color: {{ $booth->is_occupied === 'Y' ? 'red' : 'green' }};">
+                                                {{ $booth->is_occupied === 'Y' ? 'Occupied' : 'Available' }}
+                                            </div>
                                             <div class="icon">
                                                 @if ($booth->is_occupied === 'Y')
                                                     <button type="submit" class="icon-delete" style="color:grey; cursor: not-allowed;" title="Cannot delete occupied booth">
@@ -128,7 +130,9 @@
                                         <div class="card-div"></div>
                                         <div class="booth-box-sub">
                                             <div class="booth-price">Rp {{ number_format($booth->booth_price, 2, ',', '.') }}</div>
-                                            <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Occupied' : 'Available' }}</div>
+                                            <div class="booth-status" style="color: {{ $booth->is_occupied === 'Y' ? 'red' : 'green' }};">
+                                                {{ $booth->is_occupied === 'Y' ? 'Occupied' : 'Available' }}
+                                            </div>
                                             <div class="icon">
                                                 @if ($booth->is_occupied === 'Y')
                                                     <button type="submit" class="icon-delete" style="color:grey; cursor: not-allowed;" title="Cannot delete occupied booth">
