@@ -779,7 +779,7 @@ button:hover{
 .chat-content-2{
     /* background-color: rgb(143, 226, 143); */
     width: 100%;
-    height: 40%;
+    height: 50%;
     overflow-x: hidden;
     overflow-y: auto;
     border-radius: 13px;
@@ -793,22 +793,33 @@ button:hover{
 
 .chat-send{
     padding-left: 2rem;
+    
 }
 
 .message-container {
-    margin-bottom: 10px;
-    padding: 10px;
+    /* margin-bottom: 10px; */
+    padding: 3px 15px 3px 15px;
     border-radius: 5px;
 }
 
 .message-left {
-    background-color: #e6e6e6; 
+    border: 1px solid #2FA8E8;
     float: left;
     clear: both; 
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .message-right {
-    background-color: #cfe2ff; 
+    border: 1px solid #FFC60B;
     float: right;
     clear: both; 
+    margin-top: 10px;
+}
+
+.send-chat{
+    border: 1px solid #FFC60B;
+    border-radius: 11px;
+    padding-left: 10px;
+    padding-left: 50px;
 }

@@ -1,3 +1,4 @@
+@if(Auth::user()->role == "tenant") {{-- FOR TENANT UI --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,13 +40,18 @@
       <div class="chat-container">
         <div class="chat-content-1">
           @if(Auth::user()->role == "tenant")
-            <p>{{ $chats->eo->name }}</p><br>
+            <p style="color: #FFC60B; font-size:25px;">{{ $chats->eo->name }}</p>
           @elseif(Auth::user()->role == "eventorganizer")
             <p>{{ $chats->tenant->name }}</p><br>
           @endif
         </div>
         <div class="chat-content-2">
-            @if(Auth::user()->role == "tenant")
+          @foreach($messages as $message)
+            <div class="message-container {{ $message->sender == Auth::user()->role ? 'message-right' : 'message-left' }}">
+                <p>{{ $message->message }}</p>
+            </div>
+          @endforeach
+            {{-- @if(Auth::user()->role == "tenant")
               @foreach($messages as $message)
                 <div class="message-container {{ $message->sender == 'eventorganzier' ? 'message-left' : 'message-right' }}">
                   <p>{{ $message->message }}</p>
@@ -57,18 +63,19 @@
                 <p>{{ $message->message }}</p>
               </div>
               @endforeach
-            @endif
-        
+            @endif --}}
         </div>
         <form action="{{ route("message.post", $chats->id) }}" method="POST">
           @csrf
-          <div class="chat-send">
-            <input type="text" name="sendtext" id="sendtext" placeholder="Type your message">
-            <input type="button" name="" id="" value="Send">
+          <div class="chat-send" style="padding-top: 2rem;">
+            <input type="text" name="sendtext" id="sendtext" placeholder="Type your message" class="send-chat">
+            <input type="button" name="" id="" class="ok-button" style="padding-top: 2px; padding-left: 20px; padding-right: 20px;" value="Send">
           </div>
         </form>
       </div>
-    
-    
 </body>
 </html>
+
+@elseif(Auth::user()->role == "eventorganizer") {{-- FOR EO UI --}}
+
+@endif

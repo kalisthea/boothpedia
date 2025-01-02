@@ -130,7 +130,8 @@ class MessageController extends Controller
                 $message->save();
             }
            
-            return redirect(route("message.post"));
+            return redirect()->back();
+            // return redirect(route("message.post"));
         }
         
 
@@ -140,7 +141,8 @@ class MessageController extends Controller
     public function getMessages($chat_id)
     {
         $messages = Message::where('chat_id', $chat_id)->orderBy('created_at')->get();
+        $userRole = Auth::user()->role;
 
-        return view('cmtenantactive', compact('messages'));
+        return view('cmtenantactive', compact('messages', 'userRole'));
     }
 }
