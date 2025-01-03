@@ -49,6 +49,20 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Check for success message -->  
+        @if(session('success'))  
+            <div id="sessionMessage" style="display: none;">{{ session('success') }}</div>  
+            <div id="successModal" class="modal">  
+                <div class="modal-content">  
+                    <span class="checkmark">
+                        <i class="fa-solid fa-check"></i>
+                    </span> 
+                    <h5 id="modalMessage"></h5>
+                    <button id="closeModal" class="close-button">OK</button>  
+                </div>  
+            </div>  
+        @endif
     </div>
     
 </body>

@@ -30,7 +30,7 @@
             <img src="{{ $src }}" alt="" class="banner"> 
 
             <!-- Event Detail Content -->  
-            <div class="detailevent-content">  
+            <div class="detailevent-content" style="margin-bottom:50px;">  
                 <!-- Left box: Event Detail -->  
                 <div class="box-event event-details">  
                     <p style="font-size:16px; padding-bottom:2px;">Event Name</p>
@@ -86,6 +86,9 @@
                 </div>  
             </div>
         </div>
+        <div class="back-button-container">  
+            <a href="{{ route('events') }}" class="back-button">Back</a>  
+        </div> 
     </div>
 </body>
 </html>

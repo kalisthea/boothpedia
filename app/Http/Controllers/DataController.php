@@ -157,6 +157,25 @@ class DataController extends Controller
         return redirect()->route('mybooth', ['event_name' => $eventName])->with('success', 'Delete booth success.');  
     }
 
+    public function uploadLayout(Request $request, $event_name, $id)  
+    {  
+        $request->validate([
+            'layout_photo' => 'nullable|file|mimes:jpeg,jpg,png|max:2048'
+        ]); 
+        
+        $event = Event::findOrFail($id); 
+
+        // Save layout as mediumblob
+        if ($request->hasFile('layout_photo')) {  
+            $file = $request->file('layout_photo')->getRealPath();  
+            $event->layout_photo = file_get_contents($file);
+        } 
+  
+        $event->save();  
+
+        return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Booth layout uploaded successfully.');
+    }
+
     public function storeVerifProfile(Request $request)  
     {  
         $validatedData = $request->validate([  
@@ -205,7 +224,7 @@ class DataController extends Controller
   
         $profile->save();  
 
-         return redirect()->route('verif')->with('success', 'Profile updated successfully.');
+        return redirect()->route('verif')->with('success', 'Profile updated successfully.');
     }
 
     public function storeBankAccount(Request $request)  
@@ -242,6 +261,6 @@ class DataController extends Controller
 
         $bankAcc->save();  
 
-         return redirect()->route('account')->with('success', 'Bank account updated successfully.');
+        return redirect()->route('account')->with('success', 'Bank account updated successfully.');
     }
 }

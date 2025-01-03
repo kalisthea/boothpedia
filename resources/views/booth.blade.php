@@ -30,15 +30,40 @@
                 <p style="margin-bottom:30px;"><strong>Occupied Booths : </strong>{{$occupiedBooths}}</p>
             </div>
             <div class="button-booth-container">
-                <button class="upload-layout-button" onclick="document.getElementById('fileInput').click();">
-                    <i class="fas fa-upload"></i>Upload Layout
-                </button>
-                <input type="file" id="fileInput" style="display: none;"/>
                 <button class="add-category-button" onclick="showPopup('popup-cat');">
                     <i class="fa-solid fa-plus"></i>Add Category
                 </button>
+                <form id="layoutForm" action="{{ route('booth.layout', [$event->name, $event->id]) }}" method="POST" enctype="multipart/form-data">  
+                    @csrf  
+                    @method('PUT')
+                    <div>
+                        <label for="fileInput"></label> 
+                        <button type="button" class="upload-layout-button" onclick="submitLayout();">  
+                            <i class="fas fa-upload"></i>Upload Layout  
+                        </button>  
+                        <input type="file" id="fileInput" name="layout_photo" style="display: none;" accept="image/*" />
+                    </div>  
+                    <button type="submit" style="display:none;"></button> 
+                </form> 
+                @if ($layoutPhoto)
+                    <button class="see-layout-button" id="seeLayout" onclick="showPopup('layoutModal');">
+                        <i class="fa-solid fa-eye"></i>See Layout
+                    </button>
+                @else
+                    <button class="see-layout-button" style="color:grey; border-color:grey; cursor: not-allowed;" title="Booth layout not uploaded yet">
+                        <i class="fa-solid fa-eye"></i>See Layout
+                    </button>
+                @endif
+                
             </div>
         </div>
+
+        <!-- Pop up layout booth -->
+        <div id="layoutModal" class="layout" style="display:none;">  
+            <span id="closeLayout" class="close" onclick="hidePopup('layoutModal')">&times;</span>  
+            <img id="layoutImage" class="layout-content" src="data:image/jpeg;base64,{{ $layoutPhoto }}" alt="Event Layout">  
+            <div id="layoutCaption">Event Layout</div>  
+        </div> 
         
         <!-- Pop up Add Category -->
         <section class="popup-box" id="popup-cat" style="display:none;">
@@ -64,7 +89,7 @@
         </section>
 
         <!-- Booth List -->
-        <div class="booth-list-container">
+        <div class="booth-list-container" style="margin-bottom:70px">
             <div class="booth-category">
                 <form action="{{ route('mybooth', $event->name) }}" method="get" id="categoryForm">  
                     <select name="category_name" onchange="this.form.submit()" id="categoryDropdown">  
@@ -157,6 +182,9 @@
                 </div>
             </div>
         </div>
+        <div class="back-button-container">  
+            <a href="{{ url('eventdetail/'.$event->name) }}" class="back-button">Back</a>  
+        </div>
 
         <!-- Pop up Add Booth -->
         <section class="popup-box" id="popup-addbooth" style="display:none;">
@@ -185,6 +213,20 @@
                 </form>
             </div>
         </section>
+
+        <!-- Check for success message -->  
+        @if(session('success'))  
+            <div id="sessionMessage" style="display: none;">{{ session('success') }}</div>  
+            <div id="successModal" class="modal">  
+                <div class="modal-content">  
+                    <span class="checkmark">
+                        <i class="fa-solid fa-check"></i>
+                    </span> 
+                    <h5 id="modalMessage"></h5>
+                    <button id="closeModal" class="close-button">OK</button>  
+                </div>  
+            </div>  
+        @endif
     </div>
 </body>
 </html>

@@ -381,7 +381,7 @@ class FrontendController extends Controller
 
             return view('myevents-detail', compact('event'));  
         } else {  
-            return redirect('/eventsaya')->with('status', "Event does not exist");  
+            return redirect('/myevents')->with('status', "Event does not exist");  
         }  
     }
 
@@ -409,8 +409,10 @@ class FrontendController extends Controller
         $event = Event::where('name', $event_name)->first();  
     
         if (!$event) {   
-            return redirect('/eventsaya')->with('status', "Event does not exist");
+            return redirect('/myevents')->with('status', "Event does not exist");
         }
+
+        $layoutPhoto = $event->layout_photo ? base64_encode($event->layout_photo) : null;
 
         $boothCategories = $event->categories;
 
@@ -430,7 +432,7 @@ class FrontendController extends Controller
             ->whereIn('booth_category_id', $event->categories->pluck('id'))  
             ->count();
 
-        return view('booth', compact('event', 'boothCategories', 'booths', 'selectedCategory', 'occupiedBooths'));
+        return view('booth', compact('event','layoutPhoto', 'boothCategories', 'booths', 'selectedCategory', 'occupiedBooths'));
     }
 
     // Display Verification Profile data

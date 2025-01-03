@@ -216,7 +216,10 @@ Route::middleware("auth")->group(function (){
         ->name('myevent.proposal');
 
     Route::get('/mybooths/{event_name}', [FrontendController::class, 'showBoothPage'])
-        ->name('mybooth');  
+        ->name('mybooth');
+
+    Route::put('/mybooths/{event_name}/{id}', [DataController::class, 'uploadLayout'])
+        ->name('booth.layout');
     
     Route::post('/mybooths/{event_name}/categories', [DataController::class, 'storeBoothCat'])
         ->name('booth.categories.store');

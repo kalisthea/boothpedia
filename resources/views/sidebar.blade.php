@@ -1,6 +1,6 @@
 <div class="side-menu">
   <div class="brand-name">
-    <h2><img src="images/Logo.png" alt="" class="logo">Boothpedia</h2>
+    <h2><img src="{{ asset('images/Logo.png') }}" alt="" class="logo">Boothpedia</h2>
   </div>
   <div class="divider"></div>
     <ul>

@@ -3,50 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
     <title>Chat Message</title>
 </head>
 <body>
-    <!-- Side Bar -->
-    @include('sidebar')
+  @include('sidebar')
 
-    <!-- Content -->
-    <div class="container">
+  <!-- Content -->
+  <div class="container">
       <!-- Header -->
       <div class="header">
           <div class="header-name">
-              <h1>Chat Messages</h1>
+              <h1>Chat Message</h1>
           </div>
           @include('navheader')
       </div>
 
       <div class="chat-container">
         <div class="chat-content-1">
-          <form action="{{ route("user.search") }}" method="GET">
+          <form action="{{ route("user.search") }}" method="POST">
+            @csrf
             <input class="search-hold" type="text" name="finduser" id="finduser" placeholder="Search User">
             @if (session('error'))
               <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
           </form>
-          {{-- {{ dd($chats) }} --}}
-      
-          @foreach($chats as $chat)
-            <a href="{{ url('chatmessage-tenant-active/'.$chat->eo->id) }}">{{ $chat->eo->name }}</a><br>
-          @endforeach
         </div>
         <div class="chat-content-2">
-          <p>Receiver</p><br>
-          <input type="text" placeholder="Type your message">
-          <input type="button" name="" id="" value="Send">
+            @if(Auth::user()->role == "tenant")
+              @foreach ($chats as $chat)
+              <div class="chat-list">
+                <b><a href="{{ url('chatmessage-active/'.$chat->id) }}" style="text-decoration: none; color:#006AA6">{{ $chat->eo->name }}</a><br></b>
+              </div>
+              <hr>
+              @endforeach
+            @elseif(Auth::user()->role == "eventorganizer")
+              @foreach ($chats as $chat)
+              <div class="chat-list">
+                <b><a href="{{ url('chatmessage-active/'.$chat->id) }}" style="text-decoration: none; color:#006AA6">{{ $chat->tenant->name }}</a><br></b>
+              </div>
+              <hr>
+              @endforeach
+            @endif
         </div>
-        
       </div>
-    
-    
+  </div>
 </body>
 </html>

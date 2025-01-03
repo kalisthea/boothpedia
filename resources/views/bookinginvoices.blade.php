@@ -24,7 +24,7 @@
         </div>
 
         <!-- Booking Invoices -->
-        <div class="booking-content">
+        <div class="booking-content" style="margin-bottom:70px">
             <div class="booth-detail">
                 <div class="booth-detail-content">
                     <h2 style="margin-bottom:30px;">{{ $event->name }}</h2>
@@ -64,6 +64,9 @@
                     @endforeach  
                 </tbody>
             </table>
+        </div>
+        <div class="back-button-container">  
+            <a href="{{ url('eventdetail/'.$event->name) }}" class="back-button">Back</a>  
         </div>
     </div>
     

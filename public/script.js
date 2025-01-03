@@ -9,7 +9,17 @@ function showTab(tabName) {
     
     document.getElementById(tabName).classList.add('active');  
     document.querySelector(`.tab-event[onclick="showTab('${tabName}')"]`).classList.add('active');  
-}  
+} 
+
+function submitLayout() {  
+    document.getElementById('fileInput').click();  
+
+    document.getElementById('fileInput').onchange = function() {  
+        if (this.files.length > 0) {  
+            document.getElementById('layoutForm').submit();  
+        }  
+    };  
+}
 
 function showPopupAddBooth(eventName, categoryId, categoryName) {  
     document.getElementById('selectedCategoryId').value = categoryId;
@@ -43,3 +53,28 @@ function displayFileName(inputId, spanId) {
 function confirmDeletion(form, object) {
     return confirm(`Are you sure you want to delete this ${object}?`);
 }
+
+function showSuccessPopup(message) {  
+    const successModal = document.getElementById('successModal');  
+    const modalMessage = document.getElementById('modalMessage');  
+
+    if (successModal) {  
+        modalMessage.innerText = message; // Set the message in the modal  
+        successModal.style.display = 'flex'; // Show the modal  
+    }  
+
+    const closeModalButton = document.getElementById('closeModal');  
+    if (closeModalButton) {  
+        closeModalButton.onclick = function() {  
+            successModal.style.display = 'none'; // Hide the modal on button click  
+        };  
+    }  
+}
+
+document.addEventListener('DOMContentLoaded', function() {  
+    // Check for the success message stored in the session (if applicable)  
+    const sessionMessage = document.getElementById('sessionMessage');  
+    if (sessionMessage) {  
+        showSuccessPopup(sessionMessage.innerText); // Show the success popup with the session message  
+    }  
+}); 
