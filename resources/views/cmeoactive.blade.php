@@ -31,7 +31,7 @@
         </div>
         <div class="chat-content-2">
           @foreach($messages as $message)
-            <div class="message-container {{ $message->sender == Auth::user()->role ? 'message-right' : 'message-left' }}">
+            <div class="message-container {{ $message->sender == Auth::user()->role ? 'message-left' : 'message-right' }}">
                 <p>{{ $message->message }}</p>
             </div>
           @endforeach

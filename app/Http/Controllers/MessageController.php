@@ -126,7 +126,7 @@ class MessageController extends Controller
                 $message = new Message;
                 $message->chat_id = $chat_id; 
                 $message->message = $request->sendtext;
-                $message->sender = "eventorganzier";
+                $message->sender = "eventorganizer";
                 $message->save();
             }
            
