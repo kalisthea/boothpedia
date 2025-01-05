@@ -14,16 +14,15 @@
 <body>
   <div class="signin-container">
     <div class="signin-content-1">
-      <a href="/home"><img style="position: relative; right:35%; width:10%;" src="images/arrow-left.png" alt=""></a>
-      <img style="position: relative; left:20%;" src="images/Logo.png" alt="">
+      <img style="position: relative; left:35%;" src="images/Logo.png" alt="">
     </div>
 
-    <b><p style="color:#FFC60B; padding-bottom:1rem; position: relative; left:18%;">Login to your account</p></b>
+    <b><p style="color:#006AA6; padding-bottom:1rem; position: relative; left:18%;">Login to your account</p></b>
 
-    <div class="login-content-2">
+    <div style="border:1px solid#006AA6;" class="login-content-2">
       <div class="signin-choice">
         <div class="signin-email">
-            <a href="/login"><p>Email</p></a>
+            <a href="/login-eo"><p>Email</p></a>
         </div>
         <div class="signin-number-active">
             <p>Phone Number</p>
@@ -52,10 +51,10 @@
 
     <div class="login-cta">
       <p>No account yet?</p>
-      <a href="/signup-eo">Register</a>
+      <a href="/signup-eo" style="color:#006AA6">Register</a>
     </div>
 
-    <a class="eologin" href="/login">Login as Tenant</a><b></b>
+    <a class="eologin" href="/login" style="color:#F7CB35">Login as Tenant</a><b></b>
 
 
     

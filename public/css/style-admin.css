@@ -65,7 +65,7 @@
     background: #006AA6;
   }
   
-  .side-menu li a.active {
+  .side-menu ul li.active {
     background: #006AA6;
   }
   
@@ -450,6 +450,7 @@
     font-weight: bold;
     border-radius: 10px 10px 0 0;
     gap: 0;
+    white-space: nowrap;
   }
 
   .tab-events-header .tab-event.active {

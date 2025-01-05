@@ -15,20 +15,20 @@
         </a>
       </li>
       <div class="divider"></div>
-      <li class="{{ request()->routeIs('info') ? 'active' : '' }}">
-        <a href="{{ route('info') }}">
-          <i class="fa-regular fa-id-card"></i>Profile
-        </a>
+      <li class="{{ request()->routeIs('info') ? 'active' : '' }}"> 
+          <a href="{{ route('info') }}"> 
+              <i class="fa-regular fa-id-card"></i>Profile 
+          </a> 
       </li>
-      <li class="{{ request()->routeIs('verifprofile') ? 'active' : '' }}">
-        <a href="{{ route('verifprofile') }}">
-          <i class="fa-regular fa-calendar-check"></i>Profile Verification
-        </a>
+      <li class="{{ request()->routeIs('verifprofile') ? 'active' : '' }}"> 
+          <a href="{{ route('verifprofile') }}"> 
+              <i class="fa-solid fa-user-check"></i>Profile Verification 
+          </a> 
       </li>
-      <li class="{{ request()->routeIs('bankaccount') ? 'active' : '' }}">
-        <a href="{{ route('bankaccount') }}">
-          <i class="fa-regular fa-credit-card"></i>Bank Account
-        </a>
+      <li class="{{ request()->routeIs('bankaccount') ? 'active' : '' }}"> 
+          <a href="{{ route('bankaccount') }}"> 
+              <i class="fa-regular fa-credit-card"></i>Bank Account 
+          </a> 
       </li>
       <li style="padding-top: 230px;">
         <form method="POST" action="{{ route('logout') }}">
