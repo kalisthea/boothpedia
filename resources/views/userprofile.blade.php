@@ -21,10 +21,9 @@
             <a href="explore">Explore</a></li>
             <a href="booth">Booth</a></li>
           </div>
-          <div  class="nav-right">
-            <input class="search-hold" type="text" placeholder="Search">
-            <a href=""><img style="width:35px; height:auto;" src="images/mail.png" alt=""></a>
-            <a href="/profile"><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
+          <div  class="nav-right" style="display: flex; gap: 1rem; align-items:center">
+            <a href="/chatmessage"><img style="width:35px; height:auto;" src="images/mail.png" alt=""></a>
+            <a href="/tenant-profile"><img style="width:35px; height:auto;" src="images/user.png" alt=""></a>
           </div>
         </nav>
       </header>

@@ -75,6 +75,11 @@ button:hover{
     border-radius: 15px;
     text-align: center;
 }
+.search-hold-2{
+    border: 2px solid #FFC60B;
+    border-radius: 15px;
+    text-align: center;
+}
 
 .search-hold::placeholder{
     color:#FFC60B;
