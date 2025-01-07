@@ -21,8 +21,10 @@
         <a href="explore">Explore</a></li>
         <a href="booth">Booth</a></li>
       </div>
-      <div  class="nav-right">
-        <input class="search-hold" type="text" placeholder="Search">
+      <div  class="nav-right" style="display: flex; align-items:center; gap:1rem;">
+        <form action="{{ route('index') }}" method="GET" > 
+          <input class="search-hold" type="text" name="search" placeholder="Search">
+        </form>
         <a href="/login"><button class="signin-button" type="button">Sign In</button></a>
       </div>
     </nav>

@@ -120,7 +120,7 @@ session_start();
                           <div class="booth-box-title">{{ $booth->booth_name }}</div> 
                           <div class="booth-box-sub">
                               <div class="booth-status">Rp {{ number_format($booth->booth_price , 0, ',', '.')}},00</div>
-                              <div class="booth-status">{{ $booth->is_occupied === 'Y' ? 'Unavailable' : 'Available' }}</div>
+                              <div class="booth-status" style="color:{{ $booth->is_occupied === 'Y' ? 'red' : 'green' }}">{{ $booth->is_occupied === 'Y' ? 'Unavailable' : 'Available' }}</div>
                           </div>
                         </div>
                       </div>  

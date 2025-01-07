@@ -22,8 +22,8 @@
       </div>
       <div  class="nav-right">
         <input class="search-hold" type="text" placeholder="Search">
-        <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
-        <a href="/profile"><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
+        <a href="/chatmessage"><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
+        <a href="/tenant-profile"><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
       </div>
     </nav>
   </header>
@@ -64,8 +64,9 @@
     </div>
   </div>
 
-  <p style="padding: 17rem; padding-top: 2rem;"> {{ $events->description }} </p>
+  <p style="padding-left: 17rem; padding-right: 17rem; padding-top: 2rem;"> {{ $events->description }} </p>
 
+  <a href="{{ route('event.proposal', ['event_name' => $events->name]) }}" target="_blank" style="padding-left: 17rem;">View Event Proposal</a>
 
 
 </body>

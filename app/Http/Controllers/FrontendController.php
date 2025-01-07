@@ -223,7 +223,7 @@ class FrontendController extends Controller
 
             session()->forget('selectedBooths'); 
 
-            return redirect()->route('bookedbooth.list');
+            return redirect()->route('bookedbooth.list')->with("success","Booking Success");
     
         }
         

@@ -86,10 +86,12 @@ Route::post('/signup-eo', [AuthController::class,"signupEOPost"])
 
 
 //GET EVENTS
-Route::get('/', [EventController::class, 'listForHome']);
+Route::get('/', [EventController::class, 'listForHome'])->name('index');
 
 //EVENT DETAILS
 Route::get('event-detail-desc/{event_name}', [FrontendController::class, 'eventdetail']);
+Route::get('/event-detail-desc/{event_name}/proposal', [FrontendController::class, 'showProposal'])
+    ->name('event.proposal');
 Route::get('event-detail-booth/{event_name}', [FrontendController::class, 'showBooths']);
 Route::post('event-detail-booth/{event_name}', [FrontendController::class, 'chosenBooth'])->name('store.data');
 

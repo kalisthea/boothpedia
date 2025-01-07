@@ -16,12 +16,15 @@ class EventController extends Controller
         
         if ($search) {
             $eventData = Event::whereDate('start_date', '>=', $currentDate)
-                ->where('name', 'like', "%{$search}%") 
-                ->orWhere('category', 'like', "%{$search}%")
-                ->orWhereHas('user', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%"); 
-                })
-                ->get();
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                      ->orWhere('category', 'like', "%{$search}%")
+                      ->orWhere('location', 'like', "%{$search}%"); 
+            })
+            ->orWhereHas('user', function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%"); 
+            })
+            ->get();
         } else {
             $eventData = Event::whereDate('start_date', '>=', $currentDate)->get();
         }
@@ -33,14 +36,28 @@ class EventController extends Controller
         // return view('index', ['events'=>$eventData]);
     }
 
-    function listForHome(){
+    function listForHome(Request $request){
 
        $currentDate = Carbon::now();
-
-        $eventData = Event::whereDate('start_date', '>=', $currentDate)->get();
-        foreach ($eventData as $item) {
-            $item->image_base64 = base64_encode($item->banner_photo);
-        }
+       $search = $request->input('search');
+        
+       if ($search) {
+           $eventData = Event::whereDate('start_date', '>=', $currentDate)
+           ->where(function ($query) use ($search) {
+               $query->where('name', 'like', "%{$search}%")
+                     ->orWhere('category', 'like', "%{$search}%")
+                     ->orWhere('location', 'like', "%{$search}%"); 
+           })
+           ->orWhereHas('user', function ($query) use ($search) {
+               $query->where('name', 'like', "%{$search}%"); 
+           })
+           ->get();
+       } else {
+           $eventData = Event::whereDate('start_date', '>=', $currentDate)->get();
+       }
+       foreach ($eventData as $item) {
+           $item->image_base64 = base64_encode($item->banner_photo);
+       }
         return view('home', compact('eventData'));
         // $eventData = Event::all();
         // return view('index', ['events'=>$eventData]);

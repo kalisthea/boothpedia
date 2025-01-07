@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style-admin.css">
     <script type="text/javascript" src="myscript.js"></script>
+    <script type="text/javascript" src="script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -23,8 +26,8 @@
         </div>
         <div  class="nav-right">
           <input class="search-hold" type="text" placeholder="Search">
-          <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
-          <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
+          <a href="/chatmessage"><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
+          <a href="/tenant-profile"><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
         </div>
       </nav>
   </header>
@@ -125,6 +128,19 @@
           </form>
         </div>
       </div>
+
+      @if(session('success'))  
+        <div id="sessionMessage" style="display: none;">{{ session('success') }}</div>  
+        <div id="successModal" class="modal">  
+            <div class="modal-content">  
+                <span class="checkmark">
+                    <i class="fa-solid fa-check"></i>
+                </span> 
+                <h5 id="modalMessage"></h5>
+                <button id="closeModal" class="close-button" style="color: #FFC60B">OK</button>  
+            </div>  
+        </div>  
+      @endif
 
 </body>
 </html>
