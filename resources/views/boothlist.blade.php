@@ -139,7 +139,7 @@
                     <i class="fa-solid fa-check"></i>
                 </span> 
                 <h5 id="modalMessage"></h5>
-                <button id="closeModal" class="close-button" style="color: #FFC60B">OK</button>  
+                <button id="closeModal" class="close-button" style="color: white; background-color:#FFC60B">OK</button>  
             </div>  
         </div>  
       @endif

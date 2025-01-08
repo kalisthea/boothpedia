@@ -576,6 +576,35 @@ button:hover{
     overflow-y: auto; 
 }
 
+.cta-buttons{
+    display: flex;
+    gap: 2rem;
+    padding-top: 1rem;
+    padding-left: 3rem;
+}
+
+.refund-popup{
+    display: none;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* border: 1px solid; */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 11px;
+    background-color: white;
+    padding: 20px 20px 20px 20px;
+    width: 30%;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+  }
+
  
 /* SIGN IN */
 

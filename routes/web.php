@@ -108,7 +108,10 @@ Route::get('booth/', [FrontendController::class, 'bookedView'])
 
 // Booking detail
 Route::get('booking-detail/{event_name}', [FrontendController::class, 'bookingDetail']);
-
+Route::post('booking-detail/{event_name}/refund', [FrontendController::class, 'refund'])
+    ->middleware('auth')->name("refund"); 
+Route::post('booking-detail/{event_name}/finish', [FrontendController::class, 'finishRental'])
+    ->middleware('auth')->name("finish-rental"); 
 // Rating
 Route::post('booth/', [FrontendController::class, 'giveRating'])
     ->middleware('auth')->name("rate.eo");  
@@ -124,6 +127,8 @@ Route::get('/booking', function () {
 Route::get('/tenant-profile', function () {
     return view('userprofile');
 });
+
+
 
 
 

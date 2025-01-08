@@ -107,4 +107,22 @@ function reviewClose(){
     ).style.display = "none";
 }
 
+function refundForm(){
+    document.getElementById(
+        "overlay"
+    ).style.display = "block";
+    document.getElementById(
+        "refund-form"
+    ).style.display = "block";
+}
+
+function refundClose(){
+    document.getElementById(
+        "overlay"
+    ).style.display = "none";
+    document.getElementById(
+        "refund-form"
+    ).style.display = "none";
+}
+
 

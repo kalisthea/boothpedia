@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <script type="text/javascript" src="{{ asset('myscript.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('script.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -97,8 +98,103 @@
                 </div>
             </div>
         </div>
+        @php
+        $refundExists = \App\Models\Refund::where('event_id', $events->id)
+                                           ->where('tenant_id', auth()->id())
+                                           ->exists();
+        foreach($invoices as $invoice){
+          $invoiceid = $invoice->id;
+        }
+        @endphp
+        @if($refundExists)
+          <p class="refund-message" style="padding-left:2rem;">A refund request has already been submitted.</p>
+        @endif
+        @if($invoice->finished == 'Y')
+          <p class="refund-message" style="padding-left:2rem;">You have finished this rental!</p>
+        @endif
+        <div class="cta-buttons">
+          <button class="ok-button" onclick="refundForm()" @if($refundExists || $invoice->finished == 'Y') disabled @endif>Request Refund</button><br>
+          <form action="{{ route('finish-rental', ['event_name' => $events->name]) }}" method="POST">
+            @csrf  
+            <input type="hidden" name="invoice_id" id="" value="{{ $invoiceid }}">
+            <button class="ok-button" type="submit" @if($refundExists || $invoice->finished == 'Y') disabled @endif>Finish Rental</button><br>
+          </form>
+        </div>
       </div>
+      
     @endforeach
-      <a href="/home"><button style="position:relative; left: 45%;" class="ok-button">OK</button></a>
+  
+    <a href="/booth"><button style="position:relative; left: 45%;" class="ok-button">OK</button></a>
+
+    <div id="overlay" class="overlay">
+      <div id="refund-form" class="refund-popup">
+        <div class="center-container"> 
+          <p style="font-size: 20px; color:#FFC60B">Refund Form</p>
+        </div>
+        <form action="{{ route('refund' , ['event_name' => $events->name ]) }}" method="POST">
+          @csrf
+          <label for="reason" style="padding-bottom:1rem; color:#FFC60B">Choose Reason</label><br>
+          <div style="padding-left: 1rem; padding-bottom:1rem; margin-top: -5px">
+            <input type="radio" id="star5" name="reason" value="Event did not go well" required>
+            <label for="1" style="padding-left: 1rem;">Event did not go well</label><br>
+            <input type="radio" id="star4" name="reason" value="Accidental purchase">
+            <label for="2" style="padding-left: 1rem;">Accidental purchase</label><br>
+            <input type="radio" id="star3" name="reason" value="Incorrect booking selection">
+            <label for="3" style="padding-left: 1rem;">Incorrect booking selection</label><br>
+            <input type="radio" id="star2" name="reason" value="No longer able to attend">
+            <label for="4" style="padding-left: 1rem;">No longer able to attend</label><br>
+          </div>
+          <div style="padding-bottom:2rem;" >
+            <p style="margin-bottom: -5px; color:#FFC60B">Additional Information</p>
+            <p>This will help us evaluate the situation further</p>
+            <input type="text" name="additional" id="" placeholder="Type here" style="padding-right: 100px;" required>
+            <p style="padding-top:1rem;">Attach image (If any)</p>
+            <input type="file" name="image">
+          </div>
+
+          <p style="margin-bottom: -5px; color:#FFC60B">Insert your bank information</p>
+          <p>Please insert the correct information as this is for refund purposes</p>
+          <div style="padding-bottom:2rem;">
+            <select id="mySelect" name="bank">
+              <option value="Bank BCA">Bank BCA</option>
+              <option value="Mandiri">Mandiri</option>
+              <option value="CIMB">CIMB</option>
+              <option value="Bank BSI">Bank BSI</option>
+            </select>
+            <div>
+              <label for="">Bank Account Number</label>
+              <input type="text" name="bank_number" required><br>
+              <label for="" style="padding-top:1rem;">Account Name</label>
+              <input type="text" name="account_name"required><br>
+            </div>
+          </div>
+          <input type="hidden" name="event_id" value="{{ $events->id }}">
+          <input type="hidden" name="eo_id" value="{{ $events->user->id }}">
+          @php
+            foreach($invoices as $invoice){
+              $invoiceid = $invoice->id;
+            }
+          @endphp
+          <input type="hidden" name="invoice_id" value="{{ $invoiceid }}">
+          <div class="center-container" style="display: flex; gap:1rem;">
+            <button type="button" onclick="refundClose()" class="ok-button">Return</button>
+            <button type="submit" class="ok-button">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    @if(session('success'))  
+        <div id="sessionMessage" style="display: none;">{{ session('success') }}</div>  
+        <div id="successModal" class="modal">  
+            <div class="modal-content">  
+                <span class="checkmark">
+                    <i class="fa-solid fa-check"></i>
+                </span> 
+                <h5 id="modalMessage"></h5>
+                <button id="closeModal" class="close-button" style="color: white; background-color:#FFC60B">OK</button>  
+            </div>  
+        </div>  
+      @endif
 </body>
 </html>

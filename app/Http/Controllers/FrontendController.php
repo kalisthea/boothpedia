@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BankAccount;
 use App\Models\Booth;
 use App\Models\Event;
 use App\Models\Rating;
+use App\Models\Refund;
 use App\Models\Invoice;
 use App\Models\Category;
+use App\Models\BankAccount;
 use App\Models\Verification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -309,8 +310,51 @@ class FrontendController extends Controller
             return redirect()->back()->with('error', 'Failed to rate event organizer.');
         }
         
-        
     }
+
+    //To refund
+    public function refund(Request $request){
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        $eo_id = $request->input('eo_id');
+        $event_id = $request->input('event_id');
+        $invoice_id = $request->input('invoice_id');
+        
+
+        $refund = new Refund();
+        $refund->tenant_id = $user_id;
+        $refund->eo_id = $eo_id;
+        $refund->event_id = $event_id;
+        $refund->invoice_id = $invoice_id;
+        $refund->reason = $request->input('reason');
+        $refund->additional = $request->input('additional');
+        $refund->image = $request->input('image');
+        $refund->bank = $request->input('bank');
+        $refund->bank_number = $request->input('bank_number');
+        $refund->account_name = $request->input('account_name');
+        
+        if ($refund->save()) {
+            return redirect()->back()->with('success', 'Refund form submitted!'); 
+        } else {
+            return redirect()->back()->with('error', 'Failed to rate event organizer.');
+        }
+    }
+
+    //Finish Rental
+    public function finishRental(Request $request){
+        $invoice_id = $request->input('invoice_id');
+
+        $invoice = Invoice::where('id', $invoice_id)->firstOrFail(); 
+
+        $invoice->finished = 'Y'; 
+        if ($invoice->save()) {
+            return redirect()->back()->with('success', 'Thank you! Rental Finished'); 
+        } else {
+            return redirect()->back()->with('error', 'Failed to rate event organizer.');
+        }
+    }
+
 
     public function displayDashboard()  
     {  
