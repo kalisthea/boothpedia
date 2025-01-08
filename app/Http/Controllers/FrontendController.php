@@ -292,12 +292,14 @@ class FrontendController extends Controller
         $eo_id = $request->input('eo_id');
         $event_id = $request->input('event_id');
         $rating = $request->input('rating');
+        $comment = $request->input('comment');
 
         $rate = new Rating();
         $rate->eo_id = $eo_id;
         $rate->tenant_id = $user_id;
         $rate->event_id = $event_id;
         $rate->rating = $rating;
+        $rate->comment = $comment;
 
         
        

@@ -89,5 +89,22 @@ function closePopup() {
     document.getElementById("ratePopup").style.display = "none";
 }
 
+function reviewPopup(){
+    document.getElementById(
+        "overlay"
+    ).style.display = "block";
+    document.getElementById(
+        "review-popup"
+    ).style.display = "block";
+}
+
+function reviewClose(){
+    document.getElementById(
+        "overlay"
+    ).style.display = "none";
+    document.getElementById(
+        "review-popup"
+    ).style.display = "none";
+}
 
 

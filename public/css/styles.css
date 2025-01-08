@@ -81,6 +81,11 @@ button:hover{
     text-align: center;
 }
 
+.search-hold-2::placeholder{
+    color:#FFC60B;
+}
+
+
 .search-hold::placeholder{
     color:#FFC60B;
 }
@@ -208,6 +213,7 @@ button:hover{
     border-radius: 18px;
     padding: 1px 350px 1px 350px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    display: flex;
 }
 
 .detail-2 {
@@ -220,15 +226,17 @@ button:hover{
 }
 
 .detail-content-1{
-    top: 50px;
-    right: 250px;
-    position: relative;
+   position: relative;
+   right: 200px;
+   padding-top: 2rem;
+   padding-bottom: 2rem;
 }
 
 .detail-content-2{
     position: relative;
-    bottom: 100px;
     left: 100px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 .price-range{
@@ -533,9 +541,42 @@ button:hover{
     padding-left: 2.5rem;
 }
 
+.review-button{
+    padding: 5px 20px 5px 20px;
+    background-color: #FFC60B;
+    color: white;
+    border: 2px solid #FFC60B;
+    border-radius: 13px;
+}
 
+.review-button:hover{
+    padding: 5px 20px 5px 20px;
+    background-color: white;
+    color: #FFC60B;
+    border: 2px solid #FFC60B;
+    border-radius: 13px;
+}
 
+.review-popup{
+    display: none;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* border: 1px solid; */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 11px;
+    background-color: white;
+    padding: 20px 100px 20px 100px;
+}
 
+.comment-container {
+    max-height: 200px; /* Adjust this height as needed */
+    overflow-y: auto; 
+}
+
+ 
 /* SIGN IN */
 
 .signin-container{

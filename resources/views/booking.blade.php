@@ -103,9 +103,9 @@
           </div>
         </div>
       
-        <b><h2 style="color: #FFC60B; padding-top: 3rem; padding-bottom: 2rem;">Payment Method</h2></b>
+        <b><h2 style="color: #FFC60B; padding-top: 3rem; padding-bottom: 1rem;">Payment Method</h2></b>
       
-            
+        <p style="padding-bottom: 1rem;">*Sebagai penyedia layanan pihak ketiga, kami memastikan transaksi Anda aman dalam proses penyewaan booth.</p>
         <div class="payment-method-container"> 
           <input type="radio" id="bca" name="payment_method" value="BCA Virtual Account" checked>
           <img class="payment-method-content"  src={{ asset("images/bca.png") }} alt="">

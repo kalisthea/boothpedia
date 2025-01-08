@@ -25,7 +25,7 @@
           <a href="booth">Booth</a></li>
         </div>
         <div  class="nav-right">
-          <input class="search-hold" type="text" placeholder="Search">
+          <input class="search-hold-2" type="text" placeholder="Search">
           <a href="/chatmessage"><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
           <a href="/tenant-profile"><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
         </div>
@@ -124,6 +124,8 @@
               <input type="hidden" name="eo_id" id="eo_id" value="">
               <input type="hidden" name="event_id" id="event_id" value="">
             </div>
+            <p style="color:#FFC60B">Feedback/Comment</p>
+            <input type="text" placeholder="Type here...." name="comment" style="padding-bottom: 1rem; margin-bottom: 10px;"><br>
             <button class="ok-button" type="submit">Done</button></a>
           </form>
         </div>

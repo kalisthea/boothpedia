@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
+    <script type="text/javascript" src="{{ asset('myscript.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -51,6 +52,7 @@
         <p>Event Organizer : {{ $events->user->name }}</p>
         <p>Rating : {{ number_format($averageRating, 1, '.', ''); }}/5</p>
         <p>{{ $events->start_date }} - {{ $events->end_date }}</p>
+        <button class="review-button" type="button" onclick="reviewPopup()">Check Reviews</button>
       </div>
     </div>
   </div>
@@ -68,6 +70,29 @@
 
   <a href="{{ route('event.proposal', ['event_name' => $events->name]) }}" target="_blank" style="padding-left: 17rem;">View Event Proposal</a>
 
+  <div id="overlay" class="overlay">
+    <div id="review-popup" class="review-popup">
+      <p style="color: #FFC60B; font-size: 20px; position:relative; left: 70px;">Event Organizer Reviews</p>
+        @php
+          $getEO = $events->user->id;
+
+          $comments = Rating::where('eo_id', $getEO)->get() ;
+        @endphp
+      <div class="comment-container">
+        @foreach ($comments as $comment)
+            <div class="comment" style="margin-bottom: 5px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 11px; padding: 10px 5px 5px 10px;">
+                <p style="margin-bottom: 5px;">{{ $comment->comment }}</p>
+                <p>Rating: {{ $comment->rating }}</p> 
+            </div>
+        @endforeach
+      </div>
+      <div style="padding-top: 1rem; position:relative; left: 110px;">
+        <button class="ok-button" onclick="reviewClose()">Return</button>
+      </div>
+      
+  
+    </div>
+  </div>
 
 </body>
 </html>
