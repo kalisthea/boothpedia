@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
-    <title>Profile Verification</title>
+    <title>Edit Profile Verification</title>
 </head>
 <body>
         <!-- Side Bar -->
@@ -52,7 +52,7 @@
                         </ul>
                         <div class="btn-savecancel">
                             <a href="{{ route('verifprofile') }}" class="cancel-info">Cancel</a>
-                            <input type="submit" value="Submit" class="submit-btn" style="margin-left:10px">
+                            <input type="submit" value="Save" class="submit-btn" style="margin-left:10px">
                         </div>
                     </div>
                 </form>

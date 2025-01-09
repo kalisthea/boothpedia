@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <script src="{{ asset('script.js') }}"></script>  
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
-    <title>Tambah Verifikasi Profile</title>
+    <title>Add Profile Verification</title>
 </head>
 <body>
     <!-- Side Bar -->

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <script src="{{ asset('script.js') }}"></script>  
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
-    <title>Bank Account</title>
+    <title> Edit Bank Account</title>
 </head>
 <body>
     <!-- Side Bar -->
@@ -46,7 +46,7 @@
                         </ul>
                         <div class="btn-savecancel">
                             <a href="{{ route('bankaccount') }}" class="cancel-info">Cancel</a>
-                            <input type="submit" value="Submit" class="submit-btn" style="margin-left:10px">
+                            <input type="submit" value="Save" class="submit-btn" style="margin-left:10px">
                         </div>
                     </div>
                 </form>

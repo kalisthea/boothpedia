@@ -42,8 +42,9 @@ class DataController extends Controller
             $data->proposal_doc = file_get_contents($file);
         }
   
-        if ($data->save()) {  
-            return redirect()->route('dashboard')->with('success', 'Event created successfully.');  
+        if ($data->save()) {
+            $event_name = $data['name'];
+            return redirect()->route('mybooth', ['event_name' => $event_name])->with('success', 'Event created successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to create event.']);  
         } 
@@ -195,7 +196,7 @@ class DataController extends Controller
         }  
   
         if ($data->save()) {  
-            return redirect()->route('verif')->with('success', 'Verification added successfully.');  
+            return redirect()->route('verif')->with('success', 'Profile verification added successfully.');  
         } else {  
             return redirect()->back()->withErrors(['error' => 'Failed to add verification.']);  
         }
@@ -224,7 +225,7 @@ class DataController extends Controller
   
         $profile->save();  
 
-        return redirect()->route('verif')->with('success', 'Profile updated successfully.');
+        return redirect()->route('verif')->with('success', 'Profile verification updated successfully.');
     }
 
     public function storeBankAccount(Request $request)  

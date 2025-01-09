@@ -64,29 +64,6 @@
             <img id="layoutImage" class="layout-content" src="data:image/jpeg;base64,{{ $layoutPhoto }}" alt="Event Layout">  
             <div id="layoutCaption">Event Layout</div>  
         </div> 
-        
-        <!-- Pop up Add Category -->
-        <section class="popup-box" id="popup-cat" style="display:none;">
-            <div class="popup-content">
-                <div class="popup-header">
-                    <h3 style="padding-bottom:20px;">Add Booth Category</h3>
-                </div>
-                <div style="border-bottom:1px solid black;"></div>
-                <form id="createCategory" method="POST" action="{{ route('booth.categories.store', ['event_name' => $event->name]) }}">
-                    @csrf
-                    <div class="field-popup-box">
-                        <div style="padding-bottom:20px;">
-                            <label for="category" style="padding-bottom:20px;padding-top:20px;">Category Name</label>
-                            <input type="text" id="category_name" name="category_name" class="category" placeholder="Input kategori booth..." required>
-                        </div>
-                        <div class="btn-popup-savecancel">
-                            <button type="button" class="cancel-button" onclick="hidePopup('popup-cat')">Cancel</button>
-                            <input type="submit" value="Save" class="submit-popup-button" style="margin-left:10px">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
 
         <!-- Booth List -->
         <div class="booth-list-container" style="margin-bottom:70px">
@@ -185,6 +162,29 @@
         <div class="back-button-container">  
             <a href="{{ url('eventdetail/'.$event->name) }}" class="back-button">Back</a>  
         </div>
+
+        <!-- Pop up Add Category -->
+        <section class="popup-box" id="popup-cat" style="display:none;">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <h3 style="padding-bottom:20px;">Add Booth Category</h3>
+                </div>
+                <div style="border-bottom:1px solid black;"></div>
+                <form id="createCategory" method="POST" action="{{ route('booth.categories.store', ['event_name' => $event->name]) }}">
+                    @csrf
+                    <div class="field-popup-box">
+                        <div style="padding-bottom:20px;">
+                            <label for="category" style="padding-bottom:20px;padding-top:20px;">Category Name</label>
+                            <input type="text" id="category_name" name="category_name" class="category" placeholder="Input booth category..." required>
+                        </div>
+                        <div class="btn-popup-savecancel">
+                            <button type="button" class="cancel-button" onclick="hidePopup('popup-cat')">Cancel</button>
+                            <input type="submit" value="Save" class="submit-popup-button" style="margin-left:10px">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
 
         <!-- Pop up Add Booth -->
         <section class="popup-box" id="popup-addbooth" style="display:none;">

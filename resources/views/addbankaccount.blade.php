@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <script src="{{ asset('script.js') }}"></script>  
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style-admin.css') }}">
-    <title>Bank Account</title>
+    <title> Add Bank Account</title>
 </head>
 <body>
     <!-- Side Bar -->
@@ -18,7 +18,7 @@
         <!-- Header -->
         <div class="header">
             <div class="header-name">
-                <h1>Bank Account</h1>
+                <h1> Add Bank Account</h1>
             </div>
             @include('navheader')
         </div>

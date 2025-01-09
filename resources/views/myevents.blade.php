@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="css/style-admin.css">
+    <script src="{{ asset('script.js') }}"></script> 
     <title>Event Saya</title>
 </head>
 <body>
@@ -99,22 +100,5 @@
             </div>  
         @endif
     </div>
-
-    <!-- Script -->
-    <script>
-        function showTab(tabName) {  
-            // Hide all tabs  
-            document.querySelectorAll('.tab').forEach(tab => {  
-                tab.classList.remove('active');  
-            });  
-            // Remove active class from all tab events  
-            document.querySelectorAll('.tab-event').forEach(event => {  
-                event.classList.remove('active');  
-            });  
-            // Show the clicked tab and set it as active  
-            document.getElementById(tabName).classList.add('active');  
-            document.querySelector(`.tab-event[onclick="showTab('${tabName}')"]`).classList.add('active');  
-        }
-    </script>
 </body>
 </html>
