@@ -164,7 +164,11 @@
   
   .left-side {  
     text-align: left;
-  } 
+  }
+
+  .box-top {
+    display: flex;
+  }
   
   .content .overview-boxes .box-topic {
     font-size: 20px;
@@ -1066,4 +1070,38 @@
   color: red;
   text-decoration: none;
   cursor: pointer;
+}
+
+.filter-section {
+  padding-bottom: 30px;
+}
+
+.filter-section .form-inline {  
+  display: flex;  
+  align-items: center;
+}  
+
+.filter-section .form-group {  
+  margin-right: 10px;
+}
+
+.form-group select {
+  height: 40px;
+  padding: 2px;
+  border: 1px solid #006AA6;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #006AA6;
+}
+
+.filter-button {
+  height: 40px;
+  padding: 10px;  
+  background-color: white;  
+  color: #006AA6;  
+  font-weight: bold;
+  border: 1px solid #006AA6;  
+  border-radius: 5px;  
+  cursor: pointer;  
+  text-align: center; 
 }

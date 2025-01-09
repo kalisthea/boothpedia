@@ -29,34 +29,50 @@
                 <div class="dash-row">
                     <div class="box">
                         <div class="left-side">
-                            <div class="box-topic">Active Events</div>
+                            <div class="box-top">
+                                <div class="box-topic" style="margin-right:41px;">Active Events</div>
+                                <a href="{{ route('events') }}" style="color:#006AA6; font-size:smaller;">See Details
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
                             <div class="number">{{ $totalActiveEvents }}</div>
                         </div>
                     </div>
                     <div class="box">
                         <div class="left-side">
-                            <div class="box-topic">Past Events</div>
+                            <div class="box-top">
+                                <div class="box-topic" style="margin-right:61px;">Past Events</div>
+                                <a href="{{ route('events') }}" style="color:#006AA6; font-size:smaller;">See Details
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
                             <div class="number">{{ $totalPastEvents }}</div>
                         </div>
                     </div>
+                    <div class="box">
+                        <div class="left-side">
+                            <div class="box-topic">Active Booths</div>
+                            <div class="number">{{ $totalActiveBooths }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dash-row">
                     <div class="box">
                         <div class="left-side">
                             <div class="box-topic">Rating</div>
                             <div class="number">{{ number_format($averageRating, 1)}}/5</div>
                         </div>
                     </div>
-                </div>
-                <div class="dash-row">
-                <div class="box">
-                        <div class="left-side">
-                            <div class="box-topic">Active Booths</div>
-                            <div class="number">{{ $totalActiveBooths }}</div>
-                        </div>
-                    </div>
                     <div class="box">
                         <div class="left-side">
-                            <div class="box-topic">Total Sales</div>
+                            <div class="box-top">
+                                <div class="box-topic" style="margin-right:69px;">Total Sales</div>
+                                <a href="{{ route('invoice') }}" style="color:#006AA6; font-size:smaller;">See Details
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
                             <div class="number">Rp {{ number_format($totalSales, 2, ',', '.') }}</div>
+                            
                         </div>
                     </div>
                     <div class="box">

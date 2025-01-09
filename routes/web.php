@@ -237,7 +237,7 @@ Route::middleware("auth")->group(function (){
     Route::delete('/mybooths/{event_name}/{category_name}/{id}', [DataController::class, 'deleteBooth'])
         ->name('booth.delete');
 
-    Route::get('/invoices/{event_name}', [FrontendController::class, 'showInvoice'])
+    Route::get('/invoices', [FrontendController::class, 'showInvoice'])
         ->name('invoice');
 });
 

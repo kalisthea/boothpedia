@@ -517,19 +517,36 @@ class FrontendController extends Controller
         return view('editbankaccount', compact('bankAcc'));
     }
 
-    public function showInvoice($event_name){
+    public function showInvoice(Request $request) {  
 
-        $event = Event::where('name', $event_name)->first();
-
-        $invoices = Invoice::with(['tenant', 'booths.category'])
-                        ->where('event_id', $event->id)
-                        ->get();
-
-        $totalQty = $invoices->sum('quantity');
-
-        $totalSales = $invoices->sum('total_price');
-
-        return view('bookinginvoices', compact('event', 'invoices', 'totalQty', 'totalSales'));
+        $categories = Category::all();  
+        $events = Event::all();
+    
+        $query = Invoice::with(['tenant', 'event', 'booths.category']);  
+        
+        // Filter by event name
+        if ($request->filled('event_name')) {  
+            $query->where('event_id', $request->event_name);
+        }  
+    
+        // Filter by month
+        if ($request->filled('month')) {  
+            $query->whereMonth('created_at', $request->month);  
+        }  
+    
+        // Filter by category
+        if ($request->filled('category')) {  
+            $query->whereHas('booths.category', function ($q) use ($request) {  
+                $q->where('id', $request->category);  
+            });  
+        }  
+    
+        $invoices = $query->get();  
+    
+        $totalQty = $invoices->sum('quantity');  
+        $totalSales = $invoices->sum('total_price');  
+    
+        return view('bookinginvoices', compact('invoices', 'totalQty', 'totalSales', 'categories', 'events'));  
     }
 
 }

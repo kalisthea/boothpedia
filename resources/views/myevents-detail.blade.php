@@ -86,9 +86,6 @@
                                 <i class="fa-solid fa-file-pdf"></i>Proposal Event
                             </a>
                         @endif
-                        <a href="{{ route('invoice', ['event_name' => $event->name]) }}"  class="booth-button">
-                            <i class="fa-solid fa-receipt"></i>Invoices
-                        </a>
                     </div>
                 </div>  
             </div>
