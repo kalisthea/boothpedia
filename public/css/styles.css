@@ -16,6 +16,8 @@ body {
     padding: 2rem 5rem;
 }
 
+
+
 button:hover{
     border: 1px solid #d0d0d6;
     background-color: #d0d0d6;
@@ -898,3 +900,5 @@ button:hover{
     padding-left: 10px;
     padding-left: 50px;
 }
+
+/* admin view */

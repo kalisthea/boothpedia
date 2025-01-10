@@ -125,4 +125,13 @@ function refundClose(){
     ).style.display = "none";
 }
 
+function refundPopup(){
+    document.getElementById(
+        "overlay"
+    ).style.display = "block";
+    document.getElementById(
+        "refund-popup"
+    ).style.display = "block";
+}
+
 

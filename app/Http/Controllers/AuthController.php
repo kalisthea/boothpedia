@@ -22,9 +22,15 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only("email", "password");
-        $credentials ['role'] = 'tenant';
+        // $credentials ['role'] = 'tenant';
         if(Auth::attempt($credentials)){
-            return redirect()->intended('home');
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                return redirect()->intended('admin'); 
+            } elseif ($user->role === 'tenant') {
+                return redirect()->intended('home'); 
+            }
         }
         return redirect(route("login"))->withErrors(['email' => 'The provided credentials do not match our records.']);
     }

@@ -42,6 +42,11 @@ Route::get('/home', [EventController::class, 'list'], function () {
     return view('index');
 })->middleware('auth')->name('home');
 
+Route::get('/admin', [FrontendController::class, 'displayRefunds'],  function () {
+    return view('adminview');
+})->middleware('auth')->name('admin');
+Route::put('/admin/approve', [FrontendController::class, 'approve'])->name('refunds.approve');
+Route::put('/admin/deny', [FrontendController::class, 'deny'])->name('refunds.deny'); 
 
 // REGISTER AND LOGIN FOR TENANT
 

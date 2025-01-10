@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter" serif;
+}
+
+body{
+    padding: 5rem 3rem 5rem;
+}
+
+header{
+    display: flex; 
+    align-items:center;
+    gap: 2rem;
+    padding-bottom: 2rem;
+}
+
+.header-text{
+    padding-top: 2rem;
+    color: #0082CB;
+    font-size: 30px;
+}
+
+.logout-button{
+    padding: 3px 25px 3px 25px;
+    background-color: #0082CB;
+    color: white;
+    border: 1px solid #0082CB;
+    border-radius: 11px;
+    position: relative;
+    left: 1090px;
+}
+
+.logout-button:hover{
+    padding: 3px 25px 3px 25px;
+    background-color: white;
+    color: #0082CB;
+    border: 1px solid #0082CB;
+    border-radius: 11px;
+    position: relative;
+    left: 1090px;
+}
+
+.main-container{
+    width: 95%;
+    height: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    /* border: 1px solid; */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 11px;
+    background-color: white;
+    padding: 20px 25px 20px 25px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+  
+th {
+    background-color: #f2f2f2;
+}
+  
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+  
+.btn-primary, .btn-success, .btn-danger {
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #fff;
+}
+  
+.btn-primary {
+    background-color: #007bff;
+}
+  
+.btn-success {
+    background-color: #28a745;
+}
+  
+.btn-danger {
+    background-color: #dc3545;
+}
+
+

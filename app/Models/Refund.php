@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Refund extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [ 
         'tenant_id',
         'eo_id',
@@ -16,6 +19,27 @@ class Refund extends Model
         'image',
         'bank',
         'bank_number',
-        'account_name'
+        'account_name',
+        'status'
     ]; 
+
+    public function tenant()
+    {
+        return $this->belongsTo(User::class, 'tenant_id');
+    }
+
+    public function eo()
+    {
+        return $this->belongsTo(User::class, 'eo_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
 }

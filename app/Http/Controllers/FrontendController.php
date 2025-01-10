@@ -355,6 +355,47 @@ class FrontendController extends Controller
         }
     }
 
+    // Display refunds
+    public function displayRefunds(Request $request){
+        $filter = $request->input('filter', 'pending'); 
+
+        if ($filter === 'approved') {
+            $refunds = Refund::where('status', 'approved')->get();
+        } elseif ($filter === 'denied') {
+            $refunds = Refund::where('status', 'denied')->get();
+        } elseif ($filter === 'pending') { 
+            $refunds = Refund::whereNull('status')->get(); 
+        } else {
+            $refunds = Refund::all();
+        }
+
+        return view('adminview', compact('refunds','filter'));
+    }
+
+    public function approve(Request $request)
+    {
+        $refund_id = $request->input('refund_id');
+
+        $refund = Refund::where('id', $refund_id)->firstOrFail(); 
+
+        $refund->status = 'approved';
+        $refund->save();
+
+        return redirect()->back()->with('success', 'Refund approved successfully!');
+    }
+
+    public function deny(Request $request)
+    {
+        $refund_id = $request->input('refund_id');
+
+        $refund = Refund::where('id', $refund_id)->firstOrFail(); 
+
+        $refund->status = 'denied';
+        $refund->save();
+
+        return redirect()->back()->with('success', 'Refund denied successfully!');
+    }
+
 
     public function displayDashboard()  
     {  
