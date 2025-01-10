@@ -36,6 +36,11 @@ class Event extends Model
         return $this->hasMany(Invoice::class);  
     }
 
+    public function ratings()  
+    {  
+        return $this->hasMany(Rating::class, 'event_id');  
+    }
+
 
     use HasFactory;  
 

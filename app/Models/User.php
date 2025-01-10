@@ -18,6 +18,10 @@ class User extends Authenticatable
     //     return $this->hasMany('App\Models\Event');
     // }
 
+    public function tenantRating()  
+    {  
+        return $this->hasMany(Rating::class, 'tenant_id');  
+    }
 
     public function ratings()
     {

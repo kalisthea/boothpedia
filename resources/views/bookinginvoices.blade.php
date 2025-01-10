@@ -38,7 +38,7 @@
                 <form method="GET" action="{{ route('invoice') }}" class="form-inline">  
                     <div class="form-group">  
                         <select id="event_name" name="event_name" class="form-control">  
-                            <option value="">Select Event</option>  
+                            <option value="">All Events</option>  
                             @foreach ($events as $event)  
                                 <option value="{{ $event->id }}" {{ request('event_name') == $event->id ? 'selected' : '' }}>  
                                     {{ $event->name }}  
@@ -49,7 +49,7 @@
 
                     <div class="form-group">  
                         <select id="month" name="month" class="form-control">  
-                            <option value="">Select Month</option>  
+                            <option value="">All Months</option>  
                             @foreach (range(1, 12) as $month)  
                                 <option value="{{ $month }}" {{ request('month') == $month ? 'selected' : '' }}>  
                                     {{ \Carbon\Carbon::create()->month($month)->format('F') }}  
@@ -60,7 +60,7 @@
 
                     <div class="form-group">  
                         <select id="category" name="category" class="form-control">  
-                            <option value="">Select Category</option>  
+                            <option value="">All Categories</option>  
                             @foreach ($categories as $category)  
                                 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>  
                                     {{ $category->category_name }}  
@@ -69,7 +69,7 @@
                         </select>  
                     </div>  
 
-                    <button type="submit" class="filter-button">Filter</button>  
+                    <button type="submit" class="filter-button">Show</button>  
                 </form>  
             </div>
 

@@ -590,4 +590,20 @@ class FrontendController extends Controller
         return view('bookinginvoices', compact('invoices', 'totalQty', 'totalSales', 'categories', 'events'));  
     }
 
+    public function showRatings(Request $request) {
+        $eoId = Auth::id();
+
+        $query = Rating::with(['tenant', 'event'])->where('eo_id', $eoId);  
+
+        if ($request->has('rating') && $request->rating) {  
+            $query->where('rating', $request->rating);  
+        }  
+
+        $ratings = $query->get();
+
+        $averageRating = Rating::where('eo_id', $eoId)->avg('rating');
+
+        return view('ratingeo', compact('ratings', 'averageRating'));
+    }
+
 }

@@ -59,7 +59,12 @@
                 <div class="dash-row">
                     <div class="box">
                         <div class="left-side">
-                            <div class="box-topic">Rating</div>
+                            <div class="box-top">
+                                <div class="box-topic" style="margin-right:115px;">Rating</div>
+                                <a href="{{ route('ratings') }}" style="color:#006AA6; font-size:smaller;">See Details
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
                             <div class="number">{{ number_format($averageRating, 1)}}/5</div>
                         </div>
                     </div>
