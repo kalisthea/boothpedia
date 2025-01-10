@@ -369,7 +369,20 @@ class FrontendController extends Controller
             $refunds = Refund::all();
         }
 
-        return view('adminview', compact('refunds','filter'));
+        $filter2 = $request->input('filter-2', 'all'); 
+        $currentDate = Carbon::now();
+        if ($filter === 'active') {
+            $events = Event::whereDate('start_date', '<', $currentDate)->where('status', 'Active')->paginate(5);
+        } elseif ($filter === 'inactive') {
+            
+            $events = Event::whereDate('start_date', '<', $currentDate)->where('status', 'Inactive')->paginate(5);
+        } else {
+            $events = Event::whereDate('start_date', '<', $currentDate)->paginate(5);
+        }
+
+        
+
+        return view('adminview', compact('refunds','filter', 'events'));
     }
 
     public function approve(Request $request)
@@ -394,6 +407,62 @@ class FrontendController extends Controller
         $refund->save();
 
         return redirect()->back()->with('success', 'Refund denied successfully!');
+    }
+
+    //Finance view
+    public function financeView(Request $request, $event_name){
+        $filter = $request->input('filter', 'all'); 
+
+        
+        if(Event::where('name', $event_name)->exists()){
+            $events = Event::where('name', $event_name)->first();
+
+            $event_id = $events->id;
+
+            if ($filter === 'finished') {
+                $user_id = $events->user->id;
+        
+                $banks = BankAccount::where('user_id', $user_id)->get();
+                $invoices = Invoice::where('event_id', $event_id)->where('finished', 'Y')->paginate(5);;
+    
+            } elseif ($filter === 'notfinished') {
+                $user_id = $events->user->id;
+        
+                $banks = BankAccount::where('user_id', $user_id)->get();
+                $invoices = Invoice::where('event_id', $event_id)->where('finished', 'N')->paginate(5);;
+    
+            } else {
+               
+    
+                $invoices = Invoice::where('event_id', $event_id)->paginate(5);;
+        
+                $user_id = $events->user->id;
+        
+                $banks = BankAccount::where('user_id', $user_id)->get();
+        
+            }
+            
+        }
+        else{
+            return redirect('/')->with('status',"Event does not exists");
+        }
+
+        
+
+      
+        return view('financeview', compact('events', 'invoices', 'banks', 'filter'));
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $event_id = $request->input('event_id');
+
+        $event = Event::where('id', $event_id)->firstOrFail(); 
+
+        $event->status = 'Inactive';
+        $event->save();
+
+        return redirect()->back()->with('success', 'Event Inactivated!');
     }
 
 

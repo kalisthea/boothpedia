@@ -44,7 +44,7 @@ header{
 
 .main-container{
     width: 95%;
-    height: 50%;
+    height: 60%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin: 0;
     position: absolute;
@@ -96,4 +96,36 @@ tr:nth-child(even) {
     background-color: #dc3545;
 }
 
+.pagination-container {
+    /* Adjust these styles as needed for your design */
+    margin-top: 2rem;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.page-item.active .page-link {
+    background-color: #0082CB;
+    color: #fff;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+.page-link:hover {
+    background-color: #f0f0f0;
+}
 

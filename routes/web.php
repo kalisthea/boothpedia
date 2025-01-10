@@ -48,6 +48,12 @@ Route::get('/admin', [FrontendController::class, 'displayRefunds'],  function ()
 Route::put('/admin/approve', [FrontendController::class, 'approve'])->name('refunds.approve');
 Route::put('/admin/deny', [FrontendController::class, 'deny'])->name('refunds.deny'); 
 
+
+Route::get('finance-invoice/{event_name}', [FrontendController::class, 'financeView'])
+    ->name("finance");;
+Route::put('/admin/inactivate', [FrontendController::class, 'changeStatus'])->name('status.change'); 
+
+
 // REGISTER AND LOGIN FOR TENANT
 
 Route::get('/login', [AuthController::class,"login"])

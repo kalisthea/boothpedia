@@ -26,7 +26,7 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)){
             $user = Auth::user();
 
-            if ($user->role === 'admin') {
+            if ($user->role === 'admin' || $user->role === 'finance') {
                 return redirect()->intended('admin'); 
             } elseif ($user->role === 'tenant') {
                 return redirect()->intended('home'); 
