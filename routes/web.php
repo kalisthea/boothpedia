@@ -250,6 +250,9 @@ Route::middleware("auth")->group(function (){
 
     Route::get('/invoices', [FrontendController::class, 'showInvoice'])
         ->name('invoice');
+
+    Route::get('/myratings', [FrontendController::class, 'showRatings'])
+        ->name('ratings');
 });
 
 

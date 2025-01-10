@@ -10,4 +10,14 @@ class Rating extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function tenant()
+    {
+        return $this->belongsTo(User::class, 'tenant_id');
+    }
+
+    public function event()  
+    {  
+        return $this->belongsTo(Event::class, 'event_id');  
+    }
 }
