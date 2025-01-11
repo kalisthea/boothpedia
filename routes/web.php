@@ -50,8 +50,12 @@ Route::put('/admin/deny', [FrontendController::class, 'deny'])->name('refunds.de
 
 
 Route::get('finance-invoice/{event_name}', [FrontendController::class, 'financeView'])
-    ->name("finance");;
+    ->name("finance");
 Route::put('/admin/inactivate', [FrontendController::class, 'changeStatus'])->name('status.change'); 
+Route::get('finance-refunds/', [FrontendController::class, 'financeRefund'], function (){
+    return view('financerefunds');
+})->name("finance-refunds");;
+Route::put('finance-refunds/finish', [FrontendController::class, 'refundStatus'])->name('refund.change'); 
 
 
 // REGISTER AND LOGIN FOR TENANT

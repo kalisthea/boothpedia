@@ -116,6 +116,8 @@
                     $refundMessage = "Your refund request has been approved. Please wait 3-7 working days for your refund.";
                 } elseif ($refund->status === 'denied') {
                     $refundMessage = "Your refund request has been denied.";
+                } elseif ($refund->status === 'finished') {
+                    $refundMessage = "Your booking has been refunded. Please check your bank account.";  
                 } else {
                     $refundMessage = "A refund request has already been submitted.";
                 }

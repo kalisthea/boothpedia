@@ -465,6 +465,35 @@ class FrontendController extends Controller
         return redirect()->back()->with('success', 'Event Inactivated!');
     }
 
+    //Display refunds for finance
+    public function financeRefund(Request $request){
+        $filter = $request->input('filter', 'all'); 
+
+        if ($filter === 'approved') {
+            $refunds = Refund::where('status', 'approved')->get();
+        } 
+        elseif ($filter === 'finished') {
+            $refunds = Refund::where('status', 'finished')->get();
+        }
+        else{
+            $refunds = Refund::whereIn('status', ['approved', 'finished'])->get();
+        }
+
+        return view ('financerefunds', compact('refunds', 'filter'));
+    }
+
+    //Change refund status for finance
+    public function refundStatus(Request $request){
+        $refund_id = $request->input('refund_id');
+
+        $refund = Refund::where('id', $refund_id)->firstOrFail(); 
+
+        $refund->status = 'finished';
+        $refund->save();
+
+        return redirect()->back()->with('success', 'Refund approved successfully!');
+    }
+
 
     public function displayDashboard()  
     {  

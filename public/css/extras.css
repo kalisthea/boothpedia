@@ -44,7 +44,7 @@ header{
 
 .main-container{
     width: 95%;
-    height: 60%;
+    height: 64%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin: 0;
     position: absolute;
@@ -55,6 +55,11 @@ header{
     border-radius: 11px;
     background-color: white;
     padding: 20px 25px 20px 25px;
+}
+
+.nav{
+    display: flex;
+    gap: 1rem;
 }
 
 table {

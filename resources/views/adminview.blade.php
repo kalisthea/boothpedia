@@ -189,6 +189,10 @@
     </header>
 
     <div class="main-container">
+        <div class="nav">
+            <a href="/admin">Invoices</a>
+            <a href="{{ url('finance-refunds/') }}">Refunds</a>
+        </div>
         <p style="font-size:30px; color:#0082CB">Finished Events</p>
         <table>
             <thead>
