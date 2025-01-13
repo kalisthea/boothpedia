@@ -23,6 +23,13 @@ button:hover{
     background-color: #d0d0d6;
 }
 
+
+.scroll-container {
+    max-height: 500px; 
+    overflow-y: auto; 
+}
+
+
 .blogo {
     width: 80px;
     height: auto;

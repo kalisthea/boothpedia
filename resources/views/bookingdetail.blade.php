@@ -107,6 +107,7 @@
 
             $refundExists = $refund !== null;
 
+        
             foreach($invoices as $invoice){
               $invoiceid = $invoice->id;
             }
@@ -124,16 +125,28 @@
 
                 echo "<p class='refund-message' style='padding-left:2rem;'>{$refundMessage}</p>";
             }
+            elseif ($invoice->finished == 'Y'){
+              echo "<p class='refund-message' style='padding-left:2rem;''>You have finished this rental!</p>";
+              
+            }
+            elseif($events->end_date < date('Y-m-d')){
+              echo "<p class='refund-message' style='padding-left:2rem;'>Please note that if no action or response is received within 14 days, your booking order will be automatically finalized. </p>";
+            }
         @endphp
-        @if($invoice->finished == 'Y')
+        {{-- @if($invoice->finished == 'Y')
           <p class="refund-message" style="padding-left:2rem;">You have finished this rental!</p>
-        @endif
+        @endif --}}
         <div class="cta-buttons">
-          <button class="ok-button" onclick="refundForm()" @if($refundExists || $invoice->finished == 'Y') disabled @endif>Request Refund</button><br>
+          <button class="ok-button" onclick="refundForm()" @if($refundExists || $invoice->finished == 'Y') style="border: 1px solid #d0d0d6; background-color: #d0d0d6;" disabled @endif>Request Refund</button><br>
           <form action="{{ route('finish-rental', ['event_name' => $events->name]) }}" method="POST">
             @csrf  
             <input type="hidden" name="invoice_id" id="" value="{{ $invoiceid }}">
-            <button class="ok-button" type="submit" @if($refundExists || $invoice->finished == 'Y') disabled @endif>Finish Rental</button><br>
+            <button class="ok-button" type="submit" 
+            @if($invoice->finished == 'Y' || $refundExists || (isset($events) && $events->first()->end_date > date('Y-m-d'))) 
+            style="border: 1px solid #d0d0d6; background-color: #d0d0d6;" disabled 
+            @endif>
+            Finish Rental
+          </button><br>
           </form>
         </div>
       </div>
@@ -144,61 +157,71 @@
 
     <div id="overlay" class="overlay">
       <div id="refund-form" class="refund-popup">
-        <div class="center-container"> 
-          <p style="font-size: 20px; color:#FFC60B">Refund Form</p>
-        </div>
-        <form action="{{ route('refund' , ['event_name' => $events->name ]) }}" method="POST">
-          @csrf
-          <label for="reason" style="padding-bottom:1rem; color:#FFC60B">Choose Reason</label><br>
-          <div style="padding-left: 1rem; padding-bottom:1rem; margin-top: -5px">
-            <input type="radio" id="star5" name="reason" value="Event did not go well" required>
-            <label for="1" style="padding-left: 1rem;">Event did not go well</label><br>
-            <input type="radio" id="star4" name="reason" value="Accidental purchase">
-            <label for="2" style="padding-left: 1rem;">Accidental purchase</label><br>
-            <input type="radio" id="star3" name="reason" value="Incorrect booking selection">
-            <label for="3" style="padding-left: 1rem;">Incorrect booking selection</label><br>
-            <input type="radio" id="star2" name="reason" value="No longer able to attend">
-            <label for="4" style="padding-left: 1rem;">No longer able to attend</label><br>
+          <div class="center-container"> 
+              <p style="font-size: 20px; color:#FFC60B">Refund Form</p>
           </div>
-          <div style="padding-bottom:2rem;" >
-            <p style="margin-bottom: -5px; color:#FFC60B">Additional Information</p>
-            <p>This will help us evaluate the situation further</p>
-            <input type="text" name="additional" id="" placeholder="Type here" style="padding-right: 100px;" required>
-            <p style="padding-top:1rem;">Attach image (If any)</p>
-            <input type="file" name="image">
+          <div class="scroll-container"> 
+              <form action="{{ route('refund' , ['event_name' => $events->name ]) }}" method="POST">
+                  @csrf
+                  <label for="reason" style="padding-bottom:1rem; color:#FFC60B">Choose Reason</label><br>
+                  <div style="padding-left: 1rem; padding-bottom:1rem; margin-top: -5px">
+                      <input type="radio" id="star5" name="reason" value="Event did not go well" required>
+                      <label for="1" style="padding-left: 1rem;">Event did not go well</label><br>
+                      <input type="radio" id="star4" name="reason" value="Accidental purchase">
+                      <label for="2" style="padding-left: 1rem;">Accidental purchase</label><br>
+                      <input type="radio" id="star3" name="reason" value="Incorrect booking selection">
+                      <label for="3" style="padding-left: 1rem;">Incorrect booking selection</label><br>
+                      <input type="radio" id="star2" name="reason" value="No longer able to attend">
+                      <label for="4" style="padding-left: 1rem;">No longer able to attend</label><br>
+                  </div>
+                  <div style="padding-bottom:2rem;" >
+                      <p style="margin-bottom: -5px; color:#FFC60B">Additional Information</p>
+                      <p>This will help us evaluate the situation further</p>
+                      <input type="text" name="additional" id="" placeholder="Type here" style="padding-right: 100px;" required>
+                      <p style="padding-top:1rem;">Attach image (If any)</p>
+                      <input type="file" name="image">
+                  </div>
+  
+                  <p style="margin-bottom: -5px; color:#FFC60B">Insert your bank information</p>
+                  <p>Please insert the correct information as this is for refund purposes</p>
+                  <div style="padding-bottom:2rem;">
+                      <select id="mySelect" name="bank">
+                          <option value="Bank BCA">Bank BCA</option>
+                          <option value="Mandiri">Mandiri</option>
+                          <option value="CIMB">CIMB</option>
+                          <option value="Bank BSI">Bank BSI</option>
+                      </select>
+                      <div>
+                          <label for="">Bank Account Number</label>
+                          <input type="text" name="bank_number" required><br>
+                          <label for="" style="padding-top:1rem;">Account Name</label>
+                          <input type="text" name="account_name" required><br>
+                      </div>
+                  </div>
+                  <input type="hidden" name="event_id" value="{{ $events->id }}">
+                  <input type="hidden" name="eo_id" value="{{ $events->user->id }}">
+                  @php
+                      foreach($invoices as $invoice){
+                          $invoiceid = $invoice->id;
+                      }
+                  @endphp
+                  <input type="hidden" name="invoice_id" value="{{ $invoiceid }}">
+              </form>
+              <div class="center-container">
+                <p style=" color:#FFC60B">Terms and Conditions</p>
+              </div>
+              <p>Refunds for upcoming events can only be done maximum 10 days before event start date.</p>
+              <p>Refunds for ended events can only be done within 14 days after event end date.</p>
+              <p>All refund requests will be reviewed by our team. We reserve the right to approve or deny any refund request.</p>
           </div>
-
-          <p style="margin-bottom: -5px; color:#FFC60B">Insert your bank information</p>
-          <p>Please insert the correct information as this is for refund purposes</p>
-          <div style="padding-bottom:2rem;">
-            <select id="mySelect" name="bank">
-              <option value="Bank BCA">Bank BCA</option>
-              <option value="Mandiri">Mandiri</option>
-              <option value="CIMB">CIMB</option>
-              <option value="Bank BSI">Bank BSI</option>
-            </select>
-            <div>
-              <label for="">Bank Account Number</label>
-              <input type="text" name="bank_number" required><br>
-              <label for="" style="padding-top:1rem;">Account Name</label>
-              <input type="text" name="account_name"required><br>
-            </div>
+         
+          <div class="center-container" style="display: flex; gap:1rem; padding-top: 2rem;">
+              <button type="button" onclick="refundClose()" class="ok-button">Return</button>
+              <button type="submit" class="ok-button">Submit</button>
           </div>
-          <input type="hidden" name="event_id" value="{{ $events->id }}">
-          <input type="hidden" name="eo_id" value="{{ $events->user->id }}">
-          @php
-            foreach($invoices as $invoice){
-              $invoiceid = $invoice->id;
-            }
-          @endphp
-          <input type="hidden" name="invoice_id" value="{{ $invoiceid }}">
-          <div class="center-container" style="display: flex; gap:1rem;">
-            <button type="button" onclick="refundClose()" class="ok-button">Return</button>
-            <button type="submit" class="ok-button">Submit</button>
-          </div>
-        </form>
       </div>
-    </div>
+  </div>
+  
 
     @if(session('success'))  
         <div id="sessionMessage" style="display: none;">{{ session('success') }}</div>  

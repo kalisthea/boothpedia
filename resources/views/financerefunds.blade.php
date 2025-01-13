@@ -49,6 +49,7 @@
                 <th>Bank</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Last Updated By</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -67,6 +68,7 @@
                     @else
                         <span style="color:#0082CB">Finished</span>
                     @endif</td>
+                    <td>{{ $refund->admin_name }}</td> 
                     <td>
                         @if($refund->status === 'approved')
                             <form action="{{ route('refund.change') }}" method="POST" style="display: inline-block;">
@@ -76,7 +78,12 @@
                                 <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to finish this refund?')">Finish</button>
                             </form>
                         @elseif ($refund->status === 'finished')
-                            <button class="btn btn-success" disabled>Finished</button>
+                            <form action="{{ route('refund.undo') }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" value={{ $refund->id }} name=refund_id>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to undo this refund?')">Undo</button>
+                            </form>
                         @endif
                     </td>
                         {{-- <a href="{{ route('refund.show', $refund->id) }}" class="btn btn-primary">View</a> 

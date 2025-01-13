@@ -47,15 +47,18 @@ Route::get('/admin', [FrontendController::class, 'displayRefunds'],  function ()
 })->middleware('auth')->name('admin');
 Route::put('/admin/approve', [FrontendController::class, 'approve'])->name('refunds.approve');
 Route::put('/admin/deny', [FrontendController::class, 'deny'])->name('refunds.deny'); 
+Route::put('/admin/undo', [FrontendController::class, 'undo'])->name('refunds.undo'); 
 
 
 Route::get('finance-invoice/{event_name}', [FrontendController::class, 'financeView'])
     ->name("finance");
 Route::put('/admin/inactivate', [FrontendController::class, 'changeStatus'])->name('status.change'); 
+Route::put('/admin/undo-event', [FrontendController::class, 'undoStatus'])->name('status.undo'); 
 Route::get('finance-refunds/', [FrontendController::class, 'financeRefund'], function (){
     return view('financerefunds');
 })->name("finance-refunds");;
 Route::put('finance-refunds/finish', [FrontendController::class, 'refundStatus'])->name('refund.change'); 
+Route::put('finance-refunds/undo', [FrontendController::class, 'undoRefund'])->name('refund.undo'); 
 
 
 // REGISTER AND LOGIN FOR TENANT

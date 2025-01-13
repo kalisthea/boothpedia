@@ -40,6 +40,7 @@
               <tr>
                 <th>No.</th>
                 <th>Tenant</th>
+                <th>Tenant Phone No.</th>
                 <th>Event Organizer</th>
                 <th>Event</th>
                 <th>Reason</th>
@@ -55,6 +56,7 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $refund->tenant->name }}</td> 
+                    <td>{{ $refund->tenant->phonenum }}</td> 
                     <td>{{ $refund->eo->name }}</td> 
                     <td>{{ $refund->event->name }}</td> 
                     <td>{{ $refund->reason }}</td> 
@@ -84,9 +86,21 @@
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to deny this refund?')">Deny</button>
                             </form>
                         @elseif ($refund->status === 'approved')
-                            <button class="btn btn-success" disabled>Approved</button>
+                            <button class="btn btn-success" style="cursor: not-allowed; color:grey; background-color:#69B190; border: 1px solid#69B190" title="Updated by {{ $refund->admin_name }}">Approved</button>
+                            <form action="{{ route('refunds.undo') }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" value={{ $refund->id }} name=refund_id>
+                                <button class="btn btn-danger" onclick="return confirm('Are you sure you want to undo this refund?')">Undo</button>
+                            </form>
                         @elseif ($refund->status === 'denied')
-                            <button class="btn btn-danger" disabled>Denied</button>
+                        <button class="btn btn-danger" style="cursor: not-allowed; color:grey; background-color:#69B190; border: 1px solid#69B190" title="Updated by {{ $refund->admin_name }}">Denied</button>
+                        <form action="{{ route('refunds.undo') }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" value={{ $refund->id }} name=refund_id>
+                            <button class="btn btn-danger" onclick="return confirm('Are you sure you want to undo this refund?')">Undo</button>
+                        </form>
                         @endif
                     </td>
                         {{-- <a href="{{ route('refund.show', $refund->id) }}" class="btn btn-primary">View</a> 
@@ -96,13 +110,13 @@
                 @endforeach
             @else
              <tr>
-                <td colspan="9">No refunds found for the selected filter.</td>
+                <td colspan="10">No refunds found for the selected filter.</td>
               </tr>
             @endif
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="9">
+                <td colspan="10">
                     <form action="{{ route('admin') }}" method="get" style="display: flex; align-items: center; gap: 1rem;">
                         <select name="filter" id="filter" class="form-select">
                             <option value="all">All</option>
@@ -216,6 +230,7 @@
                         <span style="color: red;">Inactive</span>
                     @endif</td>
                     <td>
+                        @if($event->status == 'Active')
                         <a href="{{ url('finance-invoice/'.$event->name) }}" style="text-decoration:none;">
                             <button type="submit" class="btn btn-primary">View Invoices</button>
                         </a>
@@ -225,6 +240,17 @@
                             <input type="hidden" value={{ $event->id }} name="event_id">
                             <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to inactivate this event?')">Finish</button>
                         </form>
+                        @elseif($event->status == 'Inactive')
+                        <a href="{{ url('finance-invoice/'.$event->name) }}" style="text-decoration:none;">
+                            <button type="submit" class="btn btn-primary">View Invoices</button>
+                        </a>
+                        <form action="{{ route('status.undo') }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" value={{ $event->id }} name="event_id">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to re-activate this event?')">Undo</button>
+                        </form>
+                        @endif
                     </td> 
                 </tr>
                 @endforeach

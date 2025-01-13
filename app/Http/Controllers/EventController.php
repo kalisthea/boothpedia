@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 class EventController extends Controller
 {
    
+    // View Event di halaman index (udah login)
     function list(Request $request){
 
         $currentDate = Carbon::now();
@@ -35,6 +36,8 @@ class EventController extends Controller
         // $eventData = Event::all();
         // return view('index', ['events'=>$eventData]);
     }
+
+        // View Event di halaman sebelum login
 
     function listForHome(Request $request){
 

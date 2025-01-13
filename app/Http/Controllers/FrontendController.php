@@ -364,9 +364,12 @@ class FrontendController extends Controller
         } elseif ($filter === 'denied') {
             $refunds = Refund::where('status', 'denied')->get();
         } elseif ($filter === 'pending') { 
-            $refunds = Refund::whereNull('status')->get(); 
+            $refunds = Refund::whereNull('status', null)->get(); 
         } else {
-            $refunds = Refund::all();
+            $refunds = Refund::where(function ($query) {
+                $query->whereIn('status', ['approved', 'denied'])
+                      ->orWhereNull('status');
+            })->get();        
         }
 
         $filter2 = $request->input('filter-2', 'all'); 
@@ -388,10 +391,13 @@ class FrontendController extends Controller
     public function approve(Request $request)
     {
         $refund_id = $request->input('refund_id');
+        $user = Auth::user();
+        $name = $user->name;
 
         $refund = Refund::where('id', $refund_id)->firstOrFail(); 
 
         $refund->status = 'approved';
+        $refund->admin_name = $name;
         $refund->save();
 
         return redirect()->back()->with('success', 'Refund approved successfully!');
@@ -400,13 +406,28 @@ class FrontendController extends Controller
     public function deny(Request $request)
     {
         $refund_id = $request->input('refund_id');
+        $user = Auth::user();
+        $name = $user->name;
 
         $refund = Refund::where('id', $refund_id)->firstOrFail(); 
 
         $refund->status = 'denied';
+        $refund->admin_name = $name;
         $refund->save();
 
         return redirect()->back()->with('success', 'Refund denied successfully!');
+    }
+
+    public function undo(Request $request)
+    {
+        $refund_id = $request->input('refund_id');
+
+        $refund = Refund::where('id', $refund_id)->firstOrFail(); 
+
+        $refund->status = NULL;
+        $refund->save();
+
+        return redirect()->back()->with('success', 'Undo Successful!');
     }
 
     //Finance view
@@ -465,6 +486,18 @@ class FrontendController extends Controller
         return redirect()->back()->with('success', 'Event Inactivated!');
     }
 
+    public function undoStatus(Request $request)
+    {
+        $event_id = $request->input('event_id');
+
+        $event = Event::where('id', $event_id)->firstOrFail(); 
+
+        $event->status = 'Active';
+        $event->save();
+
+        return redirect()->back()->with('success', 'Undo Successful!');
+    }
+
     //Display refunds for finance
     public function financeRefund(Request $request){
         $filter = $request->input('filter', 'all'); 
@@ -492,6 +525,17 @@ class FrontendController extends Controller
         $refund->save();
 
         return redirect()->back()->with('success', 'Refund approved successfully!');
+    }
+
+    public function undoRefund(Request $request){
+        $refund_id = $request->input('refund_id');
+
+        $refund = Refund::where('id', $refund_id)->firstOrFail(); 
+
+        $refund->status = 'approved';
+        $refund->save();
+
+        return redirect()->back()->with('success', 'Undo Successful!');
     }
 
 
