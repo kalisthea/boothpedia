@@ -69,8 +69,8 @@
                                     </div>
                                     <div class="card-content">
                                     <div class="content-top"> 
-                                        <b><p style="color:#FFC60B; margin-bottom:-1.5px;padding-top:5px;">{{ $pastEvent->name }}</p></b>
-                                        <b><p style="color:#2FA8E8; margin-bottom:-1px;">{{ $pastEvent->category }}</p></b>
+                                        <b><p style="color:#006AA6; margin-bottom:-1.5px;padding-top:5px;">{{ $pastEvent->name }}</p></b>
+                                        <b><p style="color:#2FA8E8; margin-bottom:-1px; font-size:12px; padding-bottom:1rem">{{ $pastEvent->category }}</p></b>
                                     </div>
                                     <div class="content-bottom">
                                         <p style="margin-bottom:-0.2px">{{ $pastEvent->start_date }} - {{ $pastEvent->end_date }}</p>

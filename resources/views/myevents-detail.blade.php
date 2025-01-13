@@ -59,7 +59,7 @@
                         <form action="{{ route('event.delete', ['event_name' => $event->name, 'id' => $event->id]) }}" method="POST" onsubmit="return confirmDeletion(this, 'event');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="delete-event-button" style="margin-left: 10px;">
+                            <button type="submit" class="delete-event-button" style="margin-left: 10px;font-size:18px;">
                                 <i class="fa-regular fa-trash-can"></i>Delete Event
                             </button>
                         </form>

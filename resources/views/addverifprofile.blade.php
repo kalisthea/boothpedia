@@ -18,7 +18,7 @@
         <!-- Header -->
         <div class="header">
             <div class="header-name">
-                <h1>Profile Verification</h1>
+                <h1>Add Profile Verification</h1>
             </div>
             @include('navheader')
         </div>
@@ -51,7 +51,7 @@
                             </li>
                         </ul>
                         <div class="btn-savecancel">
-                            <input type="submit" value="Submit" class="submit-btn" style="margin-left:10px">
+                            <input type="submit" value="Save" class="submit-btn" style="margin-left:10px">
                         </div>
                     </div>
                 </form>
