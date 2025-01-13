@@ -939,7 +939,7 @@
 }
 
 .message-left {
-  border: 1px solid #2FA8E8;
+  border: 1px solid #FFC60B;
   float: left;
   clear: both; 
   margin-left: 10px;
@@ -947,17 +947,10 @@
 }
 
 .message-right {
-  border: 1px solid #006AA6;
+  border: 1px solid #2FA8E8;
   float: right;
   clear: both; 
   margin-top: 10px;
-}
-
-.send-chat{
-  border: 1px solid #006AA6;
-  border-radius: 11px;
-  padding-left: 10px;
-  padding-left: 50px;
 }
 
 .search-hold{
@@ -1104,4 +1097,13 @@
   border-radius: 5px;  
   cursor: pointer;  
   text-align: center; 
+}
+
+.ok-button {
+  border: 1px solid #006AA6;
+  color: white;
+  background-color: #006AA6;
+  border-radius: 11px;
+  padding-left: 10px;
+  padding-left: 50px;
 }

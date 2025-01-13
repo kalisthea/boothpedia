@@ -26,7 +26,7 @@
           @if(Auth::user()->role == "tenant")
             <p style="color: #FFC60B; font-size:25px;">{{ $chats->eo->name }}</p>
           @elseif(Auth::user()->role == "eventorganizer")
-            <p>{{ $chats->tenant->name }}</p><br>
+            <p style="color: #006AA6; font-size:25px;">{{ $chats->tenant->name }}</p><br>
           @endif
         </div>
         <div class="chat-content-2">
@@ -35,19 +35,6 @@
                 <p>{{ $message->message }}</p>
             </div>
           @endforeach
-            {{-- @if(Auth::user()->role == "tenant")
-              @foreach($messages as $message)
-                <div class="message-container {{ $message->sender == 'eventorganzier' ? 'message-left' : 'message-right' }}">
-                  <p>{{ $message->message }}</p>
-                </div>
-              @endforeach
-            @elseif(Auth::user()->role == "eventorganizer")
-              @foreach($messages as $message)
-              <div class="message-container {{ $message->sender == 'tenant' ? 'message-left' : 'message-right' }}">
-                <p>{{ $message->message }}</p>
-              </div>
-              @endforeach
-            @endif --}}
         </div>
         <form action="{{ route("message.post", $chats->id) }}" method="POST">
           @csrf

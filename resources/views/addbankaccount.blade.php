@@ -44,7 +44,7 @@
                             </li>
                         </ul>
                         <div class="btn-savecancel">
-                            <input type="submit" value="Submit" class="submit-btn" style="margin-left:10px">
+                            <input type="submit" value="Save" class="submit-btn" style="margin-left:10px">
                         </div>
                     </div>
                 </form>
