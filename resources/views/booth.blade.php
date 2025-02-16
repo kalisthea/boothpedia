@@ -59,13 +59,6 @@
             </div>
         </div>
 
-        <!-- Pop up layout booth -->
-        <div id="layoutModal" class="layout" style="display:none;">  
-            <span id="closeLayout" class="close" onclick="hidePopup('layoutModal')">&times;</span>  
-            <img id="layoutImage" class="layout-content" src="data:image/jpeg;base64,{{ $layoutPhoto }}" alt="Event Layout">  
-            <div id="layoutCaption">Event Layout</div>  
-        </div> 
-
         <!-- Booth List -->
         <div class="booth-list-container" style="margin-bottom:70px">
             <div class="booth-category">
@@ -214,6 +207,13 @@
                 </form>
             </div>
         </section>
+
+        <!-- Pop up layout booth -->
+        <div id="layoutModal" class="layout" style="display:none;">  
+            <span id="closeLayout" class="close" onclick="hidePopup('layoutModal')">&times;</span>  
+            <img id="layoutImage" class="layout-content" src="data:image/jpeg;base64,{{ $layoutPhoto }}" alt="Event Layout">  
+            <div id="layoutCaption">Event Layout</div>  
+        </div> 
 
         <!-- Check for success message -->  
         @if(session('success'))  

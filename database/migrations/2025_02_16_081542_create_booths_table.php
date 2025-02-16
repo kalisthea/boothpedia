@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('booths', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('event_id');
-            $table->bigInteger('booth_category_id');
+            $table->bigIncrements('id')->autoIncrement();
+            $table->unsignedBigInteger('booth_category_id');
             $table->string('booth_name');
-            $table->decimal('booth_price', total: 9, places: 2);
-            $table->string('booth_description');
+            $table->decimal('booth_price', 15, 2);
+            $table->char('is_occupied', 1)->default('N');
             $table->timestamps();
+
+            // booth_category_id FK  
+            $table->foreign('booth_category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

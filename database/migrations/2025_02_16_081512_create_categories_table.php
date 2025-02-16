@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booth_categories', function (Blueprint $table) {
-            $table->id();
+        Schema::create('categories', function (Blueprint $table) {
+            $table->bigIncrements('id')->autoIncrement();
             $table->string('category_name');
+            $table->unsignedBigInteger('event_id');
             $table->timestamps();
+
+            // event_id FK
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
         });
     }
 
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booth_categories');
+        Schema::dropIfExists('categories');
     }
 };
