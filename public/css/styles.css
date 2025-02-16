@@ -340,6 +340,8 @@ button:hover{
 .booth-row {
     display: flex;
     align-items: stretch;
+    gap: 20px;
+    padding-bottom: 2rem;
 }
 
 

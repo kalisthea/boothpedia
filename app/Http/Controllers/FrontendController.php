@@ -517,22 +517,29 @@ class FrontendController extends Controller
 
     //Change refund status for finance
     public function refundStatus(Request $request){
+        $user = Auth::user();
+        $name = $user->name;
+
         $refund_id = $request->input('refund_id');
 
         $refund = Refund::where('id', $refund_id)->firstOrFail(); 
 
         $refund->status = 'finished';
+        $refund->admin_name = $name;
         $refund->save();
 
         return redirect()->back()->with('success', 'Refund approved successfully!');
     }
 
     public function undoRefund(Request $request){
+        $user = Auth::user();
+        $name = $user->name;
         $refund_id = $request->input('refund_id');
 
         $refund = Refund::where('id', $refund_id)->firstOrFail(); 
 
         $refund->status = 'approved';
+        $refund->admin_name = $name;
         $refund->save();
 
         return redirect()->back()->with('success', 'Undo Successful!');

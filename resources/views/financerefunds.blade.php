@@ -82,6 +82,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" value={{ $refund->id }} name=refund_id>
+        
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to undo this refund?')">Undo</button>
                             </form>
                         @endif

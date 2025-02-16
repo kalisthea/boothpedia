@@ -20,6 +20,7 @@ class Refund extends Model
         'bank',
         'bank_number',
         'account_name',
+        'admin_name',
         'status'
     ]; 
 

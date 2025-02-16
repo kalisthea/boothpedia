@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-admin.css') }}">
     <script type="text/javascript" src="{{ asset('myscript.js') }}"></script>
     <script type="text/javascript" src="{{ asset('script.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +26,7 @@
           <a href="booth">Booth</a></li>
         </div>
         <div  class="nav-right">
-          <input class="search-hold" type="text" placeholder="Search">
+          <input class="search-hold-2" type="text" placeholder="Search">
           <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/mail.png') }}" alt=""></a>
           <a href=""><img style="width:35px; height:auto;" src="{{ asset('images/user.png') }}" alt=""></a>
         </div>
@@ -137,12 +138,12 @@
           <p class="refund-message" style="padding-left:2rem;">You have finished this rental!</p>
         @endif --}}
         <div class="cta-buttons">
-          <button class="ok-button" onclick="refundForm()" @if($refundExists || $invoice->finished == 'Y') style="border: 1px solid #d0d0d6; background-color: #d0d0d6;" disabled @endif>Request Refund</button><br>
+          <button class="ok-button" style="background-color:#FFC60B; border-color:#FFC60B"onclick="refundForm()" @if($refundExists || $invoice->finished == 'Y') style="border: 1px solid #d0d0d6; background-color: #d0d0d6;" disabled @endif>Request Refund</button><br>
           <form action="{{ route('finish-rental', ['event_name' => $events->name]) }}" method="POST">
             @csrf  
             <input type="hidden" name="invoice_id" id="" value="{{ $invoiceid }}">
             <button class="ok-button" type="submit" 
-            @if($invoice->finished == 'Y' || $refundExists || (isset($events) && $events->first()->end_date > date('Y-m-d'))) 
+            @if($invoice->finished == 'Y' || $refundExists || (isset($events) && $events->end_date >= date('Y-m-d'))) 
             style="border: 1px solid #d0d0d6; background-color: #d0d0d6;" disabled 
             @endif>
             Finish Rental
@@ -153,7 +154,7 @@
       
     @endforeach
   
-    <a href="/booth"><button style="position:relative; left: 45%;" class="ok-button">OK</button></a>
+    <a href="/booth"><button style="position:relative; left: 45%; background-color:#FFC60B; border-color:#FFC60B" class="ok-button" >OK</button></a>
 
     <div id="overlay" class="overlay">
       <div id="refund-form" class="refund-popup">
@@ -206,19 +207,21 @@
                       }
                   @endphp
                   <input type="hidden" name="invoice_id" value="{{ $invoiceid }}">
-              </form>
-              <div class="center-container">
-                <p style=" color:#FFC60B">Terms and Conditions</p>
-              </div>
-              <p>Refunds for upcoming events can only be done maximum 10 days before event start date.</p>
-              <p>Refunds for ended events can only be done within 14 days after event end date.</p>
-              <p>All refund requests will be reviewed by our team. We reserve the right to approve or deny any refund request.</p>
+                  <div class="center-container">
+                    <p style=" color:#FFC60B">Terms and Conditions</p>
+                  </div>
+                  <p>Refunds for upcoming events can only be done maximum 10 days before event start date.</p>
+                  <p>Refunds for ended events can only be done within 14 days after event end date.</p>
+                  <p>All refund requests will be reviewed by our team. We reserve the right to approve or deny any refund request.</p>
+                  <div class="center-container" style="display: flex; gap:1rem; padding-top: 2rem;">
+                    <button type="button" onclick="refundClose()" class="ok-button" style="background-color:#FFC60B; border-color:#FFC60B">Return</button>
+                    <button type="submit" class="ok-button" style="background-color:#FFC60B; border-color:#FFC60B">Submit</button>
+                </div>
+                </form>
+              
           </div>
          
-          <div class="center-container" style="display: flex; gap:1rem; padding-top: 2rem;">
-              <button type="button" onclick="refundClose()" class="ok-button">Return</button>
-              <button type="submit" class="ok-button">Submit</button>
-          </div>
+        
       </div>
   </div>
   

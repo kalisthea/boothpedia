@@ -126,7 +126,7 @@
             </div>
             <p style="color:#FFC60B">Feedback/Comment</p>
             <input type="text" placeholder="Type here...." name="comment" style="padding-bottom: 1rem; margin-bottom: 10px;"><br>
-            <button class="ok-button" type="submit">Done</button></a>
+            <button class="ok-button" style="background-color:#FFC60B; border-color:#FFC60B" type="submit">Done</button></a>
           </form>
         </div>
       </div>
